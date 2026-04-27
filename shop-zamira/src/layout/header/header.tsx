@@ -18,7 +18,7 @@ export default function Header() {
 
 	return (
 		<header
-			className="flex items-center justify-between px-6 py-1 border-b"
+			className="fixed top-0 left-0 w-full flex items-center justify-between px-6 py-1 border-b"
 			style={{
 				backgroundColor: "var(--surface)",
 				borderColor: "var(--border)",
