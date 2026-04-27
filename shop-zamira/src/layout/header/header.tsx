@@ -1,7 +1,10 @@
+"use client";
+
 import logo from "@/assets/image/logo-2.jpg";
-import { Search, ShoppingCart, User } from "lucide-react";
+import { Menu, Search, ShoppingCart, User, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 
 const navLinks = [
 	{ href: "/products", label: "فروشگاه" },
@@ -11,19 +14,28 @@ const navLinks = [
 ];
 
 export default function Header() {
+	const [open, setOpen] = useState(false);
+
 	return (
-		<header className="flex items-center justify-between px-5 py-4 shadow-sm">
+		<header
+			className="flex items-center justify-between px-6 py-1 border-b"
+			style={{
+				backgroundColor: "var(--surface)",
+				borderColor: "var(--border)",
+			}}
+		>
 			<Link href="/" className="flex items-center">
-				<Image src={logo} alt="logo" width={100} height={60} />
+				<Image src={logo} alt="logo" width={90} height={55} />
 			</Link>
 
-			<nav>
-				<ul className="flex items-center gap-6 text-sm font-medium">
+			<nav className="hidden md:block">
+				<ul className="flex items-center gap-6">
 					{navLinks.map((item) => (
 						<li key={item.href}>
 							<Link
 								href={item.href}
-								className=" text-xl hover:text-blue-600 transition-colors"
+								className="transition-colors"
+								style={{ color: "var(--text-primary)" }}
 							>
 								{item.label}
 							</Link>
@@ -33,19 +45,40 @@ export default function Header() {
 			</nav>
 
 			<div className="flex items-center gap-4">
-				<button aria-label="جستجو">
-					<Search size={22} className="hover:text-blue-600 transition-colors" />
-				</button>
-				<button aria-label="حساب کاربری">
-					<User size={22} className="hover:text-blue-600 transition-colors" />
-				</button>
-				<button aria-label="سبد خرید">
-					<ShoppingCart
-						size={22}
-						className="hover:text-blue-600 transition-colors"
-					/>
+				<Search size={22} style={{ color: "var(--text-primary)" }} />
+				<User size={22} style={{ color: "var(--text-primary)" }} />
+				<ShoppingCart size={22} style={{ color: "var(--text-primary)" }} />
+
+				<button className="md:hidden" onClick={() => setOpen(!open)}>
+					{open ? (
+						<X size={26} style={{ color: "var(--text-primary)" }} />
+					) : (
+						<Menu size={26} style={{ color: "var(--text-primary)" }} />
+					)}
 				</button>
 			</div>
+
+			{/* Mobile Menu */}
+			{open && (
+				<div
+					className="absolute top-20 left-0 w-full flex flex-col gap-4 px-6 py-6 md:hidden"
+					style={{ backgroundColor: "var(--surface)" }}
+				>
+					{navLinks.map((item) => (
+						<Link
+							key={item.href}
+							href={item.href}
+							className="py-2 border-b"
+							style={{
+								color: "var(--text-primary)",
+								borderColor: "var(--border)",
+							}}
+						>
+							{item.label}
+						</Link>
+					))}
+				</div>
+			)}
 		</header>
 	);
 }
