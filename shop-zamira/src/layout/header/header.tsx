@@ -105,19 +105,23 @@ export default function Header() {
 					<Search size={22} />
 				</button>
 
-				<button
-					className="hover:text-[var(--accent)] transition"
-					aria-label="حساب کاربری"
-				>
-					<User size={22} />
-				</button>
+				<Link href={"/register"}>
+					<button
+						className="hover:text-[var(--accent)] transition"
+						aria-label="حساب کاربری"
+					>
+						<User size={22} />
+					</button>
+				</Link>
 
-				<button
-					className="hover:text-[var(--accent)] transition"
-					aria-label="سبد خرید"
-				>
-					<ShoppingCart size={22} />
-				</button>
+				<Link href={"/cart"}>
+					<button
+						className="hover:text-[var(--accent)] transition"
+						aria-label="سبد خرید"
+					>
+						<ShoppingCart size={22} />
+					</button>
+				</Link>
 
 				<button
 					className="md:hidden"
