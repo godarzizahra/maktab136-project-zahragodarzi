@@ -1,6 +1,6 @@
 "use client";
 
-import logo from "@/assets/image/logo-2.jpg";
+import LOGO1 from "@/assets/image/LOGO1.png";
 import { Menu, Search, ShoppingCart, User, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -38,7 +38,7 @@ export default function Header() {
 			}}
 		>
 			<Link href="/" className="flex items-center">
-				<Image src={logo} alt="logo" width={90} height={55} />
+				<Image src={LOGO1} alt="logo" width={90} height={55} />
 			</Link>
 
 			{/* Desktop Navigation */}
