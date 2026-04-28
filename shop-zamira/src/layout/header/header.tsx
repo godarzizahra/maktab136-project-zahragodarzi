@@ -14,19 +14,24 @@ const navLinks = [
 ];
 
 const brandLinks = [
-	{ href: "/", label: "Rolex" },
+	{ href: "/products", label: "Rolex" },
 	{ href: "/", label: "Casio" },
 	{ href: "/", label: "Omega" },
 	{ href: "/", label: "Citizen" },
 ];
 
 export default function Header() {
+	// State برای منوی اصلی موبایل
 	const [open, setOpen] = useState(false);
-	const [brandOpen, setBrandOpen] = useState(false);
+	// State جداگانه فقط برای دراپ‌داون برندها در موبایل
+	const [mobileBrandOpen, setMobileBrandOpen] = useState(false);
+
+	const navItem =
+		"relative py-2 transition-colors after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-0 after:bg-[var(--accent)] after:transition-all after:duration-300 hover:after:w-full";
 
 	return (
 		<header
-			className="fixed top-0 left-0 w-full flex items-center justify-between px-6 py-1 border-b"
+			className="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-6 py-1 border-b"
 			style={{
 				backgroundColor: "var(--surface)",
 				borderColor: "var(--border)",
@@ -36,21 +41,39 @@ export default function Header() {
 				<Image src={logo} alt="logo" width={90} height={55} />
 			</Link>
 
+			{/* Desktop Navigation */}
 			<nav className="hidden md:block">
-				<ul className="flex items-center gap-6">
+				<ul className="flex items-center gap-8">
 					{navLinks.map((item) =>
 						item.href !== "/brands" ? (
 							<li key={item.href}>
-								<Link href={item.href} style={{ color: "var(--text-primary)" }}>
+								<Link
+									href={item.href}
+									className={navItem}
+									style={{ color: "var(--text-primary)" }}
+								>
 									{item.label}
 								</Link>
 							</li>
 						) : (
+							// برای منوی دسکتاپ، فقط از group-hover استفاده می‌کنیم و نیازی به state و onClick نیست
 							<li key="brands" className="relative group">
-								<button style={{ color: "var(--text-primary)" }}>برندها</button>
+								<button
+									className={`${navItem} flex items-center`}
+									style={{ color: "var(--text-primary)" }}
+									aria-haspopup="true" // نشان می‌دهد این دکمه یک پاپ‌آپ دارد
+								>
+									برندها
+								</button>
 
+								{/* safe hover area */}
+								<div className="absolute top-full left-0 h-3 w-full"></div>
+
+								{/* dropdown */}
 								<div
-									className="absolute left-0 top-full mt-2 hidden group-hover:block bg-white dark:bg-neutral-900 shadow-md rounded-md p-3 min-w-[150px]"
+									className="absolute left-0 top-full mt-2 opacity-0 invisible 
+									group-hover:visible group-hover:opacity-100 
+									transition-all duration-200 rounded-md shadow-lg min-w-[180px]"
 									style={{
 										backgroundColor: "var(--surface)",
 										border: "1px solid var(--border)",
@@ -58,9 +81,9 @@ export default function Header() {
 								>
 									{brandLinks.map((brand) => (
 										<Link
-											key={brand.href}
+											key={brand.label} // بهتر است از یک مقدار منحصر به فرد مثل label استفاده کنید
 											href={brand.href}
-											className="block px-3 py-2 rounded hover:bg-black/10 dark:hover:bg-white/10 transition"
+											className="block px-4 py-2 transition-all duration-200 hover:bg-[var(--border)] hover:text-[var(--accent)]"
 											style={{ color: "var(--text-primary)" }}
 										>
 											{brand.label}
@@ -73,23 +96,43 @@ export default function Header() {
 				</ul>
 			</nav>
 
+			{/* Icons */}
 			<div className="flex items-center gap-4">
-				<Search size={22} style={{ color: "var(--text-primary)" }} />
-				<User size={22} style={{ color: "var(--text-primary)" }} />
-				<ShoppingCart size={22} style={{ color: "var(--text-primary)" }} />
+				<button
+					className="hover:text-[var(--accent)] transition"
+					aria-label="جستجو"
+				>
+					<Search size={22} />
+				</button>
 
-				<button className="md:hidden" onClick={() => setOpen(!open)}>
-					{open ? (
-						<X size={26} style={{ color: "var(--text-primary)" }} />
-					) : (
-						<Menu size={26} style={{ color: "var(--text-primary)" }} />
-					)}
+				<button
+					className="hover:text-[var(--accent)] transition"
+					aria-label="حساب کاربری"
+				>
+					<User size={22} />
+				</button>
+
+				<button
+					className="hover:text-[var(--accent)] transition"
+					aria-label="سبد خرید"
+				>
+					<ShoppingCart size={22} />
+				</button>
+
+				<button
+					className="md:hidden"
+					onClick={() => setOpen(!open)}
+					aria-label="باز و بسته کردن منو"
+					aria-expanded={open} // وضعیت باز یا بسته بودن منو را برای صفحه‌خوان مشخص می‌کند
+				>
+					{open ? <X size={26} /> : <Menu size={26} />}
 				</button>
 			</div>
 
+			{/* Mobile Menu */}
 			{open && (
 				<div
-					className="absolute top-20 left-0 w-full flex flex-col gap-4 px-6 py-6 md:hidden"
+					className="absolute top-full left-0 w-full flex flex-col gap-4 px-6 py-6 md:hidden"
 					style={{ backgroundColor: "var(--surface)" }}
 				>
 					{navLinks.map((item) =>
@@ -102,6 +145,7 @@ export default function Header() {
 									color: "var(--text-primary)",
 									borderColor: "var(--border)",
 								}}
+								onClick={() => setOpen(false)} // بستن منو با کلیک روی لینک
 							>
 								{item.label}
 							</Link>
@@ -113,22 +157,24 @@ export default function Header() {
 										color: "var(--text-primary)",
 										borderColor: "var(--border)",
 									}}
-									onClick={() => setBrandOpen(!brandOpen)}
+									onClick={() => setMobileBrandOpen(!mobileBrandOpen)} // از state مخصوص موبایل استفاده می‌کنیم
+									aria-expanded={mobileBrandOpen}
 								>
 									برندها
 								</button>
 
-								{brandOpen && (
+								{mobileBrandOpen && (
 									<div className="flex flex-col pr-4">
 										{brandLinks.map((brand) => (
 											<Link
-												key={brand.href}
+												key={brand.label}
 												href={brand.href}
 												className="py-2 border-b"
 												style={{
 													color: "var(--text-primary)",
 													borderColor: "var(--border)",
 												}}
+												onClick={() => setOpen(false)} // بستن منو با کلیک روی لینک
 											>
 												{brand.label}
 											</Link>
