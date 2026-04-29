@@ -10,7 +10,7 @@ export default function AuthLayout({
 }) {
 	return (
 		<div className="min-h-screen grid grid-cols-1 lg:grid-cols-2">
-			<div className="flex items-center justify-center px-6 py-12">
+			<div className="flex items-center justify-center px-6 ">
 				<div className="w-full max-w-md">{children}</div>
 			</div>
 
@@ -22,7 +22,9 @@ export default function AuthLayout({
 					className="object-cover"
 					priority
 				/>
-
+				<p className="text-(--accent) absolute left-15 top-20 text-3xl font-bold">
+					زمان را متفاوت زندگی کن{" "}
+				</p>
 				<div className="absolute inset-0 bg-black/40" />
 			</div>
 		</div>

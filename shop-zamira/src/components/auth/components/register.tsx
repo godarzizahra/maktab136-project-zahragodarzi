@@ -19,7 +19,7 @@ export default function Register() {
 			</Link>
 
 			<AuthForm
-				title="ساخت حساب کاربری"
+				title="ایجاد حساب کاربری"
 				buttonText="ثبت نام"
 				fields={[
 					{ name: "name", placeholder: "نام" },
