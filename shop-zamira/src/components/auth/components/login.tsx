@@ -5,9 +5,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
+import { useAuth } from "../hooks/useAuth";
 import { loginSchema, LoginSchemaType } from "../schemas/login.schema";
 
 export default function Login() {
+	const { login, loading, error } = useAuth();
 	const form = useForm<LoginSchemaType>({
 		resolver: zodResolver(loginSchema),
 	});
@@ -20,7 +22,8 @@ export default function Login() {
 
 			<AuthForm
 				title="ورود به حساب کاربری"
-				buttonText="ورود"
+				buttonText={loading ? "در حال ورود..." : "ورود"}
+				disabled={loading}
 				fields={[
 					{ name: "email", type: "email", placeholder: "ایمیل" },
 					{ name: "password", placeholder: "رمز عبور" },
@@ -31,6 +34,7 @@ export default function Login() {
 				footerText="حساب کاربری ندارید؟"
 				footerLinkText="ثبت نام کنید"
 				footerHref="/register"
+				errorMessage={error}
 			/>
 		</div>
 	);

@@ -5,9 +5,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
+import { useAuth } from "../hooks/useAuth";
 import { registerSchema, RegisterSchemaType } from "../schemas/register.schema";
 
 export default function Register() {
+	const { register, loading, error } = useAuth();
 	const form = useForm<RegisterSchemaType>({
 		resolver: zodResolver(registerSchema),
 	});
@@ -20,7 +22,8 @@ export default function Register() {
 
 			<AuthForm
 				title="ایجاد حساب کاربری"
-				buttonText="ثبت نام"
+				buttonText={loading ? "..." : "ثبت نام"}
+				disabled={loading}
 				fields={[
 					{ name: "name", placeholder: "نام" },
 					{ name: "phone", placeholder: "شماره تلفن" },
@@ -33,6 +36,7 @@ export default function Register() {
 				footerText="قبلاً ثبت‌نام کرده‌اید؟"
 				footerLinkText="وارد شوید"
 				footerHref="/login"
+				errorMessage={error}
 			/>
 		</div>
 	);

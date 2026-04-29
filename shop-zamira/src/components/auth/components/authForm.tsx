@@ -14,6 +14,7 @@ type Field = {
 type Props = {
 	title: string;
 	buttonText: string;
+	disabled?: boolean;
 	fields: Field[];
 	register: UseFormRegister<any>;
 	errors: FieldErrors<any>;
@@ -21,11 +22,13 @@ type Props = {
 	footerText: string;
 	footerLinkText: string;
 	footerHref: string;
+	errorMessage?: string;
 };
 
 export default function AuthForm({
 	title,
 	buttonText,
+	disabled,
 	fields,
 	register,
 	errors,
@@ -33,6 +36,7 @@ export default function AuthForm({
 	footerText,
 	footerLinkText,
 	footerHref,
+	errorMessage,
 }: Props) {
 	const [showPassword, setShowPassword] = useState(false);
 
@@ -55,6 +59,7 @@ export default function AuthForm({
 									: (field.type ?? "text")
 							}
 							placeholder={field.placeholder}
+							disabled={disabled}
 							className="w-full border rounded-md px-3 py-2 outline-none focus:ring-2 focus:ring-black/20"
 						/>
 
@@ -78,11 +83,19 @@ export default function AuthForm({
 
 				<button
 					type="submit"
-					className="w-full bg-black text-white py-2 rounded-md"
+					disabled={disabled}
+					className="w-full bg-black text-white py-2 rounded-md disabled:opacity-50 disabled:cursor-not-allowed"
 				>
 					{buttonText}
 				</button>
+
+				{errorMessage && (
+					<p className="text-red-600 text-center text-sm mt-2">
+						{errorMessage}
+					</p>
+				)}
 			</form>
+
 			<p className="text-center text-sm mt-4">
 				{footerText}{" "}
 				<Link href={footerHref} className="text-blue-600">
