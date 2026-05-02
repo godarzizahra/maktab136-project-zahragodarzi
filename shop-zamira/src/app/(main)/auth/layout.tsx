@@ -1,6 +1,6 @@
 "use client";
 
-import authImage from "@/assets/image/img-layout-auth.png"; // عکس ساعت را اینجا قرار بده
+import authImage from "@/assets/image/img-layout-auth.png";
 import Image from "next/image";
 
 export default function AuthLayout({

@@ -1,6 +1,7 @@
 "use client";
 
 import LOGO1 from "@/assets/image/LOGO1.png";
+import ThemeToggle from "@/components/base/themeToggle";
 import { Menu, Search, ShoppingCart, User, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -21,9 +22,8 @@ const brandLinks = [
 ];
 
 export default function Header() {
-	// State برای منوی اصلی موبایل
 	const [open, setOpen] = useState(false);
-	// State جداگانه فقط برای دراپ‌داون برندها در موبایل
+
 	const [mobileBrandOpen, setMobileBrandOpen] = useState(false);
 
 	const navItem =
@@ -37,11 +37,11 @@ export default function Header() {
 				borderColor: "var(--border)",
 			}}
 		>
-			<Link href="/" className="flex items-center">
-				<Image src={LOGO1} alt="logo" width={90} height={55} />
+			<Link href="/" className="flex items-center p-1">
+				<Image src={LOGO1} alt="logo" width={80} height={45} />
 			</Link>
 
-			{/* Desktop Navigation */}
+			{/* Desktop Navigation  */}
 			<nav className="hidden md:block">
 				<ul className="flex items-center gap-8">
 					{navLinks.map((item) =>
@@ -56,7 +56,6 @@ export default function Header() {
 								</Link>
 							</li>
 						) : (
-							// برای منوی دسکتاپ، فقط از group-hover استفاده می‌کنیم و نیازی به state و onClick نیست
 							<li key="brands" className="relative group">
 								<button
 									className={`${navItem} flex items-center`}
@@ -81,9 +80,9 @@ export default function Header() {
 								>
 									{brandLinks.map((brand) => (
 										<Link
-											key={brand.label} // بهتر است از یک مقدار منحصر به فرد مثل label استفاده کنید
+											key={brand.label}
 											href={brand.href}
-											className="block px-4 py-2 transition-all duration-200 hover:bg-[var(--border)] hover:text-[var(--accent)]"
+											className="block px-4 py-2 transition-all duration-200 hover:bg-(--border) hover:text-(--accent)"
 											style={{ color: "var(--text-primary)" }}
 										>
 											{brand.label}
@@ -98,32 +97,34 @@ export default function Header() {
 
 			{/* Icons */}
 			<div className="flex items-center gap-4">
-				<button
-					className="hover:text-[var(--accent)] transition"
-					aria-label="جستجو"
-				>
-					<Search size={22} />
+				<button className="hover:text-(--accent) transition" aria-label="جستجو">
+					<Search size={26} />
 				</button>
 
-				<button
-					className="hover:text-[var(--accent)] transition"
-					aria-label="حساب کاربری"
-				>
-					<User size={22} />
-				</button>
+				<Link href={"/register"}>
+					<button
+						className="hover:text-(--accent) transition"
+						aria-label="حساب کاربری"
+					>
+						<User size={26} />
+					</button>
+				</Link>
 
-				<button
-					className="hover:text-[var(--accent)] transition"
-					aria-label="سبد خرید"
-				>
-					<ShoppingCart size={22} />
-				</button>
+				<Link href={"/cart"}>
+					<button
+						className="hover:text-(--accent) transition"
+						aria-label="سبد خرید"
+					>
+						<ShoppingCart size={26} />
+					</button>
+					<ThemeToggle />
+				</Link>
 
 				<button
 					className="md:hidden"
 					onClick={() => setOpen(!open)}
 					aria-label="باز و بسته کردن منو"
-					aria-expanded={open} // وضعیت باز یا بسته بودن منو را برای صفحه‌خوان مشخص می‌کند
+					aria-expanded={open}
 				>
 					{open ? <X size={26} /> : <Menu size={26} />}
 				</button>
