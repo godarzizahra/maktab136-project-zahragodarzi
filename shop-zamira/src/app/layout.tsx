@@ -9,9 +9,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
 	children,
-}: Readonly<{
+}: {
 	children: React.ReactNode;
-}>) {
+}) {
 	return (
 		<html lang="fa" dir="rtl" className={" h-full antialiased"}>
 			<body className="min-h-screen flex flex-col">{children}</body>
