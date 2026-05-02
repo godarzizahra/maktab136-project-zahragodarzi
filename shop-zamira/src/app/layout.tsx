@@ -9,11 +9,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
 	children,
-}: Readonly<{
+}: {
 	children: React.ReactNode;
-}>) {
+}) {
 	return (
-		<html lang="fa" dir="rtl" className={" h-full antialiased"}>
+		<html lang="fa" dir="rtl" className={" h-full "}>
 			<body className="min-h-full flex flex-col">{children}</body>
 		</html>
 	);
