@@ -9,7 +9,7 @@ export default function AuthLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<div className="min-h-screen grid grid-cols-1 lg:grid-cols-2">
+		<div className="min-h-screen  grid grid-cols-1 lg:grid-cols-2">
 			<div className="flex items-center justify-center px-6 ">
 				<div className="w-full max-w-md">{children}</div>
 			</div>
@@ -22,7 +22,7 @@ export default function AuthLayout({
 					className="object-cover"
 					priority
 				/>
-				<p className="text-(--accent) absolute left-15 top-20 text-3xl font-bold">
+				<p className="text-(--accent) absolute left-15 top-28 text-3xl font-bold">
 					زمان را متفاوت زندگی کن{" "}
 				</p>
 				<div className="absolute inset-0 bg-black/40" />

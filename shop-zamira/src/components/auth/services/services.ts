@@ -1,4 +1,4 @@
-import { API_BASE_URL } from "@/constants/baseUrl";
+import { API_BASE_URL } from "@/api/baseUrl";
 import axios from "axios";
 import { RegisterSchemaType } from "../schemas/register.schema";
 
