@@ -13,6 +13,8 @@ export default function ProductsTable({ products }: { products: Product[] }) {
 							<th className="text-right p-3">برند</th>
 							<th className="text-right p-3">قیمت</th>
 							<th className="text-right p-3">موجودی</th>
+							<th className="text-right p-3"> تاریخ ایجاد </th>
+							<th className="text-right p-3">تاریخ ویرایش</th>
 							<th className="text-right p-3"></th>
 						</tr>
 					</thead>

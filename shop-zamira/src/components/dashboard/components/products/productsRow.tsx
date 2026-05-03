@@ -17,6 +17,12 @@ export default function ProductRow({ product }: { product: Product }) {
 			<td className="py-3 px-3">{product.category}</td>
 			<td className="py-3 px-3">{product.price.toLocaleString("fa-IR")}</td>
 			<td className="py-3 px-3">{product.stock}</td>
+			<td className="py-3 px-4">
+				{new Date(product.createdAt).toLocaleDateString("fa-IR")}
+			</td>
+			<td className="py-3 px-4">
+				{new Date(product.updatedAt).toLocaleDateString("fa-IR")}
+			</td>
 			<td className="py-3 px-4 text-center">
 				<div className="flex items-center justify-center gap-3">
 					<button
