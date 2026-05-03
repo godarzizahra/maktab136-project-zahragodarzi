@@ -1,3 +1,5 @@
-export default function page() {
-	return <div>page products</div>;
+import ProductsPageClient from "@/components/dashboard/components/products";
+
+export default function Page() {
+	return <ProductsPageClient />;
 }
