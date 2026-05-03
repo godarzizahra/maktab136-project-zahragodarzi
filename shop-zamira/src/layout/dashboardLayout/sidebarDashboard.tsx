@@ -13,7 +13,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const menuItems = [
-	{ title: "داشبورد", href: "/admin", icon: LayoutDashboard },
+	{ title: "داشبورد", href: "/dashboard", icon: LayoutDashboard },
 	{ title: "محصولات", href: "/admin/products", icon: Package },
 	{ title: "سفارش‌ها", href: "/admin/orders", icon: ShoppingCart },
 	{ title: "کاربران", href: "/admin/users", icon: Users },
