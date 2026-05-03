@@ -4,12 +4,16 @@ import { getProducts } from "../services/productService";
 export function useProducts() {
 	const [products, setProducts] = useState([]);
 	const [loading, setLoading] = useState(true);
-
+	const [page, setPage] = useState(1);
+	const [totalPages, setTotalPages] = useState(1);
 	useEffect(() => {
 		async function fetchData() {
 			try {
-				const data = await getProducts();
+				setLoading(true);
+				const data = await getProducts(page, 10);
 				setProducts(data.data);
+				setPage(data.page);
+				setTotalPages(data.pages);
 				// console.log("API Response:", data);
 			} catch (error) {
 				console.error("Error fetching products:", error);
@@ -19,7 +23,7 @@ export function useProducts() {
 		}
 
 		fetchData();
-	}, []);
+	}, [page]);
 
-	return { products, loading };
+	return { products, loading, page, totalPages, setPage };
 }

@@ -7,3 +7,9 @@ export interface Product {
 
 	images: string;
 }
+
+export interface PaginationProps {
+	page: number;
+	totalPages: number;
+	onPageChange: (page: number) => void;
+}
