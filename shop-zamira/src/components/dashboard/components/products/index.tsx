@@ -1,7 +1,8 @@
 "use client";
 
 import { useProducts } from "@/components/dashboard/hooks/useProducts";
-import Pagination from "./Pagination";
+import Pagination from "./pagination";
+
 import ProductsHeader from "./ProductsHeader";
 import ProductsTable from "./productsTable";
 

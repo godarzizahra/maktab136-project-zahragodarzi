@@ -1,3 +1,5 @@
+import OrdersPageClient from "@/components/dashboard/components/orders";
+
 export default function page() {
-	return <div>page oders</div>;
+	return <OrdersPageClient />;
 }
