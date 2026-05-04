@@ -8,7 +8,7 @@ export default function ProductRow({ product }: { product: Product }) {
 		<tr className="border-b border-[var(--border)] text-[var(--text-primary)]">
 			<td className="py-3 px-3">
 				<img
-					src={`http://localhost:5000${product.images?.[0]}`}
+					src={`http://localhost:5000${product.images?.[0] ?? "/default.jpg"}`}
 					alt={product.name}
 					className="w-14 h-14 rounded object-cover"
 				/>

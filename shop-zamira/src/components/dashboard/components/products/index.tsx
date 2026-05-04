@@ -8,7 +8,12 @@ import ProductsTable from "./productsTable";
 export default function ProductsPageClient() {
 	const { products, loading, page, totalPages, setPage } = useProducts();
 
-	if (loading) return <p>Loading...</p>;
+	if (loading)
+		return (
+			<div className="flex justify-center items-center w-full pt-10 font-bold">
+				<p>...Loading</p>
+			</div>
+		);
 
 	return (
 		<div>
