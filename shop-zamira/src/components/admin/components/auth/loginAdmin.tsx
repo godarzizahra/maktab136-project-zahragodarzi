@@ -6,6 +6,7 @@ import {
 import AuthForm from "@/components/shared/authForm";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import useAdminLogin from "../../hooks/useAdminLogin";
 
 export default function LoginAdmin() {
 	const {
@@ -16,13 +17,11 @@ export default function LoginAdmin() {
 		resolver: zodResolver(loginSchema),
 	});
 
-	const onSubmit = (data: LoginSchemaType) => {
-		console.log("Admin Login:", data);
-	};
+	const { onSubmit, isLoading, errorMessage } = useAdminLogin();
 	return (
 		<AuthForm
 			title="ورود ادمین"
-			buttonText="ورود"
+			buttonText={isLoading ? "در حال ورود..." : "ورود"}
 			fields={[
 				{ name: "email", type: "email", placeholder: "ایمیل" },
 				{ name: "password", placeholder: "رمز عبور" },
@@ -30,6 +29,8 @@ export default function LoginAdmin() {
 			register={register}
 			errors={errors}
 			onSubmit={handleSubmit(onSubmit)}
+			errorMessage={errorMessage ?? undefined}
+			disabled={isLoading}
 		/>
 	);
 }
