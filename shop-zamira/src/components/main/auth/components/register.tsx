@@ -4,9 +4,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
+import AuthForm from "../../../shared/authForm";
 import { useAuth } from "../hooks/useAuth";
 import { registerSchema, RegisterSchemaType } from "../schemas/register.schema";
-import AuthForm from "./authForm";
 
 export default function Register() {
 	const { register, loading, error } = useAuth();

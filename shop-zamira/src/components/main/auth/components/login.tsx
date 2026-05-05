@@ -1,12 +1,10 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowLeft } from "lucide-react";
-import Link from "next/link";
 import { useForm } from "react-hook-form";
+import AuthForm from "../../../shared/authForm";
 import { useAuth } from "../hooks/useAuth";
 import { loginSchema, LoginSchemaType } from "../schemas/login.schema";
-import AuthForm from "./authForm";
 
 export default function Login() {
 	const { login, loading, error } = useAuth();
@@ -16,10 +14,6 @@ export default function Login() {
 
 	return (
 		<div className="min-h-screen flex items-center justify-center">
-			<Link href="/" className="absolute top-8 left-8 text-gray-500">
-				<ArrowLeft size={22} />
-			</Link>
-
 			<AuthForm
 				title="ورود به حساب کاربری"
 				buttonText={loading ? "در حال ورود..." : "ورود"}

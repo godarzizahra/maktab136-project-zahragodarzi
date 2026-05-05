@@ -19,10 +19,11 @@ type Props = {
 	register: UseFormRegister<any>;
 	errors: FieldErrors<any>;
 	onSubmit: () => void;
-	footerText: string;
-	footerLinkText: string;
-	footerHref: string;
 	errorMessage?: string;
+
+	footerText?: string;
+	footerLinkText?: string;
+	footerHref?: string;
 };
 
 export default function AuthForm({
@@ -96,12 +97,14 @@ export default function AuthForm({
 				)}
 			</form>
 
-			<p className="text-center text-sm mt-4">
-				{footerText}{" "}
-				<Link href={footerHref} className="text-blue-600">
-					{footerLinkText}
-				</Link>
-			</p>
+			{footerText && footerLinkText && footerHref && (
+				<p className="text-center text-sm mt-4">
+					{footerText}{" "}
+					<Link href={footerHref} className="text-blue-600">
+						{footerLinkText}
+					</Link>
+				</p>
+			)}
 		</div>
 	);
 }
