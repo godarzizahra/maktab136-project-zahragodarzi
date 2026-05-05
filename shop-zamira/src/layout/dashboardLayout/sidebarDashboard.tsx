@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 const menuItems = [
 	{ title: "داشبورد", href: "/admin", icon: LayoutDashboard },
@@ -21,8 +21,13 @@ const menuItems = [
 
 export default function SidebarDashboard() {
 	const pathname = usePathname();
+	const router = useRouter();
+	const handleLogout = () => {
+		document.cookie =
+			"admin_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
 
-	const handleLogout = () => {};
+		router.push("/admin/admin-portal/login-x92f7c");
+	};
 
 	return (
 		<aside className="w-72 h-screen bg-[var(--surface)] border-l border-[var(--border)] flex flex-col rounded-2xl">

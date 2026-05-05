@@ -20,7 +20,7 @@ export default function useAdminLogin() {
 			const token = res?.data?.token;
 
 			if (token) {
-				localStorage.setItem("admin_token", token);
+				document.cookie = `admin_token=${token}; path=/`;
 			}
 
 			router.push("/admin");
