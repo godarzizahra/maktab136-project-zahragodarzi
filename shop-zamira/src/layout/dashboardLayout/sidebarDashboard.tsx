@@ -13,10 +13,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const menuItems = [
-	{ title: "داشبورد", href: "/dashboard", icon: LayoutDashboard },
-	{ title: "محصولات", href: "/dashboard/products", icon: Package },
-	{ title: "سفارش‌ها", href: "/dashboard/orders", icon: ShoppingCart },
-	{ title: "کاربران", href: "/dashboard/users", icon: Users },
+	{ title: "داشبورد", href: "/admin", icon: LayoutDashboard },
+	{ title: "محصولات", href: "/admin/products", icon: Package },
+	{ title: "سفارش‌ها", href: "/admin/orders", icon: ShoppingCart },
+	{ title: "کاربران", href: "/admin/users", icon: Users },
 ];
 
 export default function SidebarDashboard() {

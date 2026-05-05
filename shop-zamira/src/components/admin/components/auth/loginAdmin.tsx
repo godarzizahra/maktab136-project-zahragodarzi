@@ -1,0 +1,5 @@
+"use client";
+
+export default function LoginAdmin() {
+	return <div className="min-h-screen flex items-center justify-center"></div>;
+}
