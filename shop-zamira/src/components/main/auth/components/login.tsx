@@ -21,6 +21,7 @@ export default function Login() {
 
 			if (res?.status === 200 || res?.data) {
 				router.push("/main");
+				form.reset();
 			}
 		} catch (err) {}
 	};

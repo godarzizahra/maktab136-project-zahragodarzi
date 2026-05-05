@@ -47,10 +47,15 @@ export default function AuthForm({
 				{title}
 			</h1>
 
-			<form onSubmit={onSubmit} className="space-y-3 px-7 flex flex-col ">
+			<form
+				autoComplete="off"
+				onSubmit={onSubmit}
+				className="space-y-3 px-7 flex flex-col "
+			>
 				{fields.map((field) => (
 					<div key={field.name} className="relative">
 						<input
+							autoComplete="one-time-code"
 							{...register(field.name)}
 							type={
 								field.name === "password"

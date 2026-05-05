@@ -23,6 +23,7 @@ export default function Register() {
 
 			if (res?.status === 201 || res?.data) {
 				router.push("/main/login");
+				form.reset();
 			}
 		} catch (err) {}
 	};
