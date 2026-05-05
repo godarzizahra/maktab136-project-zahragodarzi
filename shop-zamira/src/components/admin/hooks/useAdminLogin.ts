@@ -15,7 +15,7 @@ export default function useAdminLogin() {
 
 			const res = await adminLogin(data);
 
-			console.log("Full response:", res);
+			// console.log("Full response:", res);
 
 			const token = res?.data?.token;
 
