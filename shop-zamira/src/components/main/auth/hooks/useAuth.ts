@@ -7,7 +7,7 @@ export function useAuth() {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState("");
 
-	const register = async (data: RegisterSchemaType) => {
+	const registerUserHandler = async (data: RegisterSchemaType) => {
 		setLoading(true);
 		setError("");
 		try {
@@ -20,10 +20,10 @@ export function useAuth() {
 			setLoading(false);
 		}
 	};
+
 	const login = async (data: LoginSchemaType) => {
 		setLoading(true);
 		setError("");
-
 		try {
 			const res = await loginUser(data);
 			return res;
@@ -37,7 +37,7 @@ export function useAuth() {
 
 	return {
 		login,
-		register,
+		registerUser: registerUserHandler,
 		loading,
 		error,
 	};

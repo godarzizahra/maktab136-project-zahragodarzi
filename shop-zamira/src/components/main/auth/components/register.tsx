@@ -3,16 +3,29 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import AuthForm from "../../../shared/authForm";
 import { useAuth } from "../hooks/useAuth";
 import { registerSchema, RegisterSchemaType } from "../schemas/register.schema";
 
 export default function Register() {
-	const { register, loading, error } = useAuth();
+	const { registerUser, loading, error } = useAuth();
+	const router = useRouter();
+
 	const form = useForm<RegisterSchemaType>({
 		resolver: zodResolver(registerSchema),
 	});
+
+	const onSubmit = async (data: RegisterSchemaType) => {
+		try {
+			const res = await registerUser(data);
+
+			if (res?.status === 201 || res?.data) {
+				router.push("/main/login");
+			}
+		} catch (err) {}
+	};
 
 	return (
 		<div className="min-h-screen flex items-center justify-center">
@@ -32,7 +45,7 @@ export default function Register() {
 				]}
 				register={form.register}
 				errors={form.formState.errors}
-				onSubmit={form.handleSubmit((data) => console.log("REGISTER:", data))}
+				onSubmit={form.handleSubmit(onSubmit)}
 				footerText="قبلاً ثبت‌نام کرده‌اید؟"
 				footerLinkText="وارد شوید"
 				footerHref="/main/login"
