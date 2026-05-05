@@ -27,7 +27,7 @@ export default function Login() {
 				onSubmit={form.handleSubmit((data) => console.log("LOGIN:", data))}
 				footerText="حساب کاربری ندارید؟"
 				footerLinkText="ثبت نام کنید"
-				footerHref="/register"
+				footerHref="/main/register"
 				errorMessage={error}
 			/>
 		</div>

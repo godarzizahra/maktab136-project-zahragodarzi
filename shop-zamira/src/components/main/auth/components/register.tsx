@@ -35,7 +35,7 @@ export default function Register() {
 				onSubmit={form.handleSubmit((data) => console.log("REGISTER:", data))}
 				footerText="قبلاً ثبت‌نام کرده‌اید؟"
 				footerLinkText="وارد شوید"
-				footerHref="/login"
+				footerHref="/main/login"
 				errorMessage={error}
 			/>
 		</div>

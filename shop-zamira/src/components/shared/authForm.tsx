@@ -47,7 +47,7 @@ export default function AuthForm({
 				{title}
 			</h1>
 
-			<form onSubmit={onSubmit} className="space-y-3 px-7">
+			<form onSubmit={onSubmit} className="space-y-3 px-7 flex flex-col ">
 				{fields.map((field) => (
 					<div key={field.name} className="relative">
 						<input
@@ -91,9 +91,7 @@ export default function AuthForm({
 				</button>
 
 				{errorMessage && (
-					<p className="text-red-600 text-center text-sm mt-2">
-						{errorMessage}
-					</p>
+					<p className="text-red-600 text-center text-sm ">{errorMessage}</p>
 				)}
 			</form>
 
