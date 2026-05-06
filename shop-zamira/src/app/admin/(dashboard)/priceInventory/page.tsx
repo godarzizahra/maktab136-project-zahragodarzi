@@ -1,3 +1,5 @@
+import PriceInventoryPageClient from "@/components/admin/components/priceInventory";
+
 export default function PriceInventorypage() {
-	return <div>PriceInventorypage</div>;
+	return <PriceInventoryPageClient />;
 }
