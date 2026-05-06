@@ -42,7 +42,7 @@ export default function AuthForm({
 	const [showPassword, setShowPassword] = useState(false);
 
 	return (
-		<div className="w-full max-w-md shadow-2xl rounded-2xl p-8">
+		<div className="bg-[var(--surface)] w-full max-w-md shadow-2xl rounded-2xl p-8">
 			<h1 className="text-2xl font-bold text-center mb-6 border-b p-4">
 				{title}
 			</h1>
@@ -50,7 +50,7 @@ export default function AuthForm({
 			<form
 				autoComplete="off"
 				onSubmit={onSubmit}
-				className="space-y-3 px-7 flex flex-col "
+				className=" space-y-3 px-7 flex flex-col "
 			>
 				{fields.map((field) => (
 					<div key={field.name} className="relative">

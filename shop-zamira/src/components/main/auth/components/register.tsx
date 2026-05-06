@@ -49,7 +49,7 @@ export default function Register() {
 				onSubmit={form.handleSubmit(onSubmit)}
 				footerText="قبلاً ثبت‌نام کرده‌اید؟"
 				footerLinkText="وارد شوید"
-				footerHref="/main/login"
+				footerHref="/login"
 				errorMessage={error}
 			/>
 		</div>

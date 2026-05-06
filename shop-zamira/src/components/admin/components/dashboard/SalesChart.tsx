@@ -1,6 +1,6 @@
 "use client";
 
-import { SalesItem } from "@/components/dashboard/types/dashboardType";
+import { SalesItem } from "@/components/admin/types/dashboardType";
 import {
 	Area,
 	AreaChart,
