@@ -2,10 +2,12 @@
 
 import logo from "@/assets/image/LOGO1.png";
 import {
+	Boxes,
 	LayoutDashboard,
 	LogOut,
 	Package,
 	ShoppingCart,
+	Store,
 	Users,
 } from "lucide-react";
 import Image from "next/image";
@@ -15,8 +17,10 @@ import { usePathname, useRouter } from "next/navigation";
 const menuItems = [
 	{ title: "داشبورد", href: "/admin", icon: LayoutDashboard },
 	{ title: "محصولات", href: "/admin/products", icon: Package },
+	{ title: "قیمت و موجودی", href: "/admin/priceInventory", icon: Boxes },
 	{ title: "سفارش‌ها", href: "/admin/orders", icon: ShoppingCart },
 	{ title: "کاربران", href: "/admin/users", icon: Users },
+	{ title: "فروشگاه", href: "/", icon: Store },
 ];
 
 export default function SidebarDashboard() {

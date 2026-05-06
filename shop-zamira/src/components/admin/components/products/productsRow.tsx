@@ -1,4 +1,4 @@
-import { Product } from "@/components/dashboard/types/dashboardProductsType";
+import { Product } from "@/components/admin/types/dashboardProductsType";
 import { Pencil, Trash } from "lucide-react";
 
 export default function ProductRow({ product }: { product: Product }) {
