@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import AuthForm from "../../../shared/authForm";
 import { useAuth } from "../hooks/useAuth";
 import { loginSchema, LoginSchemaType } from "../schemas/login.schema";
@@ -20,10 +21,15 @@ export default function Login() {
 			const res = await login(data);
 
 			if (res?.status === 200 || res?.data) {
-				router.push("/main");
+				toast.success("خوش آمدید! ورود با موفقیت انجام شد.");
 				form.reset();
+				router.push("/");
 			}
-		} catch (err) {}
+		} catch (err: any) {
+			const errorMsg =
+				err.response?.data?.message || "ایمیل یا رمز عبور اشتباه است.";
+			toast.error(errorMsg);
+		}
 	};
 
 	return (
@@ -42,7 +48,6 @@ export default function Login() {
 				footerText="حساب کاربری ندارید؟"
 				footerLinkText="ثبت نام کنید"
 				footerHref="/register"
-				errorMessage={error}
 			/>
 		</div>
 	);

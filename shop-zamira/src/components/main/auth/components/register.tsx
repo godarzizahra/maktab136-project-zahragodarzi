@@ -5,6 +5,7 @@ import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import AuthForm from "../../../shared/authForm";
 import { useAuth } from "../hooks/useAuth";
 import { registerSchema, RegisterSchemaType } from "../schemas/register.schema";
@@ -20,12 +21,16 @@ export default function Register() {
 	const onSubmit = async (data: RegisterSchemaType) => {
 		try {
 			const res = await registerUser(data);
-
 			if (res?.status === 201 || res?.data) {
-				router.push("/main/login");
+				toast.success("ثبت نام شما با موفقیت انجام شد ");
 				form.reset();
+				router.push("/login");
 			}
-		} catch (err) {}
+		} catch (err: any) {
+			const errorMessage =
+				err.response?.data?.message || "خطایی رخ داد. لطفا دوباره تلاش کنید.";
+			toast.error(errorMessage);
+		}
 	};
 
 	return (
@@ -37,7 +42,7 @@ export default function Register() {
 			<AuthForm
 				title="ایجاد حساب کاربری"
 				buttonText={loading ? "..." : "ثبت نام"}
-				disabled={loading}
+				disabled={form.formState.isSubmitting}
 				fields={[
 					{ name: "name", placeholder: "نام" },
 					{ name: "phone", placeholder: "شماره تلفن" },
@@ -50,7 +55,6 @@ export default function Register() {
 				footerText="قبلاً ثبت‌نام کرده‌اید؟"
 				footerLinkText="وارد شوید"
 				footerHref="/login"
-				errorMessage={error}
 			/>
 		</div>
 	);

@@ -37,7 +37,6 @@ export default function AuthForm({
 	footerText,
 	footerLinkText,
 	footerHref,
-	errorMessage,
 }: Props) {
 	const [showPassword, setShowPassword] = useState(false);
 
@@ -94,10 +93,6 @@ export default function AuthForm({
 				>
 					{buttonText}
 				</button>
-
-				{errorMessage && (
-					<p className="text-red-600 text-center text-sm ">{errorMessage}</p>
-				)}
 			</form>
 
 			{footerText && footerLinkText && footerHref && (

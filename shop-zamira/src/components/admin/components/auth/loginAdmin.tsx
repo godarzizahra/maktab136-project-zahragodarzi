@@ -17,7 +17,7 @@ export default function LoginAdmin() {
 		resolver: zodResolver(loginSchema),
 	});
 
-	const { onSubmit, isLoading, errorMessage } = useAdminLogin();
+	const { onSubmit, isLoading } = useAdminLogin();
 	return (
 		<AuthForm
 			title="ورود ادمین"
@@ -29,7 +29,6 @@ export default function LoginAdmin() {
 			register={register}
 			errors={errors}
 			onSubmit={handleSubmit(onSubmit)}
-			errorMessage={errorMessage ?? undefined}
 			disabled={isLoading}
 		/>
 	);
