@@ -38,7 +38,7 @@ export default function Header() {
 			}}
 		>
 			<Link href="/" className="flex items-center p-1">
-				<Image src={LOGO1} alt="logo" width={80} height={45} />
+				<Image src={LOGO1} alt="logo" width={80} height={45} loading="eager" />
 			</Link>
 
 			{/* Desktop Navigation  */}

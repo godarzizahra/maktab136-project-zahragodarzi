@@ -1,20 +1,24 @@
 export interface OrderItem {
 	_id: string;
-	productName: string;
+	name: string;
 	quantity: number;
 	price: number;
+	image?: string;
+	product?: string;
+}
+
+export interface OrderUser {
+	_id: string;
+	name: string;
+	email: string;
 }
 
 export interface Order {
 	_id: string;
 	orderNumber: string;
-	user: {
-		_id: string;
-		name: string;
-		email: string;
-	};
-	items: OrderItem[];
-	finalAmount: number;
+	user: OrderUser;
+	orderItems: OrderItem[];
+	totalPrice: number;
 	paymentStatus: "paid" | "pending" | "failed";
 	status: "processing" | "shipped" | "delivered" | "cancelled";
 	createdAt: string;

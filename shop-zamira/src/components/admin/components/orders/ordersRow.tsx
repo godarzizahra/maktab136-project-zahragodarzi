@@ -8,14 +8,14 @@ interface OrderRowProps {
 export default function OrderRow({ order }: OrderRowProps) {
 	return (
 		<tr className="border-b border-[var(--border)] text-[var(--text-primary)]">
-			<td className="py-3 px-3 font-bold">{order.orderNumber}</td>
+			<td className="py-3 px-3 font-bold">{order._id}</td>
 
 			<td className="py-3 px-3">{order.user?.name ?? "—"}</td>
 
-			<td className="py-3 px-3">{order.items?.length ?? 0}</td>
+			<td className="py-3 px-3">{order.orderItems?.length ?? 0}</td>
 
 			<td className="py-3 px-3">
-				{order.finalAmount.toLocaleString("fa-IR")} تومان
+				{order.totalPrice.toLocaleString("fa-IR")} تومان
 			</td>
 
 			<td className="py-3 px-3">
