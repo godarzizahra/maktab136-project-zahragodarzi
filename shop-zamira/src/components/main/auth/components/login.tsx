@@ -9,7 +9,7 @@ import { useAuth } from "../hooks/useAuth";
 import { loginSchema, LoginSchemaType } from "../schemas/login.schema";
 
 export default function Login() {
-	const { login, loading, error } = useAuth();
+	const { login, loading } = useAuth();
 	const router = useRouter();
 
 	const form = useForm<LoginSchemaType>({
@@ -19,10 +19,14 @@ export default function Login() {
 	const onSubmit = async (data: LoginSchemaType) => {
 		try {
 			const res = await login(data);
+			const user = res.data.user;
 
-			if (res?.status === 200 || res?.data) {
-				toast.success("خوش آمدید! ورود با موفقیت انجام شد.");
-				form.reset();
+			toast.success("خوش آمدید! ورود با موفقیت انجام شد.");
+			form.reset();
+
+			if (user?.role === "admin") {
+				router.push("/admin");
+			} else {
 				router.push("/");
 			}
 		} catch (err: any) {

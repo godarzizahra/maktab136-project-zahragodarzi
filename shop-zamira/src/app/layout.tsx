@@ -17,7 +17,7 @@ export default function RootLayout({
 		<html lang="fa" dir="rtl" className=" h-full" suppressHydrationWarning>
 			<body className="min-h-full flex flex-col font-vazir">
 				{children}
-				<Toaster />
+				<Toaster position="top-center" />
 			</body>
 		</html>
 	);

@@ -1,11 +1,11 @@
 "use client";
 
-import { Mail, MapPin, Phone } from "lucide-react"; // آیکون‌ها
+import { Mail, MapPin, Phone } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
 import enamad from "@/assets/image/e-namad-min.png";
-import enamadd from "@/assets/image/ستاد-ساماندهی-پایگاه-های-اینترنتی-ساعت-من-r5f40ibbhweains6d9y03jsft41cg7akfgvt7ofcts.jpg";
+import enamadd from "@/assets/image/namad.jpg";
 
 const accessList = [
 	{ href: "/contact", label: "تماس با ما" },

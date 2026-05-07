@@ -7,6 +7,7 @@ import AuthForm from "@/components/shared/authForm";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { useAdminLogin } from "../../hooks/useAdminLogin";
 
 export default function LoginAdmin() {
@@ -21,11 +22,17 @@ export default function LoginAdmin() {
 	const { loginFn, loading } = useAdminLogin();
 	const router = useRouter();
 	async function onSubmit(values: LoginSchemaType) {
-		const user = await loginFn(values);
-		if (user.role === "admin") {
-			router.push("/admin");
-		} else {
-			router.push("/user/dashboard");
+		try {
+			const user = await loginFn(values);
+
+			if (user.role === "admin") {
+				toast.success("ورود موفق");
+				router.push("/admin");
+			} else {
+				router.push("/user/dashboard");
+			}
+		} catch (err) {
+			toast.error("خطا در ورود");
 		}
 	}
 	return (
