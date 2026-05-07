@@ -60,7 +60,7 @@ export default function Header() {
 								<button
 									className={`${navItem} flex items-center`}
 									style={{ color: "var(--text-primary)" }}
-									aria-haspopup="true" // نشان می‌دهد این دکمه یک پاپ‌آپ دارد
+									aria-haspopup="true"
 								>
 									برندها
 								</button>
@@ -110,15 +110,17 @@ export default function Header() {
 					</button>
 				</Link>
 
-				<Link href={"/cart"}>
-					<button
-						className="hover:text-(--accent) transition"
-						aria-label="سبد خرید"
-					>
-						<ShoppingCart size={26} />
-					</button>
+				<div>
+					<Link href={"/cart"}>
+						<button
+							className="hover:text-(--accent) transition"
+							aria-label="سبد خرید"
+						>
+							<ShoppingCart size={26} />
+						</button>
+					</Link>
 					<ThemeToggle />
-				</Link>
+				</div>
 
 				<button
 					className="md:hidden"
