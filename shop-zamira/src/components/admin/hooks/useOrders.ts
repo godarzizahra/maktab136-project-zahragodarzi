@@ -13,6 +13,7 @@ export function useOrders() {
 		const fetchOrders = async () => {
 			try {
 				const data = await getAllOrders();
+
 				setOrders(data);
 			} catch (err) {
 				setError("خطا در دریافت سفارش‌ها");

@@ -1,6 +1,7 @@
 "use client";
 
 import logo from "@/assets/image/LOGO1.png";
+import { logout } from "@/components/admin/services/adminService";
 import {
 	Boxes,
 	LayoutDashboard,
@@ -27,9 +28,7 @@ export default function SidebarDashboard() {
 	const pathname = usePathname();
 	const router = useRouter();
 	const handleLogout = () => {
-		document.cookie =
-			"admin_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
-
+		logout();
 		router.push("/admin/admin-portal/login-x92f7c");
 	};
 

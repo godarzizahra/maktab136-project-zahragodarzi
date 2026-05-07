@@ -1,48 +1,23 @@
-"use client";
-
-import { LoginSchemaType } from "@/components/main/auth/schemas/login.schema";
-import { useRouter } from "next/navigation";
+import { adminLogin, logout } from "@/components/admin/services/adminService";
 import { useState } from "react";
-import toast from "react-hot-toast";
-import { adminLogin } from "../services/adminService";
 
-export default function useAdminLogin() {
-	const router = useRouter();
-	const [isLoading, setIsLoading] = useState(false);
+export function useAdminLogin() {
+	const [loading, setLoading] = useState(false);
 
-	const onSubmit = async (data: LoginSchemaType) => {
+	async function loginFn(payload: { email: string; password: string }) {
+		setLoading(true);
 		try {
-			setIsLoading(true);
-
-			const res = await adminLogin(data);
-
-			const token = res?.data?.token;
-
-			if (!token) {
-				throw new Error("توکن دریافت نشد");
-			}
-
-			document.cookie = `admin_token=${token}; path=/`;
-
-			toast.success("ورود ادمین با موفقیت انجام شد ✅");
-
-			router.push("/admin");
-		} catch (error: any) {
-			console.error("LOGIN ERROR:", error);
-
-			const msg =
-				error?.response?.data?.message ||
-				error?.message ||
-				"ایمیل یا رمز عبور اشتباه است";
-
-			toast.error(msg);
+			const user = await adminLogin(payload);
+			return user;
 		} finally {
-			setIsLoading(false);
+			setLoading(false);
 		}
-	};
+	}
 
 	return {
-		onSubmit,
-		isLoading,
+		loginFn,
+		logout,
+
+		loading,
 	};
 }

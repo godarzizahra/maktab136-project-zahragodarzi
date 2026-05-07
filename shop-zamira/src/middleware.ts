@@ -1,19 +1,40 @@
-import { NextRequest, NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 
-export function middleware(request: NextRequest) {
-	const token = request.cookies.get("admin_token");
-	const pathname = request.nextUrl.pathname;
+export function middleware(req: NextRequest) {
+	const token = req.cookies.get("access_token")?.value;
+	const role = req.cookies.get("role")?.value;
+	const pathname = req.nextUrl.pathname;
 
-	// ✅ اگر صفحه لاگین است، اجازه بده رد شود
-	if (pathname === "/admin/admin-portal/login-x92f7c") {
+	const adminLoginPath = "/admin/admin-portal/login-x92f7c";
+	const userLoginPath = "/login";
+	const userRegisterPath = "/register";
+
+	const publicPaths = [adminLoginPath, userLoginPath, userRegisterPath];
+
+	if (publicPaths.some((p) => pathname.startsWith(p))) {
 		return NextResponse.next();
 	}
 
-	if (!token && pathname.startsWith("/admin")) {
-		return NextResponse.redirect(
-			new URL("/admin/admin-portal/login-x92f7c", request.url),
-		);
+	if (pathname.startsWith("/admin")) {
+		if (!token) {
+			return NextResponse.redirect(new URL(adminLoginPath, req.url));
+		}
+
+		if (role !== "admin") {
+			return NextResponse.redirect(new URL("/", req.url));
+		}
+	}
+
+	if (pathname.startsWith("/user/dashboard")) {
+		if (!token) {
+			return NextResponse.redirect(new URL(userLoginPath, req.url));
+		}
 	}
 
 	return NextResponse.next();
 }
+
+export const config = {
+	matcher: ["/admin/:path*", "/user/dashboard/:path*"],
+};
