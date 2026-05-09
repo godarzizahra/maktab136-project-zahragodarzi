@@ -49,7 +49,7 @@ export default function AuthForm({
 			<form
 				autoComplete="off"
 				onSubmit={onSubmit}
-				className=" space-y-3 px-7 flex flex-col "
+				className=" space-y-3 px-7 flex flex-col gap-4 relative"
 			>
 				{fields.map((field) => (
 					<div key={field.name} className="relative">
@@ -79,7 +79,7 @@ export default function AuthForm({
 						)}
 
 						{errors[field.name] && (
-							<p className="text-red-600 text-sm mt-1">
+							<p className="text-red-600 text-sm mt-1 absolute right-2 bottom--3">
 								{String(errors[field.name]?.message)}
 							</p>
 						)}
