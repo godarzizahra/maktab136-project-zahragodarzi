@@ -1,4 +1,4 @@
-import { Product } from "@/components/admin/types/dashboardProductsType";
+import { Product } from "@/types/ProductsType";
 import ProductRow from "./productsRow";
 
 export default function ProductsTable({ products }: { products: Product[] }) {

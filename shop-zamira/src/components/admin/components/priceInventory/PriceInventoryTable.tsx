@@ -1,4 +1,4 @@
-import { Product } from "@/components/admin/types/dashboardProductsType";
+import { Product } from "@/types/ProductsType";
 import PriceInventoryRow from "./priceInventoryRow";
 
 export default function PriceInventoryTable({

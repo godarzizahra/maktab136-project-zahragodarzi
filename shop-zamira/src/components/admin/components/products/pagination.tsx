@@ -1,6 +1,6 @@
 "use client";
 
-import { PaginationProps } from "../../types/dashboardProductsType";
+import { PaginationProps } from "../../../../types/ProductsType";
 
 export default function Pagination({
 	page,

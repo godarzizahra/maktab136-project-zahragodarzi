@@ -42,7 +42,7 @@ body {
 @font-face {
 	font-family: "Vazir";
 	src: url("/fonts/Vazir.woff2") format("woff2");
-	font-weight: 400;
+	font-weight: normal;
 	font-style: normal;
 	font-display: swap;
 }
@@ -58,7 +58,7 @@ body {
 @font-face {
 	font-family: "Vazir";
 	src: url("/fonts/Vazir-Bold-FD-WOL.woff2") format("woff2");
-	font-weight: 700;
+	font-weight: bold;
 	font-style: normal;
 	font-display: swap;
 }
@@ -117,9 +117,9 @@ body {
 .swiper-button-prev {
 	color: #ffffff;
 	background: rgba(255, 255, 255, 0.027);
-	width: 35px;
-	height: 35px;
-	border-radius: 9999px;
+	width: 10px;
+	height: 10px;
+
 	backdrop-filter: blur(4px);
 
 	transition: all 0.3s ease;
@@ -143,6 +143,16 @@ body {
 /* Arrow icon size */
 .swiper-button-next::after,
 .swiper-button-prev::after {
-	font-size: 16px;
-	font-weight: 700;
+	font-size: 8px;
+	font-weight: 200;
+}
+
+/* hide horizontal scrollbar but keep scrolling */
+.scrollbar-hide {
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+	display: none;
 }

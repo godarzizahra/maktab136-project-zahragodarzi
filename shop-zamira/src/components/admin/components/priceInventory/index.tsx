@@ -1,6 +1,6 @@
 "use client";
 
-import { useProducts } from "@/components/admin/hooks/useProducts";
+import { useProducts } from "@/hooks/useProducts";
 
 import Pagination from "../products/pagination";
 import PriceInventoryTable from "./PriceInventoryTable";

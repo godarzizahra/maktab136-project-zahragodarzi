@@ -1,6 +1,6 @@
 "use client";
 
-import { Product } from "@/components/admin/types/dashboardProductsType";
+import { Product } from "@/types/ProductsType";
 import { Save } from "lucide-react";
 import { useState } from "react";
 
