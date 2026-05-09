@@ -91,3 +91,58 @@ body {
 .custom-scroll::-webkit-scrollbar-thumb:hover {
 	background-color: var(--text-secondary);
 }
+
+/* Hero Swiper Custom Style */
+
+.swiper {
+	--swiper-theme-color: #c9a227;
+}
+
+/* Pagination */
+.swiper-pagination-bullet {
+	background: #ffffff;
+	opacity: 0.35;
+	width: 10px;
+	height: 10px;
+	transition: all 0.3s ease;
+}
+
+.swiper-pagination-bullet-active {
+	background: #c9a227;
+	opacity: 1;
+}
+
+/* Navigation buttons */
+.swiper-button-next,
+.swiper-button-prev {
+	color: #ffffff;
+	background: rgba(255, 255, 255, 0.027);
+	width: 35px;
+	height: 35px;
+	border-radius: 9999px;
+	backdrop-filter: blur(4px);
+
+	transition: all 0.3s ease;
+}
+
+/* فقط وقتی موس روی اسلایدر رفت واضح‌تر شوند */
+.swiper:hover .swiper-button-next,
+.swiper:hover .swiper-button-prev {
+	background: rgba(0, 0, 0, 0.048);
+}
+
+/* Hover روی خود دکمه */
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+	opacity: 1 !important;
+	background: rgba(201, 162, 39, 0.9);
+	color: #ffffff;
+	transform: scale(1.05);
+}
+
+/* Arrow icon size */
+.swiper-button-next::after,
+.swiper-button-prev::after {
+	font-size: 16px;
+	font-weight: 700;
+}
