@@ -23,16 +23,18 @@ export default function BestSellerSection() {
 
 			<div
 				ref={scrollRef}
-				className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory px-4 pb-2 scrollbar-hide"
+				className="overflow-x-auto scrollbar-hide px-4 pb-2 scroll-smooth"
 			>
-				{newestProducts.map((item: Product) => (
-					<div
-						key={item._id}
-						className="snap-start shrink-0 w-[240px] md:w-[280px]"
-					>
-						<ProductCard {...item} />
-					</div>
-				))}
+				<div className="flex gap-4 min-w-[1400px]  snap-x snap-mandatory">
+					{newestProducts.map((item: Product) => (
+						<div
+							key={item._id}
+							className="snap-start shrink-0 w-[240px] md:w-[320px] lg:w-[340px]"
+						>
+							<ProductCard {...item} />
+						</div>
+					))}
+				</div>
 			</div>
 		</section>
 	);
