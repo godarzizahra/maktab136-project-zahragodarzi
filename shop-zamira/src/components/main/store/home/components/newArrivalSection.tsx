@@ -6,11 +6,11 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useRef } from "react";
 import ProductCard from "../../products/components/productscard";
 
-export default function BestSellerSection() {
+export default function NewArrivalSection() {
 	const { products, loading } = useProducts();
 	const scrollRef = useRef<HTMLDivElement>(null);
 
-	const newestProducts = products?.slice(3, 9) || [];
+	const newestProducts = products?.slice(0, 6) || [];
 
 	if (loading || !products) return <p>در حال بارگذاری...</p>;
 
@@ -29,7 +29,7 @@ export default function BestSellerSection() {
 		<section className="py-12 relative">
 			<div className="container mx-auto px-4 mb-8">
 				<h2 className="text-2xl md:text-3xl font-bold text-center">
-					پرفروش‌ترین ساعت‌ها
+					جدیدترین ساعت ها
 				</h2>
 			</div>
 
