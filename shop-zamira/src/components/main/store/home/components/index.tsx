@@ -1,5 +1,6 @@
 import PageContainer from "@/components/providers/pageContainer";
 import BestSellerSection from "./bestSallerSection";
+import BrandsSection from "./BrandsSection";
 import HeroSwiper from "./swiperSection";
 
 export default function HomePageClient() {
@@ -8,6 +9,7 @@ export default function HomePageClient() {
 			<HeroSwiper />
 			<PageContainer>
 				<BestSellerSection />
+				<BrandsSection />
 			</PageContainer>
 		</div>
 	);
