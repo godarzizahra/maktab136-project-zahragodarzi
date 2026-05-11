@@ -1,20 +1,14 @@
-import { getProducts } from "@/services/productService";
-import ProductsPageClientStore from "@/components/main/store/products/components";
+import ProductsPageStore from "@/components/main/store/products/components";
 
-export default async function ProductsPage({
-	searchParams,
-}: {
-	searchParams: { page?: string };
-}) {
-	const page = Number(searchParams?.page) || 1;
+type Props = {
+	searchParams: Promise<{
+		page?: string;
+		sort?: string;
+	}>;
+};
 
-	const { data, page: currentPage, pages } = await getProducts(page, 10);
+export default async function ProductsPage({ searchParams }: Props) {
+	const resolvedSearchParams = await searchParams;
 
-	return (
-		<ProductsPageClientStore
-			initialProducts={data}
-			initialPage={currentPage}
-			totalPages={pages}
-		/>
-	);
+	return <ProductsPageStore searchParams={resolvedSearchParams} />;
 }
