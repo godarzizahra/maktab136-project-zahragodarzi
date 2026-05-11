@@ -1,9 +1,10 @@
 "use client";
 
+import { createQueryString } from "@/utils/queryParams";
 import { SlidersHorizontal } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useFiltersDrawer } from "../hooks/useFiltersDrawer";
-import { createQueryString } from "@/utils/queryParams";
+import SortDropdown from "./sortDropdown";
 
 export default function ProductsHeader() {
 	const { openDrawer } = useFiltersDrawer();
@@ -27,15 +28,10 @@ export default function ProductsHeader() {
 			<h1 className="text-2xl font-bold text-[var(--text-primary)]">محصولات</h1>
 
 			<div className="flex items-center gap-4">
-				<select
-					value={currentSort}
-					onChange={(e) => handleSortChange(e.target.value)}
-					className="hidden md:block border border-[var(--border)] bg-[var(--surface)] px-5 py-2 rounded-lg text-sm"
-				>
-					<option value="newest">جدیدترین</option>
-					<option value="cheap">ارزان‌ترین</option>
-					<option value="expensive">گران‌ترین</option>
-				</select>
+				<SortDropdown
+					currentSort={currentSort}
+					handleSortChange={handleSortChange}
+				/>
 
 				<button
 					onClick={openDrawer}
