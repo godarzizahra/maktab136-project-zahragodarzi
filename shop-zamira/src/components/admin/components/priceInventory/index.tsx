@@ -2,7 +2,7 @@
 
 import { useProducts } from "@/hooks/useProducts";
 
-import Pagination from "../products/pagination";
+import Pagination from "../../../base/pagination";
 import PriceInventoryTable from "./PriceInventoryTable";
 import PriceInventoryHeader from "./priceInventoryHeader";
 

@@ -1,15 +1,14 @@
+"use client";
 import { Product } from "@/types/ProductsType";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function ProductCard({ _id, name, price, images }: Product) {
-	const firstImage = images?.[0]
-		? `http://localhost:5000${images[0]}`
-		: "/default.jpg";
+	const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-	const secondImage = images?.[1]
-		? `http://localhost:5000${images[1]}`
-		: firstImage;
+	const firstImage = images?.[0] ? `${API_URL}${images[0]}` : "/default.jpg";
+
+	const secondImage = images?.[1] ? `${API_URL}${images[1]}` : firstImage;
 
 	return (
 		<div className="group h-full bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-md transition">

@@ -1,7 +1,7 @@
 "use client";
 
 import { useProducts } from "@/hooks/useProducts";
-import Pagination from "./pagination";
+import Pagination from "../../../base/pagination";
 
 import ProductsHeader from "./ProductsHeader";
 import ProductsTable from "./productsTable";
