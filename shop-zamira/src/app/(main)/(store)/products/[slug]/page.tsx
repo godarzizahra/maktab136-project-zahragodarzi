@@ -4,5 +4,9 @@ export default function ProductDetailsPage({
 	params: { slug: string };
 }) {
 	const { slug } = params;
-	return <div>ProductDetailsPage:{slug}</div>;
+	return (
+		<div className="w-full h-screen flex items-center justify-center">
+			ProductDetailsPage: {slug}
+		</div>
+	);
 }
