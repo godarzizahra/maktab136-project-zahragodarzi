@@ -11,6 +11,7 @@ export interface Product {
 	isActive: boolean;
 	createdAt: string;
 	updatedAt: string;
+	brand: string;
 }
 
 export interface PaginationProps {

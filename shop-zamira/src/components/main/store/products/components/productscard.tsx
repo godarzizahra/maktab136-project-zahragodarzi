@@ -19,11 +19,15 @@ export default function ProductCard({ product }: Props) {
 	return (
 		<div className="group h-full bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-md transition">
 			<div className="relative aspect-square overflow-hidden bg-gray-50">
-				<Link href={`/products/${product._id}`} className="block w-full h-full">
+				<Link
+					href={`/products/${product._id}`}
+					className="block w-full h-full relative"
+				>
 					<Image
 						src={firstImage}
 						alt={product.name}
 						fill
+						priority
 						className="object-cover transition-all duration-500 group-hover:opacity-0 group-hover:scale-110"
 					/>
 
@@ -31,7 +35,8 @@ export default function ProductCard({ product }: Props) {
 						src={secondImage}
 						alt={product.name}
 						fill
-						className="relative object-cover opacity-0 transition-all duration-500 group-hover:opacity-100 group-hover:scale-110"
+						priority
+						className="object-cover opacity-0 transition-all duration-500 group-hover:opacity-100 group-hover:scale-110"
 					/>
 				</Link>
 

@@ -4,7 +4,7 @@ import { useProducts } from "@/hooks/useProducts";
 import { Product } from "@/types/ProductsType";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useRef } from "react";
-import ProductCard from "../../products/components/productscard";
+import ProductCard from "../../products/components/productsCard";
 
 export default function NewArrivalSection() {
 	const { products, loading } = useProducts();
