@@ -1,9 +1,9 @@
 "use client";
 
+import ProductCard from "@/components/main/store/products/components/productscard";
 import { Product } from "@/types/ProductsType";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useRef } from "react";
-import ProductCard from "../../products/components/productsCard";
 
 interface Props {
 	products: Product[];
