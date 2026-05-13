@@ -23,7 +23,6 @@ const brandLinks = [
 
 export default function Header() {
 	const [open, setOpen] = useState(false);
-
 	const [mobileBrandOpen, setMobileBrandOpen] = useState(false);
 
 	const navItem =
@@ -31,17 +30,31 @@ export default function Header() {
 
 	return (
 		<header
-			className="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-6 py-1 border-b"
+			className="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-4 md:px-6 py-1 border-b"
 			style={{
 				backgroundColor: "var(--surface)",
 				borderColor: "var(--border)",
 			}}
 		>
-			<Link href="/" className="flex items-center p-1">
-				<Image src={LOGO1} alt="logo" width={80} height={45} />
-			</Link>
+			{/* Right Side */}
+			<div className="flex items-center gap-3">
+				{/* Mobile Menu Button */}
+				<button
+					className="md:hidden"
+					onClick={() => setOpen(!open)}
+					aria-label="باز و بسته کردن منو"
+					aria-expanded={open}
+				>
+					{open ? <X size={26} /> : <Menu size={26} />}
+				</button>
 
-			{/* Desktop Navigation  */}
+				{/* Logo */}
+				<Link href="/" className="flex items-center p-1">
+					<Image src={LOGO1} alt="logo" width={80} height={45} priority />
+				</Link>
+			</div>
+
+			{/* Desktop Navigation */}
 			<nav className="hidden md:block">
 				<ul className="flex items-center gap-8">
 					{navLinks.map((item) =>
@@ -60,15 +73,12 @@ export default function Header() {
 								<button
 									className={`${navItem} flex items-center`}
 									style={{ color: "var(--text-primary)" }}
-									aria-haspopup="true" // نشان می‌دهد این دکمه یک پاپ‌آپ دارد
 								>
 									برندها
 								</button>
 
-								{/* safe hover area */}
 								<div className="absolute top-full left-0 h-3 w-full"></div>
 
-								{/* dropdown */}
 								<div
 									className="absolute left-0 top-full mt-2 opacity-0 invisible 
 									group-hover:visible group-hover:opacity-100 
@@ -95,45 +105,41 @@ export default function Header() {
 				</ul>
 			</nav>
 
-			{/* Icons */}
+			{/* Left Side Icons */}
 			<div className="flex items-center gap-4">
-				<button className="hover:text-(--accent) transition" aria-label="جستجو">
-					<Search size={26} />
+				<button
+					className="hover:text-[var(--accent)] transition"
+					aria-label="جستجو"
+				>
+					<Search size={24} />
 				</button>
 
-				<Link href={"/register"}>
+				<Link href="/register">
 					<button
-						className="hover:text-(--accent) transition"
+						className="hover:text-[var(--accent)] transition"
 						aria-label="حساب کاربری"
 					>
-						<User size={26} />
+						<User size={24} />
 					</button>
 				</Link>
 
-				<Link href={"/cart"}>
+				<Link href="/cart">
 					<button
-						className="hover:text-(--accent) transition"
+						className="hover:text-[var(--accent)] transition"
 						aria-label="سبد خرید"
 					>
-						<ShoppingCart size={26} />
+						<ShoppingCart size={24} />
 					</button>
-					<ThemeToggle />
+					ّ
 				</Link>
 
-				<button
-					className="md:hidden"
-					onClick={() => setOpen(!open)}
-					aria-label="باز و بسته کردن منو"
-					aria-expanded={open}
-				>
-					{open ? <X size={26} /> : <Menu size={26} />}
-				</button>
+				<ThemeToggle />
 			</div>
 
 			{/* Mobile Menu */}
 			{open && (
 				<div
-					className="absolute top-full left-0 w-full flex flex-col gap-4 px-6 py-6 md:hidden"
+					className=" absolute top-full left-0 w-full flex flex-col gap-4 px-6 py-6 md:hidden"
 					style={{ backgroundColor: "var(--surface)" }}
 				>
 					{navLinks.map((item) =>
@@ -146,7 +152,7 @@ export default function Header() {
 									color: "var(--text-primary)",
 									borderColor: "var(--border)",
 								}}
-								onClick={() => setOpen(false)} // بستن منو با کلیک روی لینک
+								onClick={() => setOpen(false)}
 							>
 								{item.label}
 							</Link>
@@ -158,8 +164,7 @@ export default function Header() {
 										color: "var(--text-primary)",
 										borderColor: "var(--border)",
 									}}
-									onClick={() => setMobileBrandOpen(!mobileBrandOpen)} // از state مخصوص موبایل استفاده می‌کنیم
-									aria-expanded={mobileBrandOpen}
+									onClick={() => setMobileBrandOpen(!mobileBrandOpen)}
 								>
 									برندها
 								</button>
@@ -175,7 +180,7 @@ export default function Header() {
 													color: "var(--text-primary)",
 													borderColor: "var(--border)",
 												}}
-												onClick={() => setOpen(false)} // بستن منو با کلیک روی لینک
+												onClick={() => setOpen(false)}
 											>
 												{brand.label}
 											</Link>
