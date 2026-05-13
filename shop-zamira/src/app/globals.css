@@ -156,3 +156,18 @@ body {
 .scrollbar-hide::-webkit-scrollbar {
 	display: none;
 }
+/* -----------------loading------------------------------------------- */
+
+@keyframes watchHand {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+.animate-watch-hand {
+	animation: watchHand 1.8s linear infinite;
+	transform-origin: bottom center;
+}

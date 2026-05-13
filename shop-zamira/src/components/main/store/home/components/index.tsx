@@ -6,7 +6,7 @@ import NewArrivalSection from "./newArrivalSection";
 import StoreFeaturesSection from "./storeFeatures";
 import HeroSwiper from "./swiperSection";
 
-export default function HomePageClient() {
+export default function HomePage() {
 	return (
 		<div>
 			<HeroSwiper />

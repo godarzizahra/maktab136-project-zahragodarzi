@@ -1,6 +1,6 @@
 "use client";
-
 import Image from "next/image";
+import Link from "next/link";
 import "swiper/css";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -29,7 +29,10 @@ export default function BrandsSection() {
 				>
 					{brands.map((brand) => (
 						<SwiperSlide key={brand.name} className="flex justify-center">
-							<div className="relative w-[120px] h-[60px] filter grayscale hover:grayscale-0 transition duration-500 cursor-pointer">
+							<Link
+								href={`/products?brand=${encodeURIComponent(brand.name)}`}
+								className="relative w-[120px] h-[60px] filter grayscale hover:grayscale-0 transition duration-500 cursor-pointer block"
+							>
 								<Image
 									src={brand.logo}
 									alt={brand.name}
@@ -38,7 +41,7 @@ export default function BrandsSection() {
 									className="object-contain scale-100 hover:scale-110 transition-transform duration-500"
 									priority={true}
 								/>
-							</div>
+							</Link>
 						</SwiperSlide>
 					))}
 				</Swiper>
