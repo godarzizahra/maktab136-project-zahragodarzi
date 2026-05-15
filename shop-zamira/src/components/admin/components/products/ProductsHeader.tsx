@@ -1,6 +1,9 @@
 import { Plus, Search } from "lucide-react";
+import { useState } from "react";
+import ProductModal from "./productsModal";
 
 export default function ProductsHeader() {
+	const [open, setOpen] = useState(false);
 	return (
 		<div className="flex items-center justify-between mb-2 px-2">
 			<h1 className="text-2xl font-bold text-[var(--border)]">محصولات</h1>
@@ -18,11 +21,15 @@ export default function ProductsHeader() {
 					/>
 				</div>
 
-				<button className="bg-[var(--accent)] text-black px-4 py-2 rounded-lg text-sm flex items-center gap-1 hover:opacity-90 transition">
+				<button
+					onClick={() => setOpen(true)}
+					className="bg-[var(--accent)] text-black px-4 py-2 rounded-lg text-sm flex items-center gap-1 hover:opacity-90 transition"
+				>
 					<Plus size={20} />
 					<span>افزودن</span>
 				</button>
 			</div>
+			<ProductModal open={open} onClose={() => setOpen(false)} />
 		</div>
 	);
 }

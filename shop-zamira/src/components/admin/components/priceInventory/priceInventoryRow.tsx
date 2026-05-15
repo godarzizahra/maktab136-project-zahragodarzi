@@ -23,7 +23,7 @@ export default function PriceInventoryRow({ product }: { product: Product }) {
 			</td>
 
 			<td className="py-3 px-3">{product.name}</td>
-			<td className="py-3 px-3">{product.category}</td>
+			<td className="py-3 px-3">{product.brand}</td>
 			<td className="py-3 px-3">
 				<input
 					type="number"
