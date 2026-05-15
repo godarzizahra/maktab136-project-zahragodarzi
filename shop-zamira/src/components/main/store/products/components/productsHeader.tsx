@@ -24,7 +24,7 @@ export default function ProductsHeader() {
 	};
 
 	return (
-		<div className="flex items-center justify-between border-b border-[var(--border)] py-4">
+		<div className="flex items-center justify-between border-b border-[var(--border)] py-4 mb-2">
 			<h1 className="text-2xl font-bold text-[var(--text-primary)]">محصولات</h1>
 
 			<div className="flex items-center gap-4">
