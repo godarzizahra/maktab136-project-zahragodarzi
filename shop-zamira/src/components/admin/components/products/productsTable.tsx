@@ -1,7 +1,17 @@
 import { Product } from "@/components/admin/types/dashboardProductsType";
+import { useProductStore } from "@/store/useProductStore";
+import { useState } from "react";
+import ProductModal from "./productsModal";
 import ProductRow from "./productsRow";
 
 export default function ProductsTable({ products }: { products: Product[] }) {
+	const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+	const deleteProduct = useProductStore((state) => state.deleteProduct);
+
+	const handleDelete = async (product: Product) => {
+		await deleteProduct(product._id);
+	};
+
 	return (
 		<div className="bg-[var(--surface)] border border-[var(--border)] rounded-xl overflow-hidden">
 			<div className="max-h-[400px] overflow-y-auto custom-scroll">
@@ -21,11 +31,25 @@ export default function ProductsTable({ products }: { products: Product[] }) {
 
 					<tbody>
 						{products.map((p) => {
-							return <ProductRow key={p._id} product={p} />;
+							return (
+								<ProductRow
+									key={p._id}
+									product={p}
+									onEdit={(product) => setSelectedProduct(product)}
+									onDelete={handleDelete}
+								/>
+							);
 						})}
 					</tbody>
 				</table>
 			</div>
+			{selectedProduct && (
+				<ProductModal
+					open={true}
+					product={selectedProduct}
+					onClose={() => setSelectedProduct(null)}
+				/>
+			)}
 		</div>
 	);
 }

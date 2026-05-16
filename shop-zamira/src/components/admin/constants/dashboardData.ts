@@ -1,4 +1,4 @@
-import { DashboardData } from "@/components/dashboard/types/dashboardType";
+import { DashboardData } from "../types/dashboardType";
 
 export const dashboardData: DashboardData = {
 	totalUsers: 1234,

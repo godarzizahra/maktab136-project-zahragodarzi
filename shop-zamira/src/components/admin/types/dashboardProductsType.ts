@@ -1,14 +1,14 @@
 export interface Product {
-	_id: string;
+	_id: string | number;
 	name: string;
 	category: string;
 	brand: string;
 	price: number;
 	stock: number;
 	description: string;
-	createdAt: string;
+	createdAt: string | string[];
 	updatedAt: string;
-	images: string;
+	images: string[];
 }
 
 export interface PaginationProps {
