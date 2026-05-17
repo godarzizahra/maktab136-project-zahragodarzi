@@ -15,9 +15,9 @@ api.interceptors.request.use((config) => {
 	return config;
 });
 
-export async function getProducts(page = 1, limit = 10) {
+export async function getProducts(page = 1, limit = 10, search = "") {
 	const response = await api.get(`/api/products`, {
-		params: { page, limit },
+		params: { page, limit, search },
 	});
 	return response.data;
 }

@@ -83,7 +83,7 @@ export default function ImageUpload({ onChange, initialImages = [] }: Props) {
 			<button
 				type="button"
 				onClick={() => inputRef.current?.click()}
-				className="px-4 py-2 bg-blue-600 text-white rounded-md w-fit"
+				className="px-4 py-2 bg-[#0f172a] text-white rounded-md w-fit"
 			>
 				انتخاب تصویر
 			</button>

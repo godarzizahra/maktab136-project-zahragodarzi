@@ -1,23 +1,27 @@
 import { create } from "zustand";
 
-import {
-	Product,
-	ProductFormData,
-} from "@/components/admin/schema/modalProductSchema";
+import { ProductFormData } from "@/components/admin/schema/modalProductSchema";
 import {
 	createProduct,
 	deleteProduct,
 	getProducts,
 	updateProduct,
 } from "@/components/admin/services/productService";
+import { Product } from "@/components/admin/types/dashboardProductsType";
 
 interface ProductState {
 	products: Product[];
 	isLoading: boolean;
 	error: string | null;
 
-	// اکشن‌ها
-	fetchProducts: () => Promise<void>;
+	search: string;
+	page: number;
+	totalPages: number;
+
+	setSearch: (value: string) => void;
+	setPage: (page: number) => void;
+
+	fetchProducts: (search?: string, page?: number) => Promise<void>;
 	addProduct: (data: ProductFormData) => Promise<void>;
 	editProduct: (id: string | number, data: ProductFormData) => Promise<void>;
 	deleteProduct: (id: string | number) => Promise<void>;
@@ -28,24 +32,54 @@ export const useProductStore = create<ProductState>((set, get) => ({
 	isLoading: false,
 	error: null,
 
-	fetchProducts: async () => {
-		set({ isLoading: true, error: null });
+	search: "",
+	page: 1,
+	totalPages: 1,
+
+	setSearch: (value) => set({ search: value, page: 1 }),
+
+	setPage: (page) => {
+		set({ page });
+		get().fetchProducts(undefined, page);
+	},
+
+	fetchProducts: async (searchParam, pageParam) => {
+		set({ isLoading: true });
+
 		try {
-			const data = await getProducts();
-			set({ products: data.products, isLoading: false });
-		} catch (err: any) {
-			set({ error: "خطا در دریافت محصولات", isLoading: false });
+			const { search, page } = get();
+
+			const searchValue = searchParam ?? search;
+			const pageValue = pageParam ?? page;
+
+			const res = await getProducts(pageValue, 10, searchValue);
+
+			set({
+				products: res.data ?? [],
+				totalPages: res.pages ?? 1,
+				page: res.page ?? pageValue,
+				search: searchValue,
+				isLoading: false,
+				error: null,
+			});
+		} catch {
+			set({
+				error: "خطا در دریافت محصولات",
+				isLoading: false,
+				products: [],
+			});
 		}
 	},
 
 	addProduct: async (data) => {
 		set({ isLoading: true });
 		try {
-			const newProduct = await createProduct(data);
-			set((state) => ({
-				products: [...state.products, newProduct],
-				isLoading: false,
-			}));
+			await createProduct(data);
+
+			// بعد از افزودن دوباره لیست را بگیر
+			await get().fetchProducts();
+
+			set({ isLoading: false });
 		} catch (err: any) {
 			set({ error: "خطا در افزودن محصول", isLoading: false });
 			throw err;
@@ -55,12 +89,11 @@ export const useProductStore = create<ProductState>((set, get) => ({
 	editProduct: async (id, data) => {
 		set({ isLoading: true });
 		try {
-			const updatedProduct = await updateProduct(id, data);
-			set((state) => ({
-				products: state.products.map((p) => (p.id === id ? updatedProduct : p)),
+			await updateProduct(id, data);
 
-				isLoading: false,
-			}));
+			await get().fetchProducts();
+
+			set({ isLoading: false });
 		} catch (err: any) {
 			set({ error: "خطا در ویرایش محصول", isLoading: false });
 			throw err;
@@ -70,10 +103,9 @@ export const useProductStore = create<ProductState>((set, get) => ({
 	deleteProduct: async (id) => {
 		try {
 			await deleteProduct(id);
-			set((state) => ({
-				products: state.products.filter((p) => p.id !== id),
-			}));
-		} catch (err: any) {
+
+			await get().fetchProducts();
+		} catch {
 			set({ error: "خطا در حذف محصول" });
 		}
 	},

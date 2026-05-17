@@ -14,5 +14,5 @@ export const productSchema = z.object({
 export type ProductFormData = z.infer<typeof productSchema>;
 
 export type Product = ProductFormData & {
-	id: string | number;
+	_id: string | number;
 };

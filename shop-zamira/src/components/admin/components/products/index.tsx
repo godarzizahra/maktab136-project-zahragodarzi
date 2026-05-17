@@ -1,25 +1,24 @@
 "use client";
 
-import { useProducts } from "@/components/admin/hooks/useProducts";
+import { useProductStore } from "@/store/useProductStore"; // مسیر دقیق بسته به پروژه‌ات
+import { useEffect } from "react";
 import Pagination from "./pagination";
-
 import ProductsHeader from "./ProductsHeader";
 import ProductsTable from "./productsTable";
 
 export default function ProductsPageClient() {
-	const { products, loading, page, totalPages, setPage } = useProducts();
+	const { products, page, totalPages, setPage, fetchProducts } =
+		useProductStore();
 
-	if (loading)
-		return (
-			<div className="flex justify-center items-center w-full pt-10 font-bold">
-				<p>...Loading</p>
-			</div>
-		);
+	// بارگیری اطلاعات در مانت اولیه
+	useEffect(() => {
+		fetchProducts();
+	}, [fetchProducts]);
 
 	return (
 		<div>
 			<ProductsHeader />
-			<ProductsTable products={products} />
+			<ProductsTable />
 			<Pagination page={page} totalPages={totalPages} onPageChange={setPage} />
 		</div>
 	);

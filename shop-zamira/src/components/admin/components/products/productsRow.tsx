@@ -1,5 +1,5 @@
-import { Product } from "@/components/admin/types/dashboardProductsType";
 import { Pencil, Trash } from "lucide-react";
+import { Product } from "../../types/dashboardProductsType";
 
 export default function ProductRow({
 	product,
@@ -21,7 +21,7 @@ export default function ProductRow({
 		<tr className="border-b border-[var(--border)] text-[var(--text-primary)]">
 			<td className="py-3 px-3">
 				<img
-					src={getCorrectImageUrl(product.images[0])}
+					src={getCorrectImageUrl(product.images?.[0] ?? "")}
 					alt={product.name}
 					className="w-14 h-14 rounded object-cover"
 				/>
