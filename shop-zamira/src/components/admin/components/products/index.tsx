@@ -1,6 +1,6 @@
 "use client";
 
-import { useProductStore } from "@/store/useProductStore"; // مسیر دقیق بسته به پروژه‌ات
+import { useProductStore } from "@/store/useProductStore";
 import { useEffect } from "react";
 import Pagination from "./pagination";
 import ProductsHeader from "./ProductsHeader";

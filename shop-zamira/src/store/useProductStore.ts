@@ -8,6 +8,7 @@ import {
 	updateProduct,
 } from "@/components/admin/services/productService";
 import { Product } from "@/components/admin/types/dashboardProductsType";
+import toast from "react-hot-toast";
 
 interface ProductState {
 	products: Product[];
@@ -75,12 +76,11 @@ export const useProductStore = create<ProductState>((set, get) => ({
 		set({ isLoading: true });
 		try {
 			await createProduct(data);
-
-			// بعد از افزودن دوباره لیست را بگیر
 			await get().fetchProducts();
-
+			toast.success("محصول با موفقیت اضافه شد");
 			set({ isLoading: false });
 		} catch (err: any) {
+			toast.error("خطا در افزودن محصول");
 			set({ error: "خطا در افزودن محصول", isLoading: false });
 			throw err;
 		}
@@ -92,9 +92,10 @@ export const useProductStore = create<ProductState>((set, get) => ({
 			await updateProduct(id, data);
 
 			await get().fetchProducts();
-
+			toast.success("محصول با موفقیت ویرایش شد");
 			set({ isLoading: false });
 		} catch (err: any) {
+			toast.error("خطا در ویرایش محصول");
 			set({ error: "خطا در ویرایش محصول", isLoading: false });
 			throw err;
 		}
@@ -105,7 +106,9 @@ export const useProductStore = create<ProductState>((set, get) => ({
 			await deleteProduct(id);
 
 			await get().fetchProducts();
+			toast.success("محصول با موفقیت حذف شد");
 		} catch {
+			toast.error("خطا در حذف محصول");
 			set({ error: "خطا در حذف محصول" });
 		}
 	},

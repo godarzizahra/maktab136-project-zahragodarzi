@@ -99,7 +99,6 @@ export default function ProductForm({ product, onClose }: Props) {
 
 					<div>
 						<input
-							type="number"
 							placeholder="قیمت محصول"
 							{...register("price", { valueAsNumber: true })}
 							className="w-full border p-2 rounded text-black"
@@ -113,7 +112,6 @@ export default function ProductForm({ product, onClose }: Props) {
 
 					<div>
 						<input
-							type="number"
 							placeholder="تعداد موجودی"
 							{...register("stock", { valueAsNumber: true })}
 							className="w-full border p-2 rounded text-black"

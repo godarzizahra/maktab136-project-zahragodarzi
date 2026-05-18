@@ -1,18 +1,33 @@
 import { useProductStore } from "@/store/useProductStore";
 import { useState } from "react";
 import { Product } from "../../types/dashboardProductsType";
+import ConfirmModal from "./confirmModal";
+import ProductModal from "./productsModal";
 import ProductRow from "./productsRow";
 
 export default function ProductsTable() {
 	const deleteProduct = useProductStore((state) => state.deleteProduct);
 	const products = useProductStore((state) => state.products) ?? [];
+	const [editOpen, setEditOpen] = useState(false);
 
-	const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+	const [selectedProduct, setSelectedProduct] = useState<Product>();
 
 	const handleDelete = async (product: Product) => {
 		await deleteProduct(product._id);
 	};
-	console.log("products in table:", products);
+	const [confirmOpen, setConfirmOpen] = useState(false);
+
+	const handleDeleteClick = (product: Product) => {
+		setSelectedProduct(product);
+		setConfirmOpen(true);
+	};
+
+	const handleConfirmDelete = async () => {
+		if (selectedProduct) {
+			await handleDelete(selectedProduct);
+		}
+		setConfirmOpen(false);
+	};
 
 	return (
 		<div className="bg-[var(--surface)] border border-[var(--border)] rounded-xl overflow-hidden">
@@ -44,8 +59,11 @@ export default function ProductsTable() {
 									<ProductRow
 										key={product._id}
 										product={product}
-										onEdit={(product) => setSelectedProduct(product)}
-										onDelete={handleDelete}
+										onEdit={(product) => {
+											setSelectedProduct(product);
+											setEditOpen(true);
+										}}
+										onDelete={handleDeleteClick}
 									/>
 								))
 							)}
@@ -53,6 +71,20 @@ export default function ProductsTable() {
 					</table>
 				</div>
 			</div>
+			<ConfirmModal
+				isOpen={confirmOpen}
+				message={`آیا از حذف "${selectedProduct?.name}" مطمئن هستید؟`}
+				onConfirm={handleConfirmDelete}
+				onCancel={() => setConfirmOpen(false)}
+			/>
+			<ProductModal
+				open={editOpen}
+				product={selectedProduct}
+				onClose={() => {
+					setEditOpen(false);
+					setSelectedProduct(undefined);
+				}}
+			/>
 		</div>
 	);
 }
