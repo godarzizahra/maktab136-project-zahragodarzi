@@ -29,7 +29,7 @@ export async function createProduct(data: ProductFormData) {
 
 export async function updateProduct(
 	id: string | number,
-	data: ProductFormData,
+	data: Partial<ProductFormData>,
 ) {
 	const res = await api.put(`/api/products/${id}`, data);
 	return res.data;

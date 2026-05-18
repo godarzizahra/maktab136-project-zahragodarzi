@@ -26,6 +26,11 @@ interface ProductState {
 	addProduct: (data: ProductFormData) => Promise<void>;
 	editProduct: (id: string | number, data: ProductFormData) => Promise<void>;
 	deleteProduct: (id: string | number) => Promise<void>;
+
+	updatePriceAndStock: (
+		id: string | number,
+		data: { price: number; stock: number },
+	) => Promise<void>;
 }
 
 export const useProductStore = create<ProductState>((set, get) => ({
@@ -110,6 +115,21 @@ export const useProductStore = create<ProductState>((set, get) => ({
 		} catch {
 			toast.error("خطا در حذف محصول");
 			set({ error: "خطا در حذف محصول" });
+		}
+	},
+	updatePriceAndStock: async (id, data) => {
+		try {
+			await updateProduct(id, data);
+
+			set((state) => ({
+				products: state.products.map((p) =>
+					p._id === id ? { ...p, ...data } : p,
+				),
+			}));
+
+			toast.success("قیمت و موجودی با موفقیت بروزرسانی شد");
+		} catch {
+			toast.error("خطا در بروزرسانی قیمت و موجودی");
 		}
 	},
 }));

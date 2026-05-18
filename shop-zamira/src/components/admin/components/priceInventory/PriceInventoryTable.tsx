@@ -1,11 +1,8 @@
-import { Product } from "@/components/admin/types/dashboardProductsType";
+import { useProductStore } from "@/store/useProductStore";
 import PriceInventoryRow from "./priceInventoryRow";
 
-export default function PriceInventoryTable({
-	products,
-}: {
-	products: Product[];
-}) {
+export default function PriceInventoryTable() {
+	const products = useProductStore((state) => state.products);
 	return (
 		<div className="bg-[var(--surface)] border border-[var(--border)] rounded-xl overflow-hidden">
 			<div className="max-h-[400px] overflow-y-auto custom-scroll">
@@ -23,9 +20,17 @@ export default function PriceInventoryTable({
 					</thead>
 
 					<tbody>
-						{products.map((p) => {
-							return <PriceInventoryRow key={p._id} product={p} />;
-						})}
+						{products.length === 0 ? (
+							<tr>
+								<td colSpan={8} className="text-center py-6 text-gray-500">
+									محصولی یافت نشد
+								</td>
+							</tr>
+						) : (
+							products.map((p) => {
+								return <PriceInventoryRow key={p._id} product={p} />;
+							})
+						)}
 					</tbody>
 				</table>
 			</div>

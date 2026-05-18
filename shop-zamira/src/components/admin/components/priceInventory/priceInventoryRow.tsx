@@ -1,15 +1,28 @@
 "use client";
 
 import { Product } from "@/components/admin/types/dashboardProductsType";
+import { useProductStore } from "@/store/useProductStore";
 import { Save } from "lucide-react";
 import { useState } from "react";
 
 export default function PriceInventoryRow({ product }: { product: Product }) {
+	const updatePriceAndStock = useProductStore(
+		(state) => state.updatePriceAndStock,
+	);
 	const [price, setPrice] = useState(product.price);
 	const [stock, setStock] = useState(product.stock);
 
+	const [editingPrice, setEditingPrice] = useState(false);
+	const [editingStock, setEditingStock] = useState(false);
+
 	const handleSave = () => {
-		console.log("save", product._id, { price, stock });
+		updatePriceAndStock(product._id, {
+			price: Number(price),
+			stock: Number(stock),
+		});
+
+		setEditingPrice(false);
+		setEditingStock(false);
 	};
 
 	return (
@@ -24,22 +37,45 @@ export default function PriceInventoryRow({ product }: { product: Product }) {
 
 			<td className="py-3 px-3">{product.name}</td>
 			<td className="py-3 px-3">{product.brand}</td>
+
 			<td className="py-3 px-3">
-				<input
-					type="number"
-					value={price}
-					onChange={(e) => setPrice(Number(e.target.value))}
-					className="w-32 rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 py-2"
-				/>
+				{editingPrice ? (
+					<input
+						type="number"
+						value={price}
+						onChange={(e) => setPrice(Number(e.target.value))}
+						onBlur={() => setEditingPrice(false)} // خروج با blur
+						autoFocus
+						className="w-32 rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 py-2"
+					/>
+				) : (
+					<span
+						onClick={() => setEditingPrice(true)}
+						className="cursor-pointer hover:text-[var(--accent)]"
+					>
+						{price.toLocaleString()} تومان
+					</span>
+				)}
 			</td>
 
 			<td className="py-3 px-3">
-				<input
-					type="number"
-					value={stock}
-					onChange={(e) => setStock(Number(e.target.value))}
-					className="w-24 rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 py-2"
-				/>
+				{editingStock ? (
+					<input
+						type="number"
+						value={stock}
+						onChange={(e) => setStock(Number(e.target.value))}
+						onBlur={() => setEditingStock(false)}
+						autoFocus
+						className="w-24 rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 py-2"
+					/>
+				) : (
+					<span
+						onClick={() => setEditingStock(true)}
+						className="cursor-pointer hover:text-[var(--accent)]"
+					>
+						{stock}
+					</span>
+				)}
 			</td>
 
 			<td className="py-3 px-3">

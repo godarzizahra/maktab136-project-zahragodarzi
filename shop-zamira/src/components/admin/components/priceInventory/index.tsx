@@ -1,25 +1,21 @@
 "use client";
 
-import { useProducts } from "@/components/admin/hooks/useProducts";
-
+import { useProductStore } from "@/store/useProductStore";
+import { useEffect } from "react";
 import Pagination from "../products/pagination";
 import PriceInventoryTable from "./PriceInventoryTable";
 import PriceInventoryHeader from "./priceInventoryHeader";
 
 export default function PriceInventoryPageClient() {
-	const { products, loading, page, totalPages, setPage } = useProducts();
-
-	if (loading)
-		return (
-			<div className="flex justify-center items-center w-full pt-10 font-bold">
-				<p>...Loading</p>
-			</div>
-		);
-
+	const { page, totalPages, setPage } = useProductStore();
+	const fetchProducts = useProductStore((state) => state.fetchProducts);
+	useEffect(() => {
+		fetchProducts();
+	}, [fetchProducts]);
 	return (
 		<div>
 			<PriceInventoryHeader />
-			<PriceInventoryTable products={products} />
+			<PriceInventoryTable />
 			<Pagination page={page} totalPages={totalPages} onPageChange={setPage} />
 		</div>
 	);
