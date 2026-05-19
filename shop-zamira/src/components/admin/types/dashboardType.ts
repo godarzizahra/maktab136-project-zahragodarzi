@@ -15,3 +15,19 @@ export interface DashboardData {
 	salesData: SalesItem[];
 	usersData: UsersItem[];
 }
+
+export interface SalesItem {
+	month: string;
+	sales: number;
+}
+
+export interface UsersItem {
+	month: string;
+	users: number;
+}
+
+export interface DashboardStats {
+	totalSales: string;
+	totalUsers: number;
+	totalOrders: number;
+}
