@@ -11,7 +11,7 @@ export async function updateOrderStatus(
 	id: string,
 	status: string,
 ): Promise<void> {
-	await api.patch(`${API_BASE_URL}/api/orders/${id}/status`, {
+	await api.put(`${API_BASE_URL}/api/orders/${id}/status`, {
 		status,
 	});
 }

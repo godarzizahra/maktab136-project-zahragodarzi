@@ -3,6 +3,7 @@ import {
 	updateOrderStatus,
 } from "@/components/admin/services/orderService";
 import { Order } from "@/components/admin/types/dashboardOrdersType";
+
 import toast from "react-hot-toast";
 import { create } from "zustand";
 
@@ -64,6 +65,7 @@ export const useOrderStore = create<OrderState>((set) => ({
 
 			toast.success("وضعیت سفارش بروزرسانی شد");
 		} catch {
+			console.error("UPDATE ERROR:", Error);
 			toast.error("خطا در بروزرسانی وضعیت سفارش");
 		}
 	},

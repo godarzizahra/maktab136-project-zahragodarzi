@@ -1,5 +1,5 @@
 import { useOrderStore } from "@/store/useOrderStore";
-import { Eye, Pencil } from "lucide-react";
+import { Eye } from "lucide-react";
 import { Order } from "../../types/dashboardOrdersType";
 
 interface OrderRowProps {
@@ -10,9 +10,9 @@ function getStatusClass(status: string) {
 	switch (status) {
 		case "pending":
 			return "bg-yellow-100 text-yellow-700";
-		case "processing":
+		case "confirmed":
 			return "bg-blue-100 text-blue-700";
-		case "shipped":
+		case "shipping":
 			return "bg-purple-100 text-purple-700";
 		case "delivered":
 			return "bg-green-100 text-green-700";
@@ -27,10 +27,10 @@ function getStatusLabel(status: string) {
 	switch (status) {
 		case "pending":
 			return "در انتظار";
-		case "processing":
-			return "در حال پردازش";
-		case "shipped":
-			return "ارسال شده";
+		case "confirmed":
+			return "تایید شده";
+		case "shipping":
+			return "در حال ارسال";
 		case "delivered":
 			return "تحویل شده";
 		case "cancelled":
@@ -43,6 +43,7 @@ function getStatusLabel(status: string) {
 export default function OrderRow({ order }: OrderRowProps) {
 	const openDetails = useOrderStore((state) => state.openDetails);
 	const updateOrderStatus = useOrderStore((state) => state.updateOrderStatus);
+	console.log("UPDATE ID:", order._id);
 
 	return (
 		<tr className="border-b border-[var(--border)] text-[var(--text-primary)]">
@@ -60,13 +61,14 @@ export default function OrderRow({ order }: OrderRowProps) {
 				<select
 					value={order.status}
 					onChange={(e) => updateOrderStatus(order._id, e.target.value)}
-					className="px-3 py-1 rounded-md border border-gray-300 dark:border-gray-600 
-	bg-white dark:bg-gray-800 text-sm focus:outline-none"
+					className={`px-3 py-1 rounded-md text-sm focus:outline-none border 
+    ${getStatusClass(order.status)}
+  `}
 				>
-					<option value="pending">در انتظار</option>
-					<option value="processing">در حال پردازش</option>
-					<option value="shipped">ارسال شده</option>
-					<option value="delivered">تحویل شده</option>
+					<option value="pending">در انتظار تایید</option>
+					<option value="confirmed">تایید شده</option>
+					<option value="shipping">در حال ارسال</option>
+					<option value="delivered">تحویل داده شده</option>
 					<option value="cancelled">لغو شده</option>
 				</select>
 			</td>
@@ -87,14 +89,6 @@ export default function OrderRow({ order }: OrderRowProps) {
 						title="مشاهده جزئیات"
 					>
 						<Eye size={16} className="text-blue-600 dark:text-blue-400" />
-					</button>
-
-					<button
-						onClick={() => console.log("Edit Order", order._id)}
-						className="p-2 rounded-md border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
-						title="ویرایش"
-					>
-						<Pencil size={16} className="text-blue-600 dark:text-blue-400" />
 					</button>
 				</div>
 			</td>
