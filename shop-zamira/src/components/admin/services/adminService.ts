@@ -4,7 +4,7 @@ import { api } from "@/api/axios";
 import { API_BASE_URL } from "@/api/baseUrl";
 
 export async function adminLogin(payload: { email: string; password: string }) {
-	const response = await api.post(`${API_BASE_URL}/auth/login`, payload);
+	const response = await api.post(`${API_BASE_URL}/api/auth/login`, payload);
 	const { token, refreshToken, user } = response.data.data;
 
 	setCookie("access_token", token, { path: "/" });
