@@ -2,6 +2,7 @@
 
 import { useProductStore } from "@/store/useProductStore";
 import { useEffect } from "react";
+
 import Pagination from "./pagination";
 import ProductsHeader from "./ProductsHeader";
 import ProductsTable from "./productsTable";

@@ -42,7 +42,7 @@ body {
 @font-face {
 	font-family: "Vazir";
 	src: url("/assets/font/Vazir.woff2") format("woff2");
-	font-weight: 400;
+	font-weight: normal;
 	font-style: normal;
 	font-display: swap;
 }
@@ -58,7 +58,7 @@ body {
 @font-face {
 	font-family: "Vazir";
 	src: url("/assets/font/Vazir-Bold-FD-WOL.woff2") format("woff2");
-	font-weight: 700;
+	font-weight: bold;
 	font-style: normal;
 	font-display: swap;
 }
@@ -90,4 +90,86 @@ body {
 
 .custom-scroll::-webkit-scrollbar-thumb:hover {
 	background-color: var(--text-secondary);
+}
+
+/* Hero Swiper Custom Style */
+
+.swiper {
+	--swiper-theme-color: #c9a227;
+
+	--swiper-navigation-size: 14px;
+}
+
+/* Pagination */
+.swiper-pagination-bullet {
+	background: #ffffff;
+	opacity: 0.25;
+	width: 10px;
+	height: 10px;
+	transition: all 0.3s ease;
+}
+
+.swiper-pagination-bullet-active {
+	background: #c9a227;
+	opacity: 1;
+}
+
+/* Navigation buttons */
+.swiper-button-next,
+.swiper-button-prev {
+	color: #ffffff;
+	background: rgba(255, 255, 255, 0.027);
+	width: 2px;
+	height: 2px;
+
+	backdrop-filter: blur(4px);
+
+	transition: all 0.3s ease;
+}
+
+/* فقط وقتی موس روی اسلایدر رفت واضح‌تر شوند */
+.swiper:hover .swiper-button-next,
+.swiper:hover .swiper-button-prev {
+	background: rgba(0, 0, 0, 0.048);
+}
+
+/* Hover روی خود دکمه */
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+	opacity: 1 !important;
+	background: rgba(201, 162, 39, 0.9);
+	color: #ffffff;
+	transform: scale(1.05);
+}
+
+/* Arrow icon size */
+.swiper-button-next::after,
+.swiper-button-prev::after {
+	font-size: 4px;
+	font-weight: 50;
+}
+
+/* hide horizontal scrollbar but keep scrolling */
+.scrollbar-hide {
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+	display: none;
+}
+/* -----------------loading------------------------------------------- */
+
+@keyframes watchHand {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+.animate-watch-hand {
+	animation: watchHand 1.8s linear infinite;
+	transform-origin: bottom center;
 }

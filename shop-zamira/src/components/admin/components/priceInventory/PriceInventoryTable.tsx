@@ -1,4 +1,5 @@
 import { useProductStore } from "@/store/useProductStore";
+
 import PriceInventoryRow from "./priceInventoryRow";
 
 export default function PriceInventoryTable() {

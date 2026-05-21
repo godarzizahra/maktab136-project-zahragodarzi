@@ -85,14 +85,14 @@ export default function Footer() {
 						alt="e-namad"
 						width={110}
 						height={110}
-						className="rounded-md"
+						className="w-auto rounded-md"
 					/>
 					<Image
 						src={enamadd}
 						alt="samandehi"
 						width={110}
 						height={110}
-						className="rounded-md"
+						className="w-auto rounded-md"
 					/>
 				</div>
 			</div>
