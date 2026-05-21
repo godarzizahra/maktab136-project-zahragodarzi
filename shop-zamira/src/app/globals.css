@@ -96,12 +96,14 @@ body {
 
 .swiper {
 	--swiper-theme-color: #c9a227;
+
+	--swiper-navigation-size: 14px;
 }
 
 /* Pagination */
 .swiper-pagination-bullet {
 	background: #ffffff;
-	opacity: 0.35;
+	opacity: 0.25;
 	width: 10px;
 	height: 10px;
 	transition: all 0.3s ease;
@@ -117,8 +119,8 @@ body {
 .swiper-button-prev {
 	color: #ffffff;
 	background: rgba(255, 255, 255, 0.027);
-	width: 10px;
-	height: 10px;
+	width: 2px;
+	height: 2px;
 
 	backdrop-filter: blur(4px);
 
@@ -143,8 +145,8 @@ body {
 /* Arrow icon size */
 .swiper-button-next::after,
 .swiper-button-prev::after {
-	font-size: 8px;
-	font-weight: 200;
+	font-size: 4px;
+	font-weight: 50;
 }
 
 /* hide horizontal scrollbar but keep scrolling */
