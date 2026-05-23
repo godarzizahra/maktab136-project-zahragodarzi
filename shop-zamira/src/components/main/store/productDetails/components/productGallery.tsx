@@ -15,7 +15,7 @@ export default function ProductGallery({ images }: Props) {
 
 	const activeImage = images?.[activeIndex]
 		? `${API_BASE_URL}${images[activeIndex]}`
-		: "/default.jpg";
+		: "";
 
 	function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
 		const rect = e.currentTarget.getBoundingClientRect();
@@ -47,7 +47,7 @@ export default function ProductGallery({ images }: Props) {
 				/>
 			</div>
 
-			<div className="flex flex-col gap-3 overflow-y-auto">
+			<div className="flex flex-col gap-3 ">
 				{images?.map((img, index) => {
 					const url = `${API_BASE_URL}${img}`;
 

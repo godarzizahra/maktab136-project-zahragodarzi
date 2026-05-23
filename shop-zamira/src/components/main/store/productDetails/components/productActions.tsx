@@ -1,6 +1,6 @@
 "use client";
 
-import { Product } from "@/types/ProductsType";
+import { Product } from "@/components/admin/types/ProductsType";
 import { Heart, Minus, Plus, ShoppingCart } from "lucide-react";
 import { useState } from "react";
 
@@ -23,7 +23,7 @@ export default function ProductActions({ product }: Props) {
 	};
 
 	return (
-		<div className="flex items-center gap-3 pt-3">
+		<div className="flex items-center gap-3 pt-3 justify-center md:justify-start">
 			<button
 				onClick={() => setWishlist(!wishlist)}
 				className="flex items-center justify-center w-12 h-12 rounded-xl border transition-all duration-200"
