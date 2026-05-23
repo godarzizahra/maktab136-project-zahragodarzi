@@ -64,7 +64,8 @@ body {
 }
 
 * {
-	font-family: "Vazir", sans-serif;
+	font-family: "Vazir", sans-serif !important;
+	font-feature-settings: "ss01" on !important;
 }
 
 /* ===== Scrollbar Minimal Style ===== */

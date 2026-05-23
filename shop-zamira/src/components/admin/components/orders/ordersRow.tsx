@@ -1,4 +1,5 @@
 import { useOrderStore } from "@/store/useOrderStore";
+import { toPersian } from "@/utils/persianUtils";
 import { Eye } from "lucide-react";
 import { Order } from "../../types/dashboardOrdersType";
 
@@ -51,7 +52,7 @@ export default function OrderRow({ order }: OrderRowProps) {
 
 			<td className="py-3 px-3">{order.user?.name ?? "—"}</td>
 
-			<td className="py-3 px-3">{order.orderItems?.length ?? 0}</td>
+			<td className="py-3 px-3">{toPersian(order.orderItems?.length ?? 0)}</td>
 
 			<td className="py-3 px-3">
 				{order.totalPrice.toLocaleString("fa-IR")} تومان

@@ -1,3 +1,4 @@
+import { toPersian } from "@/utils/persianUtils";
 import { Pencil, Trash } from "lucide-react";
 import { Product } from "../../types/ProductsType";
 
@@ -30,7 +31,7 @@ export default function ProductRow({
 			<td className="py-3 px-3">{product.name}</td>
 			<td className="py-3 px-3">{product.brand}</td>
 			<td className="py-3 px-3">{product.price.toLocaleString("fa-IR")}</td>
-			<td className="py-3 px-3">{product.stock}</td>
+			<td className="py-3 px-3 text-center">{toPersian(product.stock)}</td>
 
 			<td className="py-3 px-4">
 				{new Date(product.createdAt as string).toLocaleDateString("fa-IR")}

@@ -2,6 +2,7 @@
 
 import { Product } from "@/components/admin/types/ProductsType";
 import { useProductStore } from "@/store/useProductStore";
+import { toPersian } from "@/utils/persianUtils";
 
 import { Save } from "lucide-react";
 import { useState } from "react";
@@ -54,7 +55,7 @@ export default function PriceInventoryRow({ product }: { product: Product }) {
 						onClick={() => setEditingPrice(true)}
 						className="cursor-pointer hover:text-[var(--accent)]"
 					>
-						{price.toLocaleString()} تومان
+						{toPersian(price.toLocaleString())} تومان
 					</span>
 				)}
 			</td>
@@ -74,7 +75,7 @@ export default function PriceInventoryRow({ product }: { product: Product }) {
 						onClick={() => setEditingStock(true)}
 						className="cursor-pointer hover:text-[var(--accent)]"
 					>
-						{stock}
+						{toPersian(stock)}
 					</span>
 				)}
 			</td>

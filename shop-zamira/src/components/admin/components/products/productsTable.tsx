@@ -1,6 +1,7 @@
 import { useProductStore } from "@/store/useProductStore";
 import { useState } from "react";
-import { Product } from "../../types/dashboardProductsType";
+
+import { Product } from "../../types/ProductsType";
 import ConfirmModal from "./confirmModal";
 import ProductModal from "./productsModal";
 import ProductRow from "./productsRow";
