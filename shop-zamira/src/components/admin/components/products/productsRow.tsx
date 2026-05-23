@@ -13,9 +13,16 @@ export default function ProductRow({
 }) {
 	const getCorrectImageUrl = (url: string) => {
 		if (!url) return "/placeholder.png";
-		if (url.startsWith("/uploads/products/"))
-			return `http://localhost:5000${url}`;
-		return `http://localhost:5000${url.replace("/uploads/", "/uploads/products/")}`;
+
+		if (url.startsWith("http")) return url;
+
+		const cleanUrl = url.startsWith("/") ? url : `/${url}`;
+
+		if (cleanUrl.includes("/uploads/products/")) {
+			return `http://localhost:5000${cleanUrl}`;
+		}
+
+		return `http://localhost:5000/uploads/products${cleanUrl.replace("/uploads/", "/")}`;
 	};
 
 	return (
