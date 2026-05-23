@@ -104,10 +104,10 @@ export default function PriceFilter() {
 				</div>
 			</div>
 
-			<div className="relative h-8">
+			<div className="relative h-8 ">
 				<div className="absolute top-1/2 h-1 w-full -translate-y-1/2 rounded-full bg-gray-200" />
 				<div
-					className="absolute top-1/2 h-1 -translate-y-1/2 rounded-full bg-black"
+					className="absolute top-1/2 h-1 -translate-y-1/2 rounded-full bg-[#4a7c9d]"
 					style={{
 						left: `${minPercent}%`,
 						right: `${100 - maxPercent}%`,
@@ -118,6 +118,7 @@ export default function PriceFilter() {
 					type="range"
 					min={MIN_PRICE}
 					max={MAX_PRICE}
+					dir="ltr"
 					step={STEP}
 					value={minPrice}
 					onChange={(e) => updateMin(Number(e.target.value))}
@@ -126,6 +127,7 @@ export default function PriceFilter() {
 
 				<input
 					type="range"
+					dir="ltr"
 					min={MIN_PRICE}
 					max={MAX_PRICE}
 					step={STEP}
@@ -138,43 +140,38 @@ export default function PriceFilter() {
 			<style jsx>{`
 				.price-range {
 					pointer-events: none;
+					position: absolute;
+					width: 100%;
 					background: transparent;
 					-webkit-appearance: none;
 					appearance: none;
+					top: 50%;
+					transform: translateY(-50%);
+
+					margin: 0;
 				}
 
 				.price-range::-webkit-slider-thumb {
 					pointer-events: auto;
 					-webkit-appearance: none;
-					appearance: none;
-					width: 16px;
-					height: 16px;
-					border-radius: 9999px;
-					background: #000;
-					border: 3px solid #fff;
-					box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+					width: 4px;
+					height: 15px;
+					background: #4a7c9d;
 					cursor: pointer;
+					border-radius: 2px;
+					border: none;
+
+					box-shadow: 0 0 0 1px #fff;
 				}
 
 				.price-range::-moz-range-thumb {
 					pointer-events: auto;
-					width: 16px;
-					height: 16px;
-					border-radius: 9999px;
-					background: #000;
-					border: 3px solid #fff;
-					box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+					width: 6px;
+					height: 20px;
+					background: #4a7c9d;
 					cursor: pointer;
-				}
-
-				.price-range::-webkit-slider-runnable-track {
-					height: 1px;
-					background: transparent;
-				}
-
-				.price-range::-moz-range-track {
-					height: 1px;
-					background: transparent;
+					border-radius: 2px;
+					border: none;
 				}
 			`}</style>
 		</div>
