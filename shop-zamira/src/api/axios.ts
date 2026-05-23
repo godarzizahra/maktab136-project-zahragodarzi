@@ -8,51 +8,65 @@ export const api = axios.create({
 
 // REQUEST INTERCEPTOR
 api.interceptors.request.use((config) => {
-	const token = getCookie("access_token");
-
-	if (token) {
-		config.headers.Authorization = `Bearer ${token}`;
+	// اگر در حال فراخوانیِ رفرش توکن هستیم، نیازی به اضافه کردن توکن نداریم
+	if (config.url !== "/auth/refresh-token") {
+		const token = getCookie("access_token");
+		if (token) {
+			config.headers.Authorization = `Bearer ${token}`;
+		}
 	}
-
 	return config;
 });
 
 // RESPONSE INTERCEPTOR
 api.interceptors.response.use(
 	(res) => res,
-	async (err) => {
-		const original = err.config;
+	async (error) => {
+		const originalRequest = error.config;
 
-		if (err.response?.status === 401 && !original._retry) {
-			original._retry = true;
+		// ۱. اگر خطای ۴۰۱ است و هنوز رفرش نکردیم
+		if (error.response?.status === 401 && !originalRequest._retry) {
+			originalRequest._retry = true;
 
 			try {
-				const refresh = getCookie("refresh_token");
+				const refreshToken = getCookie("refresh_token");
 
-				const res = await axios.post(`${API_BASE_URL}/auth/refresh-token`, {
-					refreshToken: refresh,
+				if (!refreshToken) throw new Error("No refresh token found");
+
+				// فراخوانی رفرش توکن
+				const res = await axios.post(`${API_BASE_URL}/api/auth/refresh-token`, {
+					refreshToken: refreshToken,
 				});
 
-				const newAccess = res.data.data.token;
-				const newRefresh = res.data.data.refreshToken;
+				// ۲. اینجا ممکن است آدرسِ توکن در پاسخ متفاوت باشد
+				const newAccessToken = res.data.data?.token || res.data.token;
 
-				setCookie("access_token", newAccess, { path: "/" });
-				setCookie("refresh_token", newRefresh, { path: "/" });
+				setCookie("access_token", newAccessToken, { path: "/" });
 
-				return api(original);
-			} catch (e) {
-				deleteCookie("access_token");
-				deleteCookie("refresh_token");
-				deleteCookie("role");
+				originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+				return api(originalRequest); // ارسال دوباره درخواست اصلی
+			} catch (refreshError: any) {
+				// ۳. این لاگ برای ما حیاتی است
+				// console.error("DEBUG: Refresh token process FAILED!");
+				// console.error(
+				// 	"Error details:",
+				// 	refreshError.response?.data || refreshError.message,
+				// );
 
-				if (typeof window !== "undefined") {
-					window.location.href = "/login";
-				}
-
-				return Promise.reject(e);
+				logoutUser(); // فقط اگر رفرش واقعاً شکست خورد لاگ‌اوت کن
+				return Promise.reject(refreshError);
 			}
 		}
-
-		return Promise.reject(err);
+		return Promise.reject(error);
 	},
 );
+
+// تابع کمکی برای لاگ‌اوت
+function logoutUser() {
+	deleteCookie("access_token");
+	deleteCookie("refresh_token");
+	deleteCookie("role");
+	if (typeof window !== "undefined") {
+		window.location.href = "/admin/admin-portal/login-x92f7c"; // یا آدرس صفحه لاگین ادمین
+	}
+}

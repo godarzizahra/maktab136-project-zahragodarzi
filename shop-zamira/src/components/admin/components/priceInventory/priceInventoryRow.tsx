@@ -30,7 +30,7 @@ export default function PriceInventoryRow({ product }: { product: Product }) {
 		<tr className="border-b border-[var(--border)] text-[var(--text-primary)]">
 			<td className="py-3 px-3">
 				<img
-					src={`http://localhost:5000${product.images?.[0] ?? "/default.jpg"}`}
+					src={`http://localhost:5000${product.images?.[0] ?? ""}`}
 					alt={product.name}
 					className="w-14 h-14 rounded object-cover"
 				/>
@@ -45,7 +45,7 @@ export default function PriceInventoryRow({ product }: { product: Product }) {
 						type="number"
 						value={price}
 						onChange={(e) => setPrice(Number(e.target.value))}
-						onBlur={() => setEditingPrice(false)} // خروج با blur
+						onBlur={() => setEditingPrice(false)}
 						autoFocus
 						className="w-32 rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 py-2"
 					/>

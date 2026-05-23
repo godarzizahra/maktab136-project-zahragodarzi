@@ -1,5 +1,5 @@
 import { Pencil, Trash } from "lucide-react";
-import { Product } from "../../types/dashboardProductsType";
+import { Product } from "../../types/ProductsType";
 
 export default function ProductRow({
 	product,

@@ -1,11 +1,6 @@
-import { API_BASE_URL } from "@/api/baseUrl";
-import axios from "axios";
+import { api } from "@/api/axios";
 import { getCookie } from "cookies-next";
 import { ProductFormData } from "../schema/modalProductSchema";
-
-const api = axios.create({
-	baseURL: API_BASE_URL,
-});
 
 api.interceptors.request.use((config) => {
 	const token = getCookie("access_token");
