@@ -12,14 +12,14 @@ export interface Product {
 	numReviews: number;
 	isActive: boolean;
 	brand: string;
-	country: string;
-	gender: string;
-	weight: number;
-	caseMaterial: string;
-	strapMaterial: string;
-	movementType: string;
-	warrantyMonths: number;
-	color: string;
+	country?: string;
+	gender?: string;
+	weight?: number;
+	caseMaterial?: string;
+	strapMaterial?: string;
+	movementType?: string;
+	warrantyMonths?: number;
+	color?: string;
 }
 
 export interface PaginationProps {

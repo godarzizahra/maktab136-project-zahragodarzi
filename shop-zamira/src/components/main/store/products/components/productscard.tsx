@@ -1,5 +1,6 @@
 import { API_BASE_URL } from "@/api/baseUrl";
-import { Product } from "@/types/ProductsType";
+
+import { Product } from "@/components/admin/types/ProductsType";
 import Image from "next/image";
 import Link from "next/link";
 import BtnProductCard from "./btnProductCard";
@@ -13,12 +14,12 @@ export default function ProductCard({ product }: Props) {
 
 	const firstImage = product.images?.[0]
 		? `${API_BASE_URL}${product.images[0]}`
-		: "/default.jpg";
+		: "";
 
 	const secondImage = product.images?.[1]
 		? `${API_BASE_URL}${product.images[1]}`
 		: firstImage;
-
+	console.log("Image path for", product.name, ":", product.images[0]);
 	return (
 		<Link
 			href={`/products/${product._id}`}

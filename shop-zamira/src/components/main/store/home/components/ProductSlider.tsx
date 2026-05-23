@@ -1,7 +1,8 @@
 "use client";
 
+import { Product } from "@/components/admin/types/ProductsType";
 import ProductCard from "@/components/main/store/products/components/productscard";
-import { Product } from "@/types/ProductsType";
+
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useRef } from "react";
 
@@ -24,7 +25,7 @@ export default function ProductSlider({ products }: Props) {
 	};
 
 	return (
-		<>
+		<div className="relative">
 			<button
 				onClick={() => scroll("left")}
 				className="hidden lg:flex absolute left-0 top-1/2 -translate-y-1/2 z-10 h-10 w-10 items-center justify-center rounded-full bg-white shadow-md"
@@ -54,6 +55,6 @@ export default function ProductSlider({ products }: Props) {
 					))}
 				</div>
 			</div>
-		</>
+		</div>
 	);
 }
