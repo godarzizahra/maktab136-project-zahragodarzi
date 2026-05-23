@@ -14,6 +14,14 @@ export default function ProductFilters() {
 	const pathname = usePathname();
 	const searchParams = useSearchParams();
 	const { closeDrawer } = useFiltersDrawer();
+	// جایگزین کردن منطق قبلی
+	const hasFilters = searchParams.toString().length > 0;
+
+	const clearAllFilters = () => {
+		// حذف تمام پارامترهای جستجو به جز موارد ضروری (اگر چیزی دارید)
+		router.push(pathname);
+		closeDrawer();
+	};
 	const selectedBrands = searchParams.get("brand")?.split(",") || [];
 	const selectedCategories = searchParams.get("category")?.split(",") || [];
 	const toggleFilter = (key: string, value: string) => {
@@ -54,6 +62,16 @@ export default function ProductFilters() {
 
 	return (
 		<div className="space-y-8 pb-40">
+			{hasFilters && (
+				<div className="flex justify-end">
+					<button
+						onClick={clearAllFilters}
+						className="flex items-center gap-1 text-sm text-red-500 transition hover:text-red-700"
+					>
+						<span>حذف همه فیلترها</span>
+					</button>
+				</div>
+			)}
 			<Accordion title="محدوده قیمت" defaultOpen>
 				<PriceFilter />
 			</Accordion>
