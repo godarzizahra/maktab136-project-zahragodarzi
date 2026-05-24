@@ -2,10 +2,11 @@
 
 import LOGO1 from "@/assets/image/LOGO1.png";
 import ThemeToggle from "@/components/base/themeToggle";
-import { Menu, Search, ShoppingCart, User, X } from "lucide-react";
+import { Menu, Search, User, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import MiniCart from "./miniCart";
 
 const navLinks = [
 	{ href: "/products", label: "فروشگاه" },
@@ -123,15 +124,7 @@ export default function Header() {
 					</button>
 				</Link>
 
-				<Link href="/cart">
-					<button
-						className="hover:text-[var(--accent)] transition"
-						aria-label="سبد خرید"
-					>
-						<ShoppingCart size={24} />
-					</button>
-					ّ
-				</Link>
+				<MiniCart />
 
 				<ThemeToggle />
 			</div>

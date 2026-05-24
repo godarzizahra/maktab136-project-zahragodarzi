@@ -1,6 +1,6 @@
 import ThemeProviders from "@/components/providers/theme-provider";
 import Footer from "@/layout/mainLayout/footer/footer";
-import Header from "@/layout/mainLayout/header/header";
+import Header from "@/layout/mainLayout/header/components/header";
 
 export default function MainLayout({
 	children,
