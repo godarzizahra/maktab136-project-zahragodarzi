@@ -1,10 +1,10 @@
 export default function CartHeader() {
 	return (
-		<div className="grid grid-cols-12 gap-19 border-b py-4  mb-2 text-sm text-[var(--text-secondary)]">
-			<div className="col-span-5">محصول</div>
-			<div className="col-span-2">قیمت </div>
-			<div className="col-span-2">تعداد</div>
-			<div className="col-span-3">جمع کل </div>
+		<div className="hidden md:grid md:grid-cols-12 gap-4 border-b py-4 mb-4 text-sm text-[var(--text-secondary)]">
+			<div className="md:col-span-5">محصول</div>
+			<div className="md:col-span-2 text-center">قیمت</div>
+			<div className="md:col-span-2 text-center">تعداد</div>
+			<div className="md:col-span-3 text-left">جمع کل</div>
 		</div>
 	);
 }

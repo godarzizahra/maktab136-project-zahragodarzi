@@ -24,28 +24,36 @@ export default function ShippingMethods() {
 	const setShippingMethod = useCartStore((state) => state.setShippingMethod);
 
 	return (
-		<div className="space-y-4">
-			{shippingOptions.map((method) => (
-				<label
-					key={method.id}
-					className="flex items-start gap-3 cursor-pointer"
-				>
-					<input
-						type="radio"
-						name="shipping"
-						checked={selected?.id === method.id}
-						onChange={() => setShippingMethod(method)}
-						className="mt-1 cursor-pointer"
-					/>
-					<div>
-						<div className="font-medium">{method.title}</div>
-						<div className="text-sm text-gray-500">{method.description}</div>
-						<div className="text-sm text-gray-700">
-							{method.price === 0 ? "رایگان" : formatPrice(method.price)}
+		<div className="space-y-3">
+			{shippingOptions.map((method) => {
+				const isSelected = selected?.id === method.id;
+
+				return (
+					<label
+						key={method.id}
+						className={`flex items-start gap-3 cursor-pointer rounded-lg border p-3 transition ${
+							isSelected
+								? "border-[var(--accent)] bg-gray-50"
+								: "border-gray-200"
+						}`}
+					>
+						<input
+							type="radio"
+							name="shipping"
+							checked={isSelected}
+							onChange={() => setShippingMethod(method)}
+							className="mt-1 cursor-pointer shrink-0"
+						/>
+						<div className="min-w-0">
+							<div className="font-medium">{method.title}</div>
+							<div className="text-sm text-gray-500">{method.description}</div>
+							<div className="text-sm text-gray-700 mt-1">
+								{method.price === 0 ? "رایگان" : formatPrice(method.price)}
+							</div>
 						</div>
-					</div>
-				</label>
-			))}
+					</label>
+				);
+			})}
 		</div>
 	);
 }

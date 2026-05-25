@@ -2,21 +2,13 @@
 
 import { useCartStore } from "@/store/useCartStore";
 import CartList from "./cartList";
-import EmptyCart from "./emptyCart";
 import CartSummary from "./cartSummary";
+import EmptyCart from "./emptyCart";
 
 export default function CartContainer() {
 	const cart = useCartStore((state) => state.cart);
 	const loading = useCartStore((state) => state.loading);
 	const error = useCartStore((state) => state.error);
-	const totalItems =
-		cart?.items?.reduce((sum, item) => sum + item.quantity, 0) ?? 0;
-
-	const totalPrice =
-		cart?.items?.reduce(
-			(sum, item) => sum + (item.product?.price || 0) * item.quantity,
-			0,
-		) ?? 0;
 
 	if (loading && !cart) {
 		return <div className="p-6">در حال دریافت سبد خرید...</div>;
@@ -31,7 +23,7 @@ export default function CartContainer() {
 	}
 
 	return (
-		<div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+		<div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
 			<div className="lg:col-span-8">
 				<CartList items={cart.items} />
 			</div>
