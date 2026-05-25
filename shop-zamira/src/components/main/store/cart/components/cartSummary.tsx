@@ -2,6 +2,7 @@
 
 import { useCartStore } from "@/store/useCartStore";
 import { formatPrice } from "@/utils/formatPrice";
+import Link from "next/link";
 import ShippingMethods from "./ShippingMethods";
 
 export default function CartSummary() {
@@ -36,10 +37,11 @@ export default function CartSummary() {
 				<span>مبلغ قابل پرداخت </span>
 				<span>{formatPrice(total)}</span>
 			</div>
-
-			<button className="w-full bg-[var(--accent)] text-white py-3 rounded-md cursor-pointer">
-				تایید و تکمیل سفارش
-			</button>
+			<Link href="/checkout">
+				<button className="w-full bg-[var(--accent)] text-white py-3 rounded-md cursor-pointer">
+					تایید و تکمیل سفارش
+				</button>
+			</Link>
 		</div>
 	);
 }
