@@ -11,11 +11,9 @@ export default function CartSummary() {
 	const discount = useCartStore((state) => state.discount);
 
 	return (
-		<div className="border rounded-lg p-6 sticky top-6">
-			<h2 className="text-2xl font-bold mb-6">مجموع کل سبد خرید</h2>
-
+		<div className=" top-18 border rounded-lg p-6  ">
 			<div className="flex items-center justify-between border-b pb-4 mb-4">
-				<span>جمع جزء</span>
+				<span>مجموع سبد خرید </span>
 				<span>{formatPrice(subtotal)}</span>
 			</div>
 
@@ -35,12 +33,12 @@ export default function CartSummary() {
 			)}
 
 			<div className="flex items-center justify-between text-xl font-bold mb-6">
-				<span>مجموع</span>
+				<span>مبلغ قابل پرداخت </span>
 				<span>{formatPrice(total)}</span>
 			</div>
 
-			<button className="w-full bg-[var(--accent)] text-white py-3 rounded-md">
-				تکمیل خرید
+			<button className="w-full bg-[var(--accent)] text-white py-3 rounded-md cursor-pointer">
+				تایید و تکمیل سفارش
 			</button>
 		</div>
 	);

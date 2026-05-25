@@ -4,12 +4,12 @@ import { LoginSchemaType } from "../schemas/login.schema";
 import { RegisterSchemaType } from "../schemas/register.schema";
 
 export const registerUser = async (data: RegisterSchemaType) => {
-	const res = await api.post("/auth/register", data);
+	const res = await api.post("/api/auth/register", data);
 	return res.data;
 };
 
 export const loginUser = async (data: LoginSchemaType) => {
-	const res = await api.post("/auth/login", data);
+	const res = await api.post("/api/auth/login", data);
 
 	const { token, refreshToken, user } = res.data.data;
 

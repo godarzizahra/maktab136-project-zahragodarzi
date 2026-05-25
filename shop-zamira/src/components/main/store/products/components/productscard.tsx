@@ -19,7 +19,7 @@ export default function ProductCard({ product }: Props) {
 	const secondImage = product.images?.[1]
 		? `${API_BASE_URL}${product.images[1]}`
 		: firstImage;
-	console.log("Image path for", product.name, ":", product.images[0]);
+
 	return (
 		<Link
 			href={`/products/${product._id}`}
@@ -42,7 +42,7 @@ export default function ProductCard({ product }: Props) {
 					className="object-cover opacity-0 transition-all duration-500 group-hover:opacity-100 group-hover:scale-110"
 				/>
 
-				<BtnProductCard />
+				<BtnProductCard productId={String(product._id)} />
 			</div>
 
 			<div className="p-4 text-center">

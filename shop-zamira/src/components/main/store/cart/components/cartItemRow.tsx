@@ -1,58 +1,63 @@
 "use client";
 
-import Image from "next/image";
-import { CartItem } from "../types/cart";
+import { API_BASE_URL } from "@/api/baseUrl";
+import type { CartItem } from "@/components/main/store/cart/types/cart";
 import { useCartStore } from "@/store/useCartStore";
-import QuantityControl from "./quantityControl";
 import { formatPrice } from "@/utils/formatPrice";
+import QuantityControl from "./quantityControl";
 
-type Props = {
+type CartItemRowProps = {
 	item: CartItem;
 };
 
-export default function CartItemRow({ item }: Props) {
-	const increaseQty = useCartStore((state) => state.increaseQty);
-	const decreaseQty = useCartStore((state) => state.decreaseQty);
+export default function CartItemRow({ item }: CartItemRowProps) {
+	const updateItemQty = useCartStore((state) => state.updateItemQty);
 	const removeItem = useCartStore((state) => state.removeItem);
 
+	const handleIncrease = async () => {
+		await updateItemQty(item._id, item.quantity + 1);
+	};
+
+	const handleDecrease = async () => {
+		if (item.quantity <= 1) {
+			await removeItem(item._id);
+			return;
+		}
+
+		await updateItemQty(item._id, item.quantity - 1);
+	};
+
+	const handleRemove = async () => {
+		await removeItem(item._id);
+	};
+
 	return (
-		<div className="grid grid-cols-12 gap-4 items-center border-b py-6">
+		<div className="grid grid-cols-12 gap-4 items-center border-b pb-4">
 			<div className="col-span-5 flex items-center gap-4">
-				<button
-					onClick={() => removeItem(item.id)}
-					className="text-gray-500 hover:text-red-500"
-				>
+				<button className="cursor-pointer" onClick={handleRemove}>
 					×
 				</button>
-
-				<div className="relative w-20 h-20 shrink-0">
-					<Image
-						src={item.image}
-						alt={item.name}
-						fill
-						className="object-contain"
-					/>
-				</div>
-
-				<div>
-					<h3 className="text-sm md:text-base font-medium">{item.name}</h3>
-				</div>
+				<img
+					src={`${API_BASE_URL}${item.product.images[0]}`}
+					className="w-16 h-16"
+				/>
+				<p>{item.product?.name}</p>
 			</div>
 
-			<div className="col-span-2 text-sm md:text-base">
-				{formatPrice(item.price)}
+			<div className="col-span-2 text-center">
+				{formatPrice(item.product?.price ?? 0)}
 			</div>
 
-			<div className="col-span-2">
+			<div className="col-span-2 flex justify-center">
 				<QuantityControl
 					quantity={item.quantity}
-					onIncrease={() => increaseQty(item.id)}
-					onDecrease={() => decreaseQty(item.id)}
+					onIncrease={handleIncrease}
+					onDecrease={handleDecrease}
 				/>
 			</div>
 
-			<div className="col-span-3 text-sm md:text-base font-medium text-amber-700">
-				{formatPrice(item.price * item.quantity)}
+			<div className="col-span-3 text-left font-bold text-[#C9A227]">
+				{formatPrice(item.product?.price * item.quantity)}
 			</div>
 		</div>
 	);

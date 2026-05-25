@@ -35,7 +35,7 @@ export default function ShippingMethods() {
 						name="shipping"
 						checked={selected?.id === method.id}
 						onChange={() => setShippingMethod(method)}
-						className="mt-1"
+						className="mt-1 cursor-pointer"
 					/>
 					<div>
 						<div className="font-medium">{method.title}</div>

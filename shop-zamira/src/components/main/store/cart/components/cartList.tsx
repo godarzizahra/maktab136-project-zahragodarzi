@@ -1,24 +1,24 @@
 "use client";
 
-import { useCartStore } from "@/store/useCartStore";
-
+import type { CartItem } from "@/components/main/store/cart/types/cart";
 import CartHeader from "./CartHeader";
 import CartItemRow from "./cartItemRow";
+import CouponBox from "./couponBox";
 
-export default function CartList() {
-	const items = useCartStore((state) => state.items);
+type CartListProps = {
+	items: CartItem[];
+};
 
+export default function CartList({ items }: CartListProps) {
 	return (
-		<div className="bg-white rounded-sm h-9/12">
+		<div className=" border rounded-xl p-6">
 			<CartHeader />
-
-			{items.length === 0 ? (
-				<div className="py-10 text-center text-gray-500">
-					سبد خرید شما خالی است
-				</div>
-			) : (
-				items.map((item) => <CartItemRow key={item.id} item={item} />)
-			)}
+			<div className="space-y-4">
+				{items.map((item) => (
+					<CartItemRow key={item._id} item={item} />
+				))}
+			</div>
+			<CouponBox />
 		</div>
 	);
 }

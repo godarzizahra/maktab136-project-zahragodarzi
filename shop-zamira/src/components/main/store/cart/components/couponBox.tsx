@@ -18,13 +18,9 @@ export default function CouponBox() {
 			/>
 			<button
 				onClick={applyCouponLocal}
-				className="bg-[var(--accent)] text-white px-6 py-3 rounded-md"
+				className="bg-[var(--accent)] text-white px-6 py-3 rounded-md cursor-pointer"
 			>
 				اعمال تخفیف
-			</button>
-
-			<button className="bg-gray-100 text-gray-800 px-6 py-3 rounded-md">
-				بروزرسانی سبد
 			</button>
 		</div>
 	);

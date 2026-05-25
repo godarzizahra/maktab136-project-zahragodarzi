@@ -1,9 +1,9 @@
-"use client";
+import { toPersian } from "@/utils/persianUtils";
 
 type Props = {
 	quantity: number;
-	onIncrease: () => void;
-	onDecrease: () => void;
+	onIncrease?: () => void;
+	onDecrease?: () => void;
 };
 
 export default function QuantityControl({
@@ -12,19 +12,24 @@ export default function QuantityControl({
 	onDecrease,
 }: Props) {
 	return (
-		<div className="flex items-center border rounded-md overflow-hidden w-fit">
+		<div className="inline-flex items-center border border-gray-200 rounded-3xl overflow-hidden">
 			<button
 				onClick={onIncrease}
-				className="w-10 h-10 flex items-center justify-center border-l"
+				className="w-10 h-10 flex items-center justify-center cursor-pointer
+				"
+				type="button"
 			>
 				+
 			</button>
-			<div className="w-12 h-10 flex items-center justify-center">
-				{quantity}
+
+			<div className="w-10 h-10 flex items-center justify-center text-sm ">
+				{toPersian(`${quantity}`)}
 			</div>
+
 			<button
 				onClick={onDecrease}
-				className="w-10 h-10 flex items-center justify-center border-r"
+				className="w-10 h-10 flex items-center justify-center cursor-pointer"
+				type="button"
 			>
 				-
 			</button>

@@ -1,25 +1,55 @@
 "use client";
 
 import { Product } from "@/components/admin/types/ProductsType";
+import { useCartStore } from "@/store/useCartStore";
 import { Heart, Minus, Plus, ShoppingCart } from "lucide-react";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useMemo, useState } from "react";
 
 interface Props {
 	product: Product;
 }
 
 export default function ProductActions({ product }: Props) {
-	const [count, setCount] = useState(0);
 	const [wishlist, setWishlist] = useState(false);
+	const router = useRouter();
+	const cart = useCartStore((s) => s.cart);
+	const loading = useCartStore((s) => s.loading);
+	const addItem = useCartStore((s) => s.addItem);
+	const updateItemQty = useCartStore((s) => s.updateItemQty);
+	const removeItem = useCartStore((s) => s.removeItem);
 
-	const increase = () => {
-		if (count >= product.stock) return;
-		setCount((p) => p + 1);
+	const cartItem = useMemo(() => {
+		return cart?.items?.find((it) => it.product?._id === product._id) ?? null;
+	}, [cart?.items, product._id]);
+
+	const qty = cartItem?.quantity ?? 0;
+
+	const handleAdd = async () => {
+		try {
+			await addItem({ productId: String(product._id), quantity: 1 });
+		} catch (error: any) {
+			if (error?.response?.status === 401) {
+				router.push("/login");
+			}
+		}
 	};
 
-	const decrease = () => {
-		if (count <= 1) return setCount(0);
-		setCount((p) => p - 1);
+	const handleIncrease = async () => {
+		if (!cartItem) return handleAdd();
+		if (qty >= product.stock) return;
+
+		await updateItemQty(cartItem._id, qty + 1);
+	};
+
+	const handleDecrease = async () => {
+		if (!cartItem) return;
+		if (qty <= 1) {
+			await removeItem(cartItem._id);
+			return;
+		}
+
+		await updateItemQty(cartItem._id, qty - 1);
 	};
 
 	return (
@@ -36,10 +66,10 @@ export default function ProductActions({ product }: Props) {
 				<Heart size={20} fill={wishlist ? "currentColor" : "none"} />
 			</button>
 
-			{count === 0 ? (
+			{qty === 0 ? (
 				<button
-					onClick={() => setCount(1)}
-					disabled={product.stock === 0}
+					onClick={handleAdd}
+					disabled={loading || product.stock === 0}
 					className="flex items-center gap-2 px-6 py-3 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
 					style={{
 						backgroundColor: "var(--primary)",
@@ -47,7 +77,7 @@ export default function ProductActions({ product }: Props) {
 					}}
 				>
 					<ShoppingCart size={18} />
-					افزودن به سبد
+					{loading ? "در حال افزودن..." : "افزودن به سبد"}
 				</button>
 			) : (
 				<div
@@ -58,30 +88,26 @@ export default function ProductActions({ product }: Props) {
 					}}
 				>
 					<button
-						onClick={increase}
-						className="px-4 py-3 transition-colors duration-200"
-						style={{
-							color: "var(--text-primary)",
-						}}
+						onClick={handleIncrease}
+						disabled={loading || qty >= product.stock}
+						className="px-4 py-3 transition-colors duration-200 disabled:opacity-50"
+						style={{ color: "var(--text-primary)" }}
 					>
 						<Plus size={18} />
 					</button>
 
 					<span
 						className="px-5 font-medium"
-						style={{
-							color: "var(--text-primary)",
-						}}
+						style={{ color: "var(--text-primary)" }}
 					>
-						{count}
+						{qty}
 					</span>
 
 					<button
-						onClick={decrease}
-						className="px-4 py-3 transition-colors duration-200"
-						style={{
-							color: "var(--text-primary)",
-						}}
+						onClick={handleDecrease}
+						disabled={loading}
+						className="px-4 py-3 transition-colors duration-200 disabled:opacity-50"
+						style={{ color: "var(--text-primary)" }}
 					>
 						<Minus size={18} />
 					</button>
