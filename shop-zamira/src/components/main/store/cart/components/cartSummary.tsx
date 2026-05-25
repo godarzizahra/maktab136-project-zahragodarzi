@@ -12,7 +12,7 @@ export default function CartSummary() {
 	const discount = useCartStore((state) => state.discount);
 
 	return (
-		<div className="lg:sticky lg:top-24 border rounded-lg p-4 md:p-6 bg-white">
+		<div className="lg:sticky lg:top-24 border rounded-lg p-4 md:p-6">
 			<div className="flex items-center justify-between border-b pb-4 mb-4 gap-4">
 				<span>مجموع سبد خرید</span>
 				<span className="text-sm md:text-base">{formatPrice(subtotal)}</span>

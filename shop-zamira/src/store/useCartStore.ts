@@ -6,15 +6,12 @@ import {
 	updateCartItem,
 } from "@/components/main/store/cart/services/cartService";
 
-import type { Cart } from "@/components/main/store/cart/types/cart";
+import type {
+	Cart,
+	ShippingMethod,
+} from "@/components/main/store/cart/types/cart";
 import toast from "react-hot-toast";
 import { create } from "zustand";
-
-type ShippingMethod = {
-	id: string;
-	title: string;
-	price: number;
-};
 
 type CartStoreState = {
 	cart: Cart | null;
@@ -74,7 +71,13 @@ export const useCartStore = create<CartStoreState>((set, get) => ({
 		toast.success("کد تخفیف اعمال شد");
 	},
 
-	shippingMethod: { id: "standard", title: "ارسال عادی", price: 0 },
+	shippingMethod: {
+		id: "pickup",
+		title: "تحویل حضوری",
+		price: 0,
+		description: "به ساعات کاری مجموعه در بخش تماس با ما توجه کنید",
+	},
+
 	setShippingMethod: (method) => set({ shippingMethod: method }),
 
 	subtotal: () => {
