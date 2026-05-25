@@ -21,7 +21,7 @@ export default function CheckoutContainer() {
 					برای ادامه فرایند پرداخت، ابتدا محصولی به سبد خرید اضافه کنید.
 				</p>
 				<Link
-					href="/store"
+					href="/"
 					className="inline-flex items-center justify-center rounded-md bg-[var(--accent)] px-6 py-3 text-white"
 				>
 					بازگشت به فروشگاه

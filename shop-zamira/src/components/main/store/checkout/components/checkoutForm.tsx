@@ -1,20 +1,23 @@
 import { useCartStore } from "@/store/useCartStore";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import ShippingMethods from "../../cart/components/ShippingMethods";
 import {
 	CheckoutFormValues,
 	checkoutSchema,
 } from "../../cart/schema/checkoutSchema";
+import { createOrder } from "../services/orderService";
 import PaymentMethod from "./paymentMethod";
 
 export default function CheckoutForm() {
 	const shippingMethod = useCartStore((state) => state.shippingMethod);
+	const router = useRouter();
 
 	const {
 		register,
 		handleSubmit,
-		formState: { errors },
+		formState: { errors, isSubmitting },
 		setValue,
 		watch,
 	} = useForm<CheckoutFormValues>({
@@ -22,7 +25,6 @@ export default function CheckoutForm() {
 		defaultValues: {
 			fullName: "",
 			phone: "",
-
 			province: "",
 			city: "",
 			address: "",
@@ -35,9 +37,33 @@ export default function CheckoutForm() {
 
 	const paymentMethod = watch("paymentMethod");
 
-	const onSubmit = (data: CheckoutFormValues) => {
-		console.log("form data:", data);
-		console.log("shipping method:", shippingMethod);
+	const onSubmit = async (data: CheckoutFormValues) => {
+		try {
+			const fullAddress = `${data.province}، ${data.city}، ${data.address}${
+				data.plaque ? `، پلاک ${data.plaque}` : ""
+			}${data.postalCode ? `، کدپستی ${data.postalCode}` : ""}`;
+
+			const payload = {
+				shippingAddress: {
+					name: data.fullName,
+					phone: data.phone,
+					address: fullAddress,
+				},
+				paymentMethod: data.paymentMethod,
+				// اگر بک‌اند بعداً لازم داشت:
+				// shippingMethod: shippingMethod?.key || shippingMethod?.id,
+			};
+
+			const order = await createOrder(payload);
+
+			if (order?.success && order?.data?._id) {
+				router.push(`/checkout/payment/${order.data._id}`);
+			} else {
+				console.error("ساختار response غیرمنتظره است:", order);
+			}
+		} catch (error) {
+			console.error("خطا در ثبت سفارش", error);
+		}
 	};
 
 	return (
@@ -195,7 +221,6 @@ export default function CheckoutForm() {
 
 			<div className="border rounded-xl p-4 md:p-6">
 				<h2 className="text-lg md:text-xl font-bold mb-4">روش ارسال</h2>
-
 				<div className="rounded-lg border p-4">
 					<ShippingMethods />
 				</div>
@@ -205,6 +230,17 @@ export default function CheckoutForm() {
 				paymentMethod={paymentMethod}
 				onChange={(value) => setValue("paymentMethod", value)}
 			/>
+
+			{/* اگر خواستی دکمه داخل خود فرم باشد */}
+			{/* 
+      <button
+        type="submit"
+        disabled={isSubmitting}
+        className="w-full rounded-lg bg-black text-white py-3"
+      >
+        {isSubmitting ? "در حال ثبت..." : "ادامه فرایند پرداخت"}
+      </button>
+      */}
 		</form>
 	);
 }
