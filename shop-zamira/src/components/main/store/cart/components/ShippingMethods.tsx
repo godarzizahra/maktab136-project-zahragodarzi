@@ -32,9 +32,7 @@ export default function ShippingMethods() {
 					<label
 						key={method.id}
 						className={`flex items-start gap-3 cursor-pointer rounded-lg border p-3 transition ${
-							isSelected
-								? "border-[var(--accent)] bg-gray-50"
-								: "border-gray-200"
+							isSelected ? "border-[var(--accent)] " : "border-gray-200"
 						}`}
 					>
 						<input

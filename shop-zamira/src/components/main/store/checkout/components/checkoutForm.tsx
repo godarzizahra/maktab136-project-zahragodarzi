@@ -163,7 +163,7 @@ export default function CheckoutForm() {
 			<div className="border rounded-xl p-4 md:p-6">
 				<h2 className="text-lg md:text-xl font-bold mb-4">روش ارسال</h2>
 
-				<div className="rounded-lg border p-4 bg-gray-50">
+				<div className="rounded-lg border p-4 ">
 					<ShippingMethods />
 				</div>
 			</div>
