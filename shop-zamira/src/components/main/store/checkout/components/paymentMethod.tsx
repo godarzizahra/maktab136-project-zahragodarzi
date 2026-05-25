@@ -1,6 +1,6 @@
 type PaymentMethodProps = {
-	paymentMethod: string;
-	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+	paymentMethod: "online" | "cash";
+	onChange: (value: "online" | "cash") => void;
 };
 
 export default function PaymentMethod({
@@ -11,9 +11,9 @@ export default function PaymentMethod({
 		<div className="border rounded-xl p-4 md:p-6">
 			<h2 className="text-lg md:text-xl font-bold mb-4">روش پرداخت</h2>
 
-			<div className="space-y-3">
+			<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 				<label
-					className={`flex items-start gap-3 rounded-lg border p-4 cursor-pointer transition ${
+					className={`cursor-pointer rounded-lg border p-4 transition ${
 						paymentMethod === "online"
 							? "border-[var(--accent)] "
 							: "border-gray-200"
@@ -22,40 +22,38 @@ export default function PaymentMethod({
 					<input
 						type="radio"
 						name="paymentMethod"
-						value="online"
 						checked={paymentMethod === "online"}
-						onChange={onChange}
-						className="mt-1 cursor-pointer"
+						onChange={() => onChange("online")}
+						className="hidden"
 					/>
-					<div>
-						<p className="font-medium">پرداخت آنلاین</p>
-						<p className="text-sm text-[var(--text-secondary)]">
-							پرداخت از طریق درگاه بانکی
-						</p>
+					<div className="font-medium text-[var(--text-primary)]">
+						پرداخت آنلاین
 					</div>
+					<p className="text-sm text-[var(--text-primary)] mt-1">
+						پرداخت از طریق درگاه بانکی
+					</p>
 				</label>
 
 				<label
-					className={`flex items-start gap-3 rounded-lg border p-4 cursor-pointer transition ${
-						paymentMethod === "cod"
-							? "border-[var(--accent)] bg-gray-50"
+					className={`cursor-pointer rounded-lg border p-4 transition ${
+						paymentMethod === "cash"
+							? "border-[var(--accent)] "
 							: "border-gray-200"
 					}`}
 				>
 					<input
 						type="radio"
 						name="paymentMethod"
-						value="cod"
-						checked={paymentMethod === "cod"}
-						onChange={onChange}
-						className="mt-1 cursor-pointer"
+						checked={paymentMethod === "cash"}
+						onChange={() => onChange("cash")}
+						className="hidden"
 					/>
-					<div>
-						<p className="font-medium">پرداخت در محل</p>
-						<p className="text-sm text-[var(--text-secondary)]">
-							پرداخت هنگام دریافت سفارش
-						</p>
+					<div className="font-medium text-[var(--text-primary)]">
+						پرداخت در محل
 					</div>
+					<p className="text-sm text-[var(--text-primary)] mt-1">
+						پرداخت هنگام دریافت سفارش
+					</p>
 				</label>
 			</div>
 		</div>
