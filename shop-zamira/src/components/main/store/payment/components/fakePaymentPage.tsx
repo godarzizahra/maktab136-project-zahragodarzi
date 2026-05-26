@@ -115,7 +115,7 @@ export default function FakePaymentPage() {
 
 		setTimeout(() => {
 			router.replace(
-				`/checkout/payment/result?status=success&orderId=${orderId}`,
+				`/checkout/result?status=success&type=online&orderId=${orderId}`,
 			);
 		}, 1200);
 	};
@@ -125,7 +125,7 @@ export default function FakePaymentPage() {
 
 		setTimeout(() => {
 			router.replace(
-				`/checkout/payment/result?status=failed&orderId=${orderId}`,
+				`/checkout/result?status=failed&type=online&orderId=${orderId}`,
 			);
 		}, 1000);
 	};

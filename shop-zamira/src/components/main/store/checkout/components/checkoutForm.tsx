@@ -50,14 +50,20 @@ export default function CheckoutForm() {
 					address: fullAddress,
 				},
 				paymentMethod: data.paymentMethod,
-				// اگر بک‌اند بعداً لازم داشت:
-				// shippingMethod: shippingMethod?.key || shippingMethod?.id,
 			};
 
 			const order = await createOrder(payload);
 
 			if (order?.success && order?.data?._id) {
-				router.push(`/checkout/payment/${order.data._id}`);
+				const orderId = order.data._id;
+
+				if (data.paymentMethod === "online") {
+					router.push(`/checkout/payment/${orderId}`);
+				} else {
+					router.push(
+						`/checkout/result?status=success&type=cash&orderId=${orderId}`,
+					);
+				}
 			} else {
 				console.error("ساختار response غیرمنتظره است:", order);
 			}
