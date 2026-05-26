@@ -26,7 +26,6 @@ export default function PriceInventoryRow({ product }: { product: Product }) {
 		setEditingPrice(false);
 		setEditingStock(false);
 	};
-	console.log("Image URL from DB:", product.images?.[0]);
 
 	return (
 		<tr className="border-b border-[var(--border)] text-[var(--text-primary)]">

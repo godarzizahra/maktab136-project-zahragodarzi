@@ -24,3 +24,12 @@ export interface Order {
 	createdAt: string;
 	updatedAt: string;
 }
+
+export interface PaginatedOrdersResponse {
+	success?: boolean;
+	count: number;
+	total: number;
+	page: number;
+	pages: number;
+	data: Order[];
+}

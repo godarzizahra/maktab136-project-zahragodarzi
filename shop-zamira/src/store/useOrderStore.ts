@@ -3,7 +3,6 @@ import {
 	updateOrderStatus,
 } from "@/components/admin/services/orderService";
 import { Order } from "@/components/admin/types/dashboardOrdersType";
-
 import toast from "react-hot-toast";
 import { create } from "zustand";
 
@@ -13,32 +12,53 @@ interface OrderState {
 	error: string | null;
 	selectedOrder: Order | null;
 	detailsOpen: boolean;
-	fetchOrders: () => Promise<void>;
+	page: number;
+	totalPages: number;
+	total: number;
+	setPage: (page: number) => void;
+	fetchOrders: (page?: number) => Promise<void>;
 	openDetails: (order: Order) => void;
 	closeDetails: () => void;
 	updateOrderStatus: (id: string, status: string) => Promise<void>;
 }
 
-export const useOrderStore = create<OrderState>((set) => ({
+export const useOrderStore = create<OrderState>((set, get) => ({
 	orders: [],
 	isLoading: false,
 	error: null,
 	selectedOrder: null,
 	detailsOpen: false,
+	page: 1,
+	totalPages: 1,
+	total: 0,
 
-	fetchOrders: async () => {
-		set({ isLoading: true });
+	setPage: (page) => set({ page }),
+
+	fetchOrders: async (pageArg) => {
+		const page = pageArg ?? get().page;
+
+		set({ isLoading: true, error: null });
+
 		try {
-			const data = await getAllOrders();
-			set({ orders: data, isLoading: false });
+			const res = await getAllOrders(page, 10);
+
+			set({
+				orders: res.data || [],
+				page: res.page || 1,
+				totalPages: res.pages || 1,
+				total: res.total || 0,
+				isLoading: false,
+			});
 		} catch {
 			toast.error("خطا در دریافت سفارش‌ها");
 			set({
 				isLoading: false,
 				orders: [],
+				error: "خطا در دریافت سفارش‌ها",
 			});
 		}
 	},
+
 	openDetails: (order) =>
 		set({
 			selectedOrder: order,
@@ -65,7 +85,6 @@ export const useOrderStore = create<OrderState>((set) => ({
 
 			toast.success("وضعیت سفارش بروزرسانی شد");
 		} catch {
-			console.error("UPDATE ERROR:", Error);
 			toast.error("خطا در بروزرسانی وضعیت سفارش");
 		}
 	},

@@ -44,7 +44,6 @@ function getStatusLabel(status: string) {
 export default function OrderRow({ order }: OrderRowProps) {
 	const openDetails = useOrderStore((state) => state.openDetails);
 	const updateOrderStatus = useOrderStore((state) => state.updateOrderStatus);
-	console.log("UPDATE ID:", order._id);
 
 	return (
 		<tr className="border-b border-[var(--border)] text-[var(--text-primary)]">

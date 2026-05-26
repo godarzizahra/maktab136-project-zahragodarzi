@@ -8,7 +8,6 @@ export const api = axios.create({
 
 // REQUEST INTERCEPTOR
 api.interceptors.request.use((config) => {
-	// اگر در حال فراخوانیِ رفرش توکن هستیم، نیازی به اضافه کردن توکن نداریم
 	if (config.url !== "/auth/refresh-token") {
 		const token = getCookie("access_token");
 		if (token) {
@@ -46,13 +45,6 @@ api.interceptors.response.use(
 				originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
 				return api(originalRequest); // ارسال دوباره درخواست اصلی
 			} catch (refreshError: any) {
-				// ۳. این لاگ برای ما حیاتی است
-				// console.error("DEBUG: Refresh token process FAILED!");
-				// console.error(
-				// 	"Error details:",
-				// 	refreshError.response?.data || refreshError.message,
-				// );
-
 				logoutUser(); // فقط اگر رفرش واقعاً شکست خورد لاگ‌اوت کن
 				return Promise.reject(refreshError);
 			}
@@ -63,10 +55,17 @@ api.interceptors.response.use(
 
 // تابع کمکی برای لاگ‌اوت
 function logoutUser() {
+	const role = getCookie("role");
+
 	deleteCookie("access_token");
 	deleteCookie("refresh_token");
 	deleteCookie("role");
+
 	if (typeof window !== "undefined") {
-		window.location.href = "/admin/admin-portal/login-x92f7c"; // یا آدرس صفحه لاگین ادمین
+		if (role === "admin") {
+			window.location.href = "/admin/admin-portal/login-x92f7c";
+		} else {
+			window.location.href = "/login";
+		}
 	}
 }

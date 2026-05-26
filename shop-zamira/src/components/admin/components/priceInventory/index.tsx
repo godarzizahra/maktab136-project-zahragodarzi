@@ -2,7 +2,7 @@
 
 import { useProductStore } from "@/store/useProductStore";
 import { useEffect } from "react";
-import Pagination from "../products/pagination";
+import Pagination from "../../../base/pagination";
 import PriceInventoryTable from "./PriceInventoryTable";
 import PriceInventoryHeader from "./priceInventoryHeader";
 
@@ -11,12 +11,16 @@ export default function PriceInventoryPageClient() {
 	const fetchProducts = useProductStore((state) => state.fetchProducts);
 	useEffect(() => {
 		fetchProducts();
-	}, [fetchProducts]);
+	}, [fetchProducts, page]);
 	return (
 		<div>
 			<PriceInventoryHeader />
 			<PriceInventoryTable />
-			<Pagination page={page} totalPages={totalPages} onPageChange={setPage} />
+			<Pagination
+				currentPage={page}
+				totalPages={totalPages}
+				onPageChange={setPage}
+			/>
 		</div>
 	);
 }

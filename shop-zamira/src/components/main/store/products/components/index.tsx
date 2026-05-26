@@ -1,5 +1,6 @@
 import { getProducts } from "@/services/productService";
-import Pagination from "./pagination";
+
+import Pagination from "@/components/base/pagination";
 import ProductsGrid from "./productsGrid";
 
 interface Props {
