@@ -9,7 +9,7 @@ import {
 	validatePassword,
 	validateYear,
 } from "@/utils/fakePayment";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { getOrderById, OrderData } from "../../checkout/services/orderService";
 import PaymentCardForm from "./paymentCardForm";
@@ -35,6 +35,7 @@ const initialTouched: TouchedFields = {
 export default function FakePaymentPage() {
 	const router = useRouter();
 	const params = useParams<{ orderId: string }>();
+	const searchParams = useSearchParams();
 	const orderId = params.orderId;
 
 	const [pageLoading, setPageLoading] = useState(true);
@@ -66,8 +67,16 @@ export default function FakePaymentPage() {
 	}, [orderId]);
 
 	const payableAmount = useMemo(() => {
-		return order?.payablePrice || order?.finalPrice || order?.totalPrice || 0;
-	}, [order]);
+		const amountFromQuery = Number(searchParams.get("amount") || 0);
+
+		return (
+			amountFromQuery ||
+			order?.payablePrice ||
+			order?.finalPrice ||
+			order?.totalPrice ||
+			0
+		);
+	}, [order, searchParams]);
 
 	const errors = {
 		cardNumber:

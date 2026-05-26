@@ -45,6 +45,8 @@ export default function CheckoutForm() {
 				data.plaque ? `، پلاک ${data.plaque}` : ""
 			}${data.postalCode ? `، کدپستی ${data.postalCode}` : ""}`;
 
+			const cartState = useCartStore.getState();
+
 			const payload = {
 				shippingAddress: {
 					name: data.fullName,
@@ -52,6 +54,12 @@ export default function CheckoutForm() {
 					address: fullAddress,
 				},
 				paymentMethod: data.paymentMethod,
+				shippingMethod: cartState.shippingMethod,
+				couponCode: cartState.couponCode,
+				totalPrice: cartState.subtotal(),
+				shippingPrice: cartState.shippingCost(),
+				discountAmount: cartState.discount,
+				payablePrice: cartState.total(),
 			};
 
 			const order = await createOrder(payload);
@@ -60,7 +68,9 @@ export default function CheckoutForm() {
 				const orderId = order.data._id;
 
 				if (data.paymentMethod === "online") {
-					router.push(`/checkout/payment/${orderId}`);
+					router.push(
+						`/checkout/payment/${orderId}?amount=${cartState.total()}`,
+					);
 				} else {
 					await fetchCart();
 					router.push(
