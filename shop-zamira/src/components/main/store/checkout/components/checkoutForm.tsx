@@ -12,6 +12,8 @@ import PaymentMethod from "./paymentMethod";
 
 export default function CheckoutForm() {
 	const shippingMethod = useCartStore((state) => state.shippingMethod);
+	const fetchCart = useCartStore((state) => state.fetchCart);
+
 	const router = useRouter();
 
 	const {
@@ -60,6 +62,7 @@ export default function CheckoutForm() {
 				if (data.paymentMethod === "online") {
 					router.push(`/checkout/payment/${orderId}`);
 				} else {
+					await fetchCart();
 					router.push(
 						`/checkout/result?status=success&type=cash&orderId=${orderId}`,
 					);

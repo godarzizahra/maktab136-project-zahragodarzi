@@ -1,4 +1,7 @@
+"use client";
+import { useCartStore } from "@/store/useCartStore";
 import Link from "next/link";
+import { useEffect } from "react";
 
 type ResultPageProps = {
 	searchParams: {
@@ -17,6 +20,19 @@ export default function ResultPage({ searchParams }: ResultPageProps) {
 	const isFailed = status === "failed";
 	const isOnline = type === "online";
 	const isCash = type === "cash";
+
+	const clearCart = useCartStore((state) => state.clearCart);
+	const fetchCart = useCartStore((state) => state.fetchCart);
+	useEffect(() => {
+		const syncCart = async () => {
+			if (status === "success" && type === "online") {
+				await clearCart();
+				await fetchCart();
+			}
+		};
+
+		syncCart();
+	}, [status, type, clearCart, fetchCart]);
 
 	return (
 		<div className="mx-auto max-w-2xl px-4 py-10 mt-30 text-center">
