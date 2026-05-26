@@ -18,6 +18,7 @@ export default function ProductActions({ product }: Props) {
 	const addItem = useCartStore((s) => s.addItem);
 	const updateItemQty = useCartStore((s) => s.updateItemQty);
 	const removeItem = useCartStore((s) => s.removeItem);
+	const isOutOfStock = product.stock <= 0;
 
 	const cartItem = useMemo(() => {
 		return cart?.items?.find((it) => it.product?._id === product._id) ?? null;
@@ -26,6 +27,7 @@ export default function ProductActions({ product }: Props) {
 	const qty = cartItem?.quantity ?? 0;
 
 	const handleAdd = async () => {
+		if (product.stock <= 0) return;
 		try {
 			await addItem({ productId: String(product._id), quantity: 1 });
 		} catch (error: any) {
@@ -66,11 +68,15 @@ export default function ProductActions({ product }: Props) {
 				<Heart size={20} fill={wishlist ? "currentColor" : "none"} />
 			</button>
 
-			{qty === 0 ? (
+			{isOutOfStock ? (
+				<span className="px-6 py-3 rounded-xl bg-gray-200 text-gray-500 text-sm font-medium cursor-not-allowed">
+					ناموجود
+				</span>
+			) : qty === 0 ? (
 				<button
 					onClick={handleAdd}
-					disabled={loading || product.stock === 0}
-					className="flex items-center gap-2 px-6 py-3 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+					disabled={loading}
+					className="flex items-center gap-2 px-6 py-3 rounded-xl transition-all duration-200"
 					style={{
 						backgroundColor: "var(--primary)",
 						color: "var(--background)",
@@ -91,23 +97,16 @@ export default function ProductActions({ product }: Props) {
 						onClick={handleIncrease}
 						disabled={loading || qty >= product.stock}
 						className="px-4 py-3 transition-colors duration-200 disabled:opacity-50"
-						style={{ color: "var(--text-primary)" }}
 					>
 						<Plus size={18} />
 					</button>
 
-					<span
-						className="px-5 font-medium"
-						style={{ color: "var(--text-primary)" }}
-					>
-						{qty}
-					</span>
+					<span className="px-5 font-medium">{qty}</span>
 
 					<button
 						onClick={handleDecrease}
 						disabled={loading}
 						className="px-4 py-3 transition-colors duration-200 disabled:opacity-50"
-						style={{ color: "var(--text-primary)" }}
 					>
 						<Minus size={18} />
 					</button>

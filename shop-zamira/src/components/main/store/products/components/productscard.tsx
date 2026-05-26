@@ -42,7 +42,11 @@ export default function ProductCard({ product }: Props) {
 					className="object-cover opacity-0 transition-all duration-500 group-hover:opacity-100 group-hover:scale-110"
 				/>
 
-				<BtnProductCard productId={String(product._id)} />
+				<BtnProductCard
+					productId={String(product._id)}
+					name={product.name}
+					stock={product.stock}
+				/>
 			</div>
 
 			<div className="p-4 text-center">

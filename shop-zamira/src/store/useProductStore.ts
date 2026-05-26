@@ -7,7 +7,8 @@ import {
 	getProducts,
 	updateProduct,
 } from "@/components/admin/services/productService";
-import { Product } from "@/components/admin/types/dashboardProductsType";
+
+import { Product } from "@/components/admin/types/ProductsType";
 import toast from "react-hot-toast";
 
 interface ProductState {

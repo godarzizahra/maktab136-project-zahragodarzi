@@ -3,6 +3,23 @@ import { FeaturesData } from "../constants/featuresData";
 import ProductActions from "./productActions";
 
 export default function ProductInfo({ product }: { product: Product }) {
+	const stock = product.stock;
+
+	const stockText =
+		stock <= 0
+			? "ناموجود"
+			: stock === 1
+				? "فقط ۱ عدد باقی مانده"
+				: stock === 2
+					? "فقط ۲ عدد باقی مانده"
+					: "موجود در انبار";
+
+	const stockClass =
+		stock <= 0
+			? "text-red-500"
+			: stock <= 2
+				? "text-orange-500"
+				: "text-green-600";
 	return (
 		<div className="space-y-5 mt-8">
 			<h1 className="text-2xl font-bold text-center md:text-right">
@@ -22,11 +39,7 @@ export default function ProductInfo({ product }: { product: Product }) {
 						دسته :{product.category}
 					</p>
 					<p className="text-sm text-muted-foreground">
-						<span
-							className={product.stock > 0 ? "text-green-600" : "text-red-500"}
-						>
-							{product.stock > 0 ? " موجود در انبار" : " ناموجود"}
-						</span>
+						<span className={stockClass}>{stockText}</span>
 					</p>
 				</div>
 				<div className="bg-[#e7e7e7] p-2 rounded-xl ">
