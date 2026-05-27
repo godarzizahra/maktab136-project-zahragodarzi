@@ -11,8 +11,8 @@ import MiniCart from "./miniCart";
 
 const navLinks = [
 	{ href: "/products", label: "فروشگاه" },
-	{ href: "/men", label: "ساعت مردانه" },
-	{ href: "/women", label: "ساعت زنانه" },
+	{ href: "/products?gender=men&page=1", label: "ساعت مردانه" },
+	{ href: "/products?gender=women&page=1", label: "ساعت زنانه" },
 	{ href: "/brands", label: "برندها" },
 ];
 

@@ -10,9 +10,9 @@ import enamadd from "@/assets/image/namad.jpg";
 const accessList = [
 	{ href: "/contact", label: "تماس با ما" },
 	{ href: "/about", label: "درباره ما" },
-	{ href: "/rules", label: "قوانین و مقررات" },
-	{ href: "/products/men", label: "ساعت مردانه" },
-	{ href: "/products/women", label: "ساعت زنانه" },
+
+	{ href: "/products?gender=men&page=1", label: "ساعت مردانه" },
+	{ href: "/products?gender=women&page=1", label: "ساعت زنانه" },
 	{ href: "/products", label: "فروشگاه" },
 ];
 
