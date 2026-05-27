@@ -3,14 +3,19 @@ import Link from "next/link";
 import { useState } from "react";
 import { navLinks } from "./header";
 
-export default function MobileMenu() {
-	const [open, setOpen] = useState(false);
+type MobileMenuProps = {
+	open: boolean;
+	setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export default function MobileMenu({ open, setOpen }: MobileMenuProps) {
 	const [mobileBrandOpen, setMobileBrandOpen] = useState(false);
+
 	return (
 		<>
 			{open && (
 				<div
-					className=" absolute top-full left-0 w-full flex flex-col gap-4 px-6 py-6 md:hidden"
+					className="absolute top-full left-0 w-full h-screen flex flex-col gap-4 px-6 py-6 md:hidden z-50"
 					style={{ backgroundColor: "var(--surface)" }}
 				>
 					{navLinks.map((item) =>
@@ -30,14 +35,15 @@ export default function MobileMenu() {
 						) : (
 							<div key="brands" className="flex flex-col">
 								<button
+									type="button"
 									className="py-2 border-b text-right"
 									style={{
 										color: "var(--text-primary)",
 										borderColor: "var(--border)",
 									}}
-									onClick={() => setMobileBrandOpen(!mobileBrandOpen)}
+									onClick={() => setMobileBrandOpen((prev) => !prev)}
 								>
-									برندها
+									برندها▾
 								</button>
 
 								{mobileBrandOpen && (
@@ -45,13 +51,16 @@ export default function MobileMenu() {
 										{brands.map((brand) => (
 											<Link
 												key={brand.id}
-												href={"/"}
+												href={`/products?brand=${brand.value}&page=1`}
 												className="py-2 border-b"
 												style={{
 													color: "var(--text-primary)",
 													borderColor: "var(--border)",
 												}}
-												onClick={() => setOpen(false)}
+												onClick={() => {
+													setOpen(false);
+													setMobileBrandOpen(false);
+												}}
 											>
 												{brand.name}
 											</Link>

@@ -81,25 +81,23 @@ export default function Header() {
 									برندها▾
 								</button>
 
-								<div className="absolute top-full left-0  h-4 w-full"></div>
-
 								<div
-									className={`absolute top-full left-30 -translate-x-1/2 mt-4
-	w-[1500px] rounded-2xl shadow-xl px-10 py-6
-	transition-all duration-300 z-50
-	${brandsOpen ? "visible opacity-100 translate-y-0" : "invisible opacity-0 translate-y-2"}`}
+									className={`fixed top-[72px] left-1/2 -translate-x-1/2 mt-2
+		w-[96vw] rounded-2xl shadow-xl px-6 md:px-8 py-6
+		transition-all duration-300 z-[999]
+		${brandsOpen ? "visible opacity-100 translate-y-0" : "invisible opacity-0 translate-y-2"}`}
 									style={{
 										backgroundColor: "var(--surface)",
 										border: "1px solid var(--border)",
 									}}
 								>
-									<div className="grid grid-cols-5 gap-5">
+									<div className="grid grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-5">
 										{brands.map((brand) => (
 											<Link
 												key={brand.id}
 												href={`/products?brand=${brand.value}&page=1`}
 												onClick={() => setBrandsOpen(false)}
-												className="flex items-center justify-center rounded-xl border p-4 h-[110px]
+												className="flex items-center justify-center rounded-xl border p-4 h-[100px] md:h-[110px]
 					transition-all duration-200 hover:shadow-md hover:-translate-y-1"
 												style={{
 													borderColor: "var(--border)",
@@ -109,7 +107,7 @@ export default function Header() {
 												<Image
 													src={brand.logo}
 													alt={brand.name}
-													className="max-h-[60px] w-auto object-contain"
+													className="max-h-[50px] md:max-h-[60px] w-auto object-contain"
 												/>
 											</Link>
 										))}
@@ -135,7 +133,7 @@ export default function Header() {
 
 				<ThemeToggle />
 			</div>
-			<MobileMenu />
+			<MobileMenu open={open} setOpen={setOpen} />
 		</header>
 	);
 }
