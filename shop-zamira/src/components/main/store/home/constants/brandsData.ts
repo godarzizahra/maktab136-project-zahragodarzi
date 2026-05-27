@@ -10,14 +10,14 @@ import Tissot from "@/assets/image/tissot.png";
 import Versace from "@/assets/image/versace.png";
 
 export const brands = [
-	{ id: 1, name: "Casio", logo: casio },
-	{ id: 2, name: "Citizen", logo: Citizen },
-	{ id: 3, name: "Esprit", logo: Esprit },
-	{ id: 4, name: "Jaguar", logo: Jaguar },
-	{ id: 5, name: "Lacoste", logo: Lacoste },
-	{ id: 6, name: "Obaku", logo: Obaku },
-	{ id: 7, name: "Polo", logo: Polo },
-	{ id: 8, name: "Seiko", logo: Seiko },
-	{ id: 9, name: "Tissot", logo: Tissot },
-	{ id: 10, name: "Versace", logo: Versace },
+	{ id: 1, name: "Casio", value: "Casio", logo: casio },
+	{ id: 2, name: "Citizen", value: "Citizen", logo: Citizen },
+	{ id: 3, name: "Esprit", value: "Esprit", logo: Esprit },
+	{ id: 4, name: "Jaguar", value: "Jaguar", logo: Jaguar },
+	{ id: 5, name: "Lacoste", value: "Lacoste", logo: Lacoste },
+	{ id: 6, name: "Obaku", value: "Obaku", logo: Obaku },
+	{ id: 7, name: "Polo", value: "Polo", logo: Polo },
+	{ id: 8, name: "Seiko", value: "Seiko", logo: Seiko },
+	{ id: 9, name: "Tissot", value: "Tissot", logo: Tissot },
+	{ id: 10, name: "Versace", value: "Versace", logo: Versace },
 ];

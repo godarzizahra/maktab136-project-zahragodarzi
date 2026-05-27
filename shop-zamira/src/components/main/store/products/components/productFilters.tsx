@@ -80,7 +80,7 @@ export default function ProductFilters() {
 				<PriceFilter />
 			</Accordion>
 
-			<Accordion title="برند">
+			<Accordion title="برند ">
 				<div className="space-y-3 text-sm mt-2">
 					{brands.map((item) => (
 						<label key={item.id} className="flex gap-2 cursor-pointer">
