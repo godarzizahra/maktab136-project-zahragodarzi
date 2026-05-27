@@ -1,10 +1,10 @@
 "use client";
 
+import { logoutUser } from "@/api/logout";
+import { getCookie } from "cookies-next";
 import { LogOut, ShieldUser, User, UserCircle2 } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { getCookie } from "cookies-next";
-import { logoutUser } from "@/api/logout";
 
 export default function AccountMenu() {
 	const [open, setOpen] = useState(false);
@@ -35,7 +35,7 @@ export default function AccountMenu() {
 						<div className="py-2">
 							<Link
 								href="/login"
-								className="flex items-center gap-2 px-4 py-3 text-sm hover:bg-gray-100"
+								className="flex items-center gap-2 px-4 py-3 text-sm text-[#1e293b] hover:bg-gray-100"
 								onClick={() => setOpen(false)}
 							>
 								<UserCircle2 size={18} />
@@ -44,7 +44,7 @@ export default function AccountMenu() {
 
 							<Link
 								href="/admin/admin-portal/login-x92f7c"
-								className="flex items-center gap-2 px-4 py-3 text-sm hover:bg-gray-100"
+								className="flex items-center gap-2 px-4 py-3 text-sm text-[#1e293b] hover:bg-gray-100"
 								onClick={() => setOpen(false)}
 							>
 								<ShieldUser size={18} />
@@ -55,7 +55,7 @@ export default function AccountMenu() {
 						<div className="py-2">
 							<Link
 								href={isAdmin ? "/admin" : "/profile"}
-								className="flex items-center gap-2 px-4 py-3 text-sm hover:bg-gray-100"
+								className="flex items-center gap-2 px-4 py-3 text-sm text-[#1e293b] hover:bg-gray-100"
 								onClick={() => setOpen(false)}
 							>
 								<UserCircle2 size={18} />
@@ -67,7 +67,7 @@ export default function AccountMenu() {
 									setOpen(false);
 									logoutUser();
 								}}
-								className="flex w-full items-center gap-2 px-4 py-3 text-sm text-red-600 hover:bg-red-50"
+								className="flex w-full items-center gap-2 px-4 py-3 text-sm text-[#1e293b]  hover:bg-gray-100"
 							>
 								<LogOut size={18} />
 								<span>خروج از حساب</span>
