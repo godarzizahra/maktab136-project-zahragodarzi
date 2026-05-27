@@ -19,10 +19,10 @@ const menuItems = [
 	{ label: "آدرس", href: "/profile/address", icon: MapPin },
 	{
 		label: "اطلاعات حساب کاربری",
-		href: "/profile/account-details",
+		href: "/profile/accountDetails",
 		icon: UserCircle,
 	},
-	{ label: "علاقه مندی", href: "/profile/favorites", icon: Heart },
+	{ label: "علاقه مندی", href: "/profile/wishlist", icon: Heart },
 ];
 
 export default function ProfileSidebar() {

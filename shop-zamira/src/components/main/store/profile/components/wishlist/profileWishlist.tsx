@@ -1,0 +1,72 @@
+"use client";
+
+import { Heart } from "lucide-react";
+import Link from "next/link";
+
+type WishlistItem = {
+	id: number;
+	title: string;
+	price: string;
+	image: string;
+	href: string;
+	inStock?: boolean;
+};
+
+type Props = {
+	items?: WishlistItem[];
+};
+
+export default function ProfileWishlist({ items = [] }: Props) {
+	const hasItems = items.length > 0;
+
+	return (
+		<div className="w-full rounded-2xl border border-gray-200 bg-white p-5 shadow-sm md:p-6">
+			<div className="mb-6 text-right">
+				<h1 className="text-xl font-bold text-slate-900 md:text-2xl">
+					علاقه‌مندی‌ها
+				</h1>
+				<p className="mt-2 text-sm leading-7 text-slate-600">
+					محصولاتی که به لیست علاقه‌مندی‌های خود اضافه کرده‌اید در این بخش نمایش
+					داده می‌شوند.
+				</p>
+			</div>
+
+			{hasItems ? (
+				<div className="space-y-4">
+					{items.map((item) => (
+						<div
+							key={item.id}
+							className="flex flex-col gap-4 rounded-2xl border border-gray-200 p-4 md:flex-row md:items-center md:justify-between"
+						>
+							{/* <ProductCard product={}/> */}
+						</div>
+					))}
+				</div>
+			) : (
+				<div className="rounded-2xl border border-dashed border-gray-300 bg-gray-50 px-6 py-12 text-center">
+					<div className="mb-4 flex justify-center">
+						<div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#f7f1df]">
+							<Heart className="text-[#c8a44d]" size={26} />
+						</div>
+					</div>
+
+					<h2 className="text-lg font-bold text-slate-800">
+						لیست علاقه‌مندی‌های شما خالی است
+					</h2>
+
+					<p className="mx-auto mt-2 max-w-md text-sm leading-7 text-slate-600">
+						هنوز محصولی به علاقه‌مندی‌های خود اضافه نکرده‌اید. می‌توانید از
+						فروشگاه بازدید کرده و محصولات موردنظر خود را ذخیره کنید.
+					</p>
+
+					<Link
+						href="/shop"
+						className="mt-6 inline-flex items-center justify-center rounded-xl bg-[#d4b055] px-5 py-3 text-sm font-medium text-white transition hover:bg-[#c6a146]"
+					>
+						مشاهده فروشگاه
+					</Link>
+				</div>
+			)}
+		</div>
+	);
+}

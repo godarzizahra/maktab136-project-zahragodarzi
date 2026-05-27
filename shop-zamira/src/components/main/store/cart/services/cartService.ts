@@ -11,7 +11,7 @@ type UpdateCartItemPayload = {
 };
 export async function getCart(): Promise<Cart> {
 	const res = await api.get<CartApiResponse>("/api/cart");
-	console.log(res.data);
+
 	return res.data.data;
 }
 
