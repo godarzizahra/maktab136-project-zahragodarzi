@@ -2,22 +2,27 @@
 
 import { Product } from "@/components/admin/types/ProductsType";
 import { useCartStore } from "@/store/useCartStore";
+import { useWishlistStore } from "@/store/useWishlistStore";
 import { Heart, Minus, Plus, ShoppingCart } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 
 interface Props {
 	product: Product;
 }
 
 export default function ProductActions({ product }: Props) {
-	const [wishlist, setWishlist] = useState(false);
 	const router = useRouter();
+
 	const cart = useCartStore((s) => s.cart);
 	const loading = useCartStore((s) => s.loading);
 	const addItem = useCartStore((s) => s.addItem);
 	const updateItemQty = useCartStore((s) => s.updateItemQty);
 	const removeItem = useCartStore((s) => s.removeItem);
+
+	const toggleWishlist = useWishlistStore((s) => s.toggleItem);
+	const isInWishlist = useWishlistStore((s) => s.isInWishlist(product._id));
+
 	const isOutOfStock = product.stock <= 0;
 
 	const cartItem = useMemo(() => {
@@ -55,28 +60,29 @@ export default function ProductActions({ product }: Props) {
 	};
 
 	return (
-		<div className="flex items-center gap-3 pt-3 justify-center md:justify-start">
+		<div className="flex items-center justify-center gap-3 pt-3 md:justify-start">
 			<button
-				onClick={() => setWishlist(!wishlist)}
-				className="flex items-center justify-center w-12 h-12 rounded-xl border transition-all duration-200"
+				onClick={() => toggleWishlist(product)}
+				className="flex h-12 w-12 items-center justify-center rounded-xl border transition-all duration-200"
 				style={{
-					backgroundColor: wishlist ? "var(--accent)" : "var(--surface)",
+					backgroundColor: isInWishlist ? "var(--accent)" : "var(--surface)",
 					borderColor: "var(--border)",
-					color: wishlist ? "var(--background)" : "var(--text-primary)",
+					color: isInWishlist ? "var(--background)" : "var(--text-primary)",
 				}}
+				aria-label="افزودن به علاقه‌مندی‌ها"
 			>
-				<Heart size={20} fill={wishlist ? "currentColor" : "none"} />
+				<Heart size={20} fill={isInWishlist ? "currentColor" : "none"} />
 			</button>
 
 			{isOutOfStock ? (
-				<span className="px-6 py-3 rounded-xl bg-gray-200 text-gray-500 text-sm font-medium cursor-not-allowed">
+				<span className="cursor-not-allowed rounded-xl bg-gray-200 px-6 py-3 text-sm font-medium text-gray-500">
 					ناموجود
 				</span>
 			) : qty === 0 ? (
 				<button
 					onClick={handleAdd}
 					disabled={loading}
-					className="flex items-center gap-2 px-6 py-3 rounded-xl transition-all duration-200"
+					className="flex items-center gap-2 rounded-xl px-6 py-3 transition-all duration-200"
 					style={{
 						backgroundColor: "var(--primary)",
 						color: "var(--background)",
@@ -87,7 +93,7 @@ export default function ProductActions({ product }: Props) {
 				</button>
 			) : (
 				<div
-					className="flex items-center rounded-xl overflow-hidden border"
+					className="flex items-center overflow-hidden rounded-xl border"
 					style={{
 						borderColor: "var(--border)",
 						backgroundColor: "var(--surface)",

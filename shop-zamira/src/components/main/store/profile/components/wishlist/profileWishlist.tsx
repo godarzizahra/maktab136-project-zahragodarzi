@@ -1,23 +1,15 @@
 "use client";
 
-import { Heart } from "lucide-react";
+import { useWishlistStore } from "@/store/useWishlistStore";
+import { Heart, X } from "lucide-react";
 import Link from "next/link";
+import ProductCard from "../../../products/components/productscard";
 
-type WishlistItem = {
-	id: number;
-	title: string;
-	price: string;
-	image: string;
-	href: string;
-	inStock?: boolean;
-};
+export default function ProfileWishlist() {
+	const wishlistItems = useWishlistStore((s) => s.items);
+	const removeItem = useWishlistStore((s) => s.removeItem);
 
-type Props = {
-	items?: WishlistItem[];
-};
-
-export default function ProfileWishlist({ items = [] }: Props) {
-	const hasItems = items.length > 0;
+	const hasItems = wishlistItems.length > 0;
 
 	return (
 		<div className="w-full rounded-2xl border border-gray-200 bg-white p-5 shadow-sm md:p-6">
@@ -33,14 +25,22 @@ export default function ProfileWishlist({ items = [] }: Props) {
 
 			{hasItems ? (
 				<div className="space-y-4">
-					{items.map((item) => (
-						<div
-							key={item.id}
-							className="flex flex-col gap-4 rounded-2xl border border-gray-200 p-4 md:flex-row md:items-center md:justify-between"
-						>
-							{/* <ProductCard product={}/> */}
-						</div>
-					))}
+					<div className="grid grid-cols-4 gap-3">
+						{wishlistItems.map((item) => (
+							<div key={String(item._id)} className="relative">
+								<button
+									type="button"
+									onClick={() => removeItem(item._id)}
+									className="absolute left-3 top-3 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-red-50 text-red-500 transition hover:bg-red-100"
+									aria-label="حذف از علاقه‌مندی‌ها"
+								>
+									<X size={18} />
+								</button>
+
+								<ProductCard product={item} />
+							</div>
+						))}
+					</div>
 				</div>
 			) : (
 				<div className="rounded-2xl border border-dashed border-gray-300 bg-gray-50 px-6 py-12 text-center">
@@ -60,7 +60,7 @@ export default function ProfileWishlist({ items = [] }: Props) {
 					</p>
 
 					<Link
-						href="/shop"
+						href="/"
 						className="mt-6 inline-flex items-center justify-center rounded-xl bg-[#d4b055] px-5 py-3 text-sm font-medium text-white transition hover:bg-[#c6a146]"
 					>
 						مشاهده فروشگاه
