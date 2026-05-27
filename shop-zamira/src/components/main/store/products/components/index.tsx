@@ -11,6 +11,7 @@ interface Props {
 		category?: string;
 		minPrice?: string;
 		maxPrice?: string;
+		gender?: string;
 	};
 }
 
@@ -21,6 +22,7 @@ export default async function ProductsPageStore({ searchParams }: Props) {
 	const category = searchParams.category;
 	const minPrice = searchParams.minPrice;
 	const maxPrice = searchParams.maxPrice;
+	const gender = searchParams.gender;
 
 	const res = await getProducts({
 		page,
@@ -30,6 +32,7 @@ export default async function ProductsPageStore({ searchParams }: Props) {
 		category,
 		minPrice,
 		maxPrice,
+		gender,
 	});
 
 	return (

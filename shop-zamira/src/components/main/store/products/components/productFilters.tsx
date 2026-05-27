@@ -8,22 +8,26 @@ import Accordion from "@/components/base/accordion";
 import { useFiltersDrawer } from "../hooks/useFiltersDrawer";
 
 const categories = ["روزمره", "رسمی", "اسپرت", "ورزشی"];
+const genders = [
+	{ label: "مردانه", value: "men" },
+	{ label: "زنانه", value: "women" },
+];
 
 export default function ProductFilters() {
 	const router = useRouter();
 	const pathname = usePathname();
 	const searchParams = useSearchParams();
 	const { closeDrawer } = useFiltersDrawer();
-	// جایگزین کردن منطق قبلی
+
 	const hasFilters = searchParams.toString().length > 0;
 
 	const clearAllFilters = () => {
-		// حذف تمام پارامترهای جستجو به جز موارد ضروری (اگر چیزی دارید)
 		router.push(pathname);
 		closeDrawer();
 	};
 	const selectedBrands = searchParams.get("brand")?.split(",") || [];
 	const selectedCategories = searchParams.get("category")?.split(",") || [];
+	const selectGender = searchParams.get("gender")?.split(",") || [];
 	const toggleFilter = (key: string, value: string) => {
 		const params = new URLSearchParams(searchParams.toString());
 
@@ -101,6 +105,20 @@ export default function ProductFilters() {
 								onChange={() => toggleFilter("category", cat)}
 							/>
 							{cat}
+						</label>
+					))}
+				</div>
+			</Accordion>
+			<Accordion title="جنسیت">
+				<div className="space-y-3 text-sm mt-2">
+					{genders.map((item) => (
+						<label key={item.value} className="flex gap-2 cursor-pointer">
+							<input
+								type="checkbox"
+								checked={selectGender.includes(item.value)}
+								onChange={() => toggleFilter("gender", item.value)}
+							/>
+							{item.label}
 						</label>
 					))}
 				</div>
