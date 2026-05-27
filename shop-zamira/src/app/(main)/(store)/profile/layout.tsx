@@ -6,11 +6,16 @@ export default function ProfileLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<div className="container flex flex-row-reverse gap-3 mx-auto px-4 py-8 mt-20">
-			<aside className="order-1 md:order-2">
-				<ProfileSidebar />
-			</aside>
-			<main className="order-2 md:order-1">{children}</main>
+		<div className="mt-20 px-4 py-6 md:px-6 lg:px-8">
+			<div className="mx-auto w-full max-w-[1400px]">
+				<div className="grid grid-cols-1 gap-6 lg:grid-cols-[300px_minmax(0,1fr)]">
+					<aside className="w-full">
+						<ProfileSidebar />
+					</aside>
+
+					<main className="min-w-0 w-full">{children}</main>
+				</div>
+			</div>
 		</div>
 	);
 }
