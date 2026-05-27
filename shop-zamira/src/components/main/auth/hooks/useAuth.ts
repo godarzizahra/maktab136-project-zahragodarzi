@@ -10,12 +10,20 @@ export function useAuth() {
 	const registerUserHandler = async (data: RegisterSchemaType) => {
 		setLoading(true);
 		setError("");
+
 		try {
 			const res = await registerUser(data);
-			return res;
+			const user = res?.data?.user;
+
+			return {
+				response: res,
+				user,
+				isAdmin: String(user?.role).toLowerCase() === "admin",
+			};
 		} catch (err: any) {
-			setError(err.response?.data?.message || "Register failed");
-			throw err;
+			const message = err.response?.data?.message || "Register failed";
+			setError(message);
+			throw new Error(message);
 		} finally {
 			setLoading(false);
 		}
@@ -24,12 +32,20 @@ export function useAuth() {
 	const login = async (data: LoginSchemaType) => {
 		setLoading(true);
 		setError("");
+
 		try {
 			const res = await loginUser(data);
-			return res;
+			const user = res?.data?.user;
+
+			return {
+				response: res,
+				user,
+				isAdmin: String(user?.role).toLowerCase() === "admin",
+			};
 		} catch (err: any) {
-			setError(err.response?.data?.message || "Login failed");
-			throw err;
+			const message = err.response?.data?.message || "Login failed";
+			setError(message);
+			throw new Error(message);
 		} finally {
 			setLoading(false);
 		}

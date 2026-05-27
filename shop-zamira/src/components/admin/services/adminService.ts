@@ -20,6 +20,6 @@ export function logout() {
 	deleteCookie("role", { path: "/" });
 
 	if (typeof window !== "undefined") {
-		window.location.href = "/login";
+		window.location.href = "/admin/admin-portal/login-x92f7c";
 	}
 }

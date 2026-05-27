@@ -18,21 +18,14 @@ export default function Login() {
 
 	const onSubmit = async (data: LoginSchemaType) => {
 		try {
-			const res = await login(data);
-			const user = res.data.user;
+			const { isAdmin } = await login(data);
 
-			toast.success("خوش آمدید! ورود با موفقیت انجام شد.");
+			toast.success("خوش آمدید، ورود با موفقیت انجام شد");
 			form.reset();
 
-			if (user?.role === "admin") {
-				router.push("/admin");
-			} else {
-				router.push("/");
-			}
+			router.push(isAdmin ? "/admin" : "/");
 		} catch (err: any) {
-			const errorMsg =
-				err.response?.data?.message || "ایمیل یا رمز عبور اشتباه است.";
-			toast.error(errorMsg);
+			toast.error(err.message || "ایمیل یا رمز عبور اشتباه است.");
 		}
 	};
 

@@ -115,13 +115,7 @@ export default function Header() {
 				>
 					<Search size={24} />
 				</button>
-				<AccountMenu
-					isLoggedIn={false}
-					isAdmin={false}
-					onLogout={() => {
-						console.log("logout");
-					}}
-				/>
+				<AccountMenu />
 
 				<MiniCart />
 

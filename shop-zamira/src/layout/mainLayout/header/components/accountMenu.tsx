@@ -2,20 +2,22 @@
 
 import { LogOut, ShieldUser, User, UserCircle2 } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getCookie } from "cookies-next";
+import { logoutUser } from "@/api/logout";
 
-type AccountMenuProps = {
-	isLoggedIn: boolean;
-	isAdmin?: boolean;
-	onLogout?: () => void;
-};
-
-export default function AccountMenu({
-	isLoggedIn,
-	isAdmin = false,
-	onLogout,
-}: AccountMenuProps) {
+export default function AccountMenu() {
 	const [open, setOpen] = useState(false);
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const [isAdmin, setIsAdmin] = useState(false);
+
+	useEffect(() => {
+		const token = getCookie("access_token");
+		const role = getCookie("role");
+
+		setIsLoggedIn(!!token);
+		setIsAdmin(role === "admin");
+	}, []);
 
 	return (
 		<div className="relative">
@@ -28,7 +30,7 @@ export default function AccountMenu({
 			</button>
 
 			{open && (
-				<div className="absolute left-0 mt-3 w-52 rounded-2xl border bg-white shadow-lg z-50 overflow-hidden">
+				<div className="absolute left-0 top-4 mt-3 z-50 w-52 overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-md">
 					{!isLoggedIn ? (
 						<div className="py-2">
 							<Link
@@ -59,10 +61,11 @@ export default function AccountMenu({
 								<UserCircle2 size={18} />
 								<span>{isAdmin ? "پنل ادمین" : "پروفایل"}</span>
 							</Link>
+
 							<button
 								onClick={() => {
 									setOpen(false);
-									onLogout?.();
+									logoutUser();
 								}}
 								className="flex w-full items-center gap-2 px-4 py-3 text-sm text-red-600 hover:bg-red-50"
 							>

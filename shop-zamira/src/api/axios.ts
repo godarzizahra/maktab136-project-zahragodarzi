@@ -1,6 +1,7 @@
 import axios from "axios";
-import { deleteCookie, getCookie, setCookie } from "cookies-next";
+import { getCookie, setCookie } from "cookies-next";
 import { API_BASE_URL } from "./baseUrl";
+import { logoutUser } from "./logout";
 
 export const api = axios.create({
 	baseURL: API_BASE_URL,
@@ -52,20 +53,3 @@ api.interceptors.response.use(
 		return Promise.reject(error);
 	},
 );
-
-// تابع کمکی برای لاگ‌اوت
-function logoutUser() {
-	const role = getCookie("role");
-
-	deleteCookie("access_token");
-	deleteCookie("refresh_token");
-	deleteCookie("role");
-
-	if (typeof window !== "undefined") {
-		if (role === "admin") {
-			window.location.href = "/admin/admin-portal/login-x92f7c";
-		} else {
-			window.location.href = "/login";
-		}
-	}
-}

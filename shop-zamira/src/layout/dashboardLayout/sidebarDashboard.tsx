@@ -1,7 +1,7 @@
 "use client";
 
+import { logoutUser } from "@/api/logout";
 import logo from "@/assets/image/LOGO1.png";
-import { logout } from "@/components/admin/services/adminService";
 import {
 	Boxes,
 	LayoutDashboard,
@@ -34,7 +34,7 @@ export default function SidebarDashboard({
 	const pathname = usePathname();
 	const router = useRouter();
 	const handleLogout = () => {
-		logout();
+		logoutUser();
 		router.push("/admin/admin-portal/login-x92f7c");
 	};
 
