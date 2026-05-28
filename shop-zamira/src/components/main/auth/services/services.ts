@@ -1,4 +1,4 @@
-import { api } from "@/api/axios";
+import { api } from "@/api/interceptor";
 import { setCookie } from "cookies-next";
 import { LoginSchemaType } from "../schemas/login.schema";
 import { RegisterSchemaType } from "../schemas/register.schema";

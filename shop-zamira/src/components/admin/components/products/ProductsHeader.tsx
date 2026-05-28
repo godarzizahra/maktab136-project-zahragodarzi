@@ -11,7 +11,9 @@ export default function ProductsHeader() {
 
 	return (
 		<div className="flex items-center justify-between mb-2 px-2">
-			<h1 className="text-2xl font-bold text-[var(--border)]">محصولات</h1>
+			<h1 className="text-2xl font-bold text-[var(--text-secondary)]">
+				محصولات
+			</h1>
 
 			<div className="flex items-center gap-3 w-full sm:w-auto">
 				<SearchInput

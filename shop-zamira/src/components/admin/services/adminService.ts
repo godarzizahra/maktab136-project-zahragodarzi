@@ -1,7 +1,7 @@
 import { deleteCookie, setCookie } from "cookies-next";
 
-import { api } from "@/api/axios";
 import { API_BASE_URL } from "@/api/baseUrl";
+import { api } from "@/api/interceptor";
 
 export async function adminLogin(payload: { email: string; password: string }) {
 	const response = await api.post(`${API_BASE_URL}/api/auth/login`, payload);

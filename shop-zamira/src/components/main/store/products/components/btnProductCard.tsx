@@ -1,8 +1,8 @@
 "use client";
 
 import { useCartStore } from "@/store/useCartStore";
+import { useRouter } from "next/navigation";
 import { MouseEvent } from "react";
-import toast from "react-hot-toast";
 
 type AddToCartButtonProps = {
 	productId: string;
@@ -14,20 +14,25 @@ export default function BtnProductCard({
 	name,
 	stock,
 }: AddToCartButtonProps) {
+	const router = useRouter(); // ۲. استفاده از روتر
 	const addItem = useCartStore((state) => state.addItem);
 	const loading = useCartStore((state) => state.loading);
 
 	const isOutOfStock = stock <= 0;
+
 	const handleAddToCart = async (e: MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
 		e.stopPropagation();
 
 		if (isOutOfStock) return;
-		await addItem({
-			productId,
-			quantity: 1,
-		});
-		toast.success(`${name} به سبد خرید شما اضافه شد `);
+
+		try {
+			await addItem({ productId, quantity: 1 });
+		} catch (error: any) {
+			if (error?.response?.status === 401) {
+				router.push("/login");
+			}
+		}
 	};
 	return (
 		<button

@@ -1,4 +1,4 @@
-import { api } from "@/api/axios";
+import { api } from "@/api/interceptor";
 import { getCookie } from "cookies-next";
 import { ProductFormData } from "../schema/modalProductSchema";
 

@@ -1,3 +1,4 @@
+import { ThemeProvider } from "@/components/providers/theme-provider";
 import type { Metadata } from "next";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
@@ -16,7 +17,7 @@ export default function RootLayout({
 	return (
 		<html lang="fa" dir="rtl" className=" h-full" suppressHydrationWarning>
 			<body className="min-h-full flex flex-col font-vazir">
-				{children}
+				<ThemeProvider>{children}</ThemeProvider>
 				<Toaster position="top-center" />
 			</body>
 		</html>

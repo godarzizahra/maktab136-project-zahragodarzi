@@ -2,7 +2,7 @@
 
 import { logoutUser } from "@/api/logout";
 import { getCookie } from "cookies-next";
-import { LogOut, ShieldUser, User, UserCircle2 } from "lucide-react";
+import { Heart, LogOut, ShieldUser, User, UserCircle2 } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -61,6 +61,17 @@ export default function AccountMenu() {
 								<UserCircle2 size={18} />
 								<span>{isAdmin ? "پنل ادمین" : "پروفایل"}</span>
 							</Link>
+
+							{isLoggedIn && !isAdmin && (
+								<Link
+									href={"/profile/wishlist"}
+									className="flex items-center gap-2 px-4 py-3 text-sm text-[#1e293b] hover:bg-gray-100"
+									onClick={() => setOpen(false)}
+								>
+									<Heart size={18} />
+									علاقه مندی ها
+								</Link>
+							)}
 
 							<button
 								onClick={() => {

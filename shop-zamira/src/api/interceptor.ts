@@ -1,7 +1,6 @@
 import axios from "axios";
 import { getCookie, setCookie } from "cookies-next";
 import { API_BASE_URL } from "./baseUrl";
-import { logoutUser } from "./logout";
 
 export const api = axios.create({
 	baseURL: API_BASE_URL,
@@ -44,9 +43,11 @@ api.interceptors.response.use(
 				setCookie("access_token", newAccessToken, { path: "/" });
 
 				originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-				return api(originalRequest); // ارسال دوباره درخواست اصلی
+				return api(originalRequest);
 			} catch (refreshError: any) {
-				logoutUser(); // فقط اگر رفرش واقعاً شکست خورد لاگ‌اوت کن
+				if (typeof window !== "undefined") {
+					window.location.href = "/login";
+				}
 				return Promise.reject(refreshError);
 			}
 		}

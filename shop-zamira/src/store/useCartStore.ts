@@ -115,11 +115,15 @@ export const useCartStore = create<CartStoreState>((set, get) => ({
 			set({ loading: true, error: null });
 			const cart = await addToCart(payload);
 			set({ cart, loading: false });
+
+			toast.success("محصول به سبد خرید اضافه شد");
 		} catch (e: any) {
 			const message =
 				e?.response?.data?.message || e?.message || "خطا در افزودن به سبد خرید";
 			set({ loading: false, error: message });
 			toast.error(message);
+
+			throw e;
 		}
 	},
 

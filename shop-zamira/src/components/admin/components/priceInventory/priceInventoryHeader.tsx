@@ -9,7 +9,7 @@ export default function PriceInventoryHeader() {
 	return (
 		<div className="mb-4 flex flex-col mb-2 px-2   ">
 			<div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
-				<h1 className="text-2xl font-bold text-[var(--border)]">
+				<h1 className="text-2xl font-bold text-[var(--text-secondary)]">
 					قیمت و موجودی
 				</h1>
 

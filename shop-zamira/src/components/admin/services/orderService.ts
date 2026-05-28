@@ -1,5 +1,5 @@
-import { api } from "@/api/axios";
 import { API_BASE_URL } from "@/api/baseUrl";
+import { api } from "@/api/interceptor";
 import { PaginatedOrdersResponse } from "../types/dashboardOrdersType";
 
 export async function getAllOrders(

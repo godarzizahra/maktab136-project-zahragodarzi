@@ -25,7 +25,7 @@ export default function ConfirmModal({
 				<div className="flex justify-end gap-3">
 					<button
 						onClick={onCancel}
-						className="px-4 py-2 rounded-md border bg-gray-300 hover:bg-gray-100"
+						className="px-4 py-2 rounded-md border text-[#0f172a] bg-gray-300 hover:bg-gray-100"
 					>
 						انصراف
 					</button>

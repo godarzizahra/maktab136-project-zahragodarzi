@@ -1,4 +1,4 @@
-import { api } from "@/api/axios";
+import { api } from "@/api/interceptor";
 import { OrdersResponse } from "../types/getOrdersType";
 
 export async function getMyOrders(): Promise<OrdersResponse> {
