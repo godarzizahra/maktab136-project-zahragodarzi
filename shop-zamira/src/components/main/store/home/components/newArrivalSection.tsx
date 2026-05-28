@@ -13,7 +13,7 @@ export default async function NewArrivalSection() {
 		<section className="py-12 relative">
 			<div className="container mx-auto px-4 mb-8">
 				<h2 className="text-2xl md:text-3xl font-bold text-center">
-					پرفروش‌ترین ساعت‌ها
+					جدیدترین ساعت‌ها
 				</h2>
 			</div>
 

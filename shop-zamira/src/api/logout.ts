@@ -9,9 +9,9 @@ export function logoutUser() {
 
 	if (typeof window !== "undefined") {
 		if (role === "admin") {
-			window.location.href = "/admin/admin-portal/login-x92f7c";
+			window.location.href = "/";
 		} else {
-			window.location.href = "/login";
+			window.location.href = "/";
 		}
 	}
 }

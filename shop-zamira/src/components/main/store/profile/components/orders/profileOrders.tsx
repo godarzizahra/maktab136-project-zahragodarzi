@@ -1,15 +1,25 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { useOrders } from "../../hooks/useOrderProfile";
+import { useEffect, useMemo, useState } from "react";
+
 import type { Order } from "../../types/getOrdersType";
 import OrderDetailsModal from "./OrderDetailsModal";
 import OrdersMobileList from "./OrdersMobileList";
-import { StatusBadge } from "./statusBadge";
+import OrderDesktopList from "./orderDesktopList";
+import { useUserOrdersStore } from "@/store/useUserOrdersStore";
 
 export default function ProfileOrders() {
-	const { rawOrders, orders, loading, error } = useOrders();
+	const rawOrders = useUserOrdersStore((s) => s.rawOrders);
+	const orders = useUserOrdersStore((s) => s.orders);
+	const isLoading = useUserOrdersStore((s) => s.isLoading);
+	const error = useUserOrdersStore((s) => s.error);
+	const fetchOrders = useUserOrdersStore((s) => s.fetchOrders);
+
 	const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null);
+
+	useEffect(() => {
+		fetchOrders();
+	}, [fetchOrders]);
 
 	const selectedOrder = useMemo<Order | null>(() => {
 		if (!selectedOrderId) return null;
@@ -25,7 +35,7 @@ export default function ProfileOrders() {
 					</h1>
 				</div>
 
-				{loading ? (
+				{isLoading ? (
 					<div className="px-4 py-10 text-center text-sm text-gray-500 sm:px-6">
 						در حال دریافت سفارش‌ها...
 					</div>
@@ -39,45 +49,10 @@ export default function ProfileOrders() {
 					</div>
 				) : (
 					<>
-						{/* Desktop */}
-						<div className="hidden w-full lg:block">
-							<div className="grid grid-cols-[140px_180px_160px_220px_1fr] items-center gap-4 border-b border-gray-100 px-6 py-4 text-sm font-semibold text-slate-700">
-								<div className="text-right">سفارش</div>
-								<div className="text-right">تاریخ</div>
-								<div className="text-right">وضعیت</div>
-								<div className="text-right">مجموع</div>
-								<div className="text-right">عملیات ها</div>
-							</div>
-
-							{orders.map((order) => (
-								<div
-									key={order.rawId}
-									className="grid grid-cols-[140px_180px_160px_220px_1fr] items-center gap-4 px-6 py-4 text-sm text-slate-700"
-								>
-									<div className="text-right font-medium text-slate-800">
-										{order.id}
-									</div>
-									<div className="text-right">{order.date}</div>
-									<div className="text-right">
-										<StatusBadge status={order.status} />
-									</div>
-									<div className="text-right">
-										<span className="font-bold text-[#c8a44d]">
-											{order.total}
-										</span>
-									</div>
-
-									<div className="flex justify-start gap-2">
-										<button
-											onClick={() => setSelectedOrderId(order.rawId)}
-											className="inline-flex items-center justify-center rounded-md bg-[#d4b055] px-4 py-2 text-sm font-medium text-white transition hover:bg-[#c6a146]"
-										>
-											نمایش
-										</button>
-									</div>
-								</div>
-							))}
-						</div>
+						<OrderDesktopList
+							orders={orders}
+							onOpenDetails={setSelectedOrderId}
+						/>
 
 						<OrdersMobileList
 							orders={orders}
