@@ -11,7 +11,7 @@ export default function MiniCart() {
 
 	const items = cart?.items ?? [];
 
-	const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
+	const itemCount = items.length;
 
 	const totalPrice = items.reduce(
 		(sum, item) => sum + item.product.price * item.quantity,

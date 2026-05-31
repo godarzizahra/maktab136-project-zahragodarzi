@@ -12,7 +12,7 @@ export default function ProductInfo({ product }: { product: Product }) {
 				? "فقط ۱ عدد باقی مانده"
 				: stock === 2
 					? "فقط ۲ عدد باقی مانده"
-					: "موجود در انبار";
+					: `${stock} عدد موجود`;
 
 	const stockClass =
 		stock <= 0

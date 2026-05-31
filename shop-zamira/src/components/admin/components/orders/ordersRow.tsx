@@ -61,15 +61,13 @@ export default function OrderRow({ order }: OrderRowProps) {
 				<select
 					value={order.status}
 					onChange={(e) => updateOrderStatus(order._id, e.target.value)}
-					className={`px-3 py-1 rounded-md text-sm focus:outline-none border 
-    ${getStatusClass(order.status)}
-  `}
+					className={`px-3 py-1 rounded-md text-sm focus:outline-none border ${getStatusClass(order.status)}`}
 				>
-					<option value="pending">در انتظار تایید</option>
-					<option value="confirmed">تایید شده</option>
-					<option value="shipping">در حال ارسال</option>
-					<option value="delivered">تحویل داده شده</option>
-					<option value="cancelled">لغو شده</option>
+					<option value="pending">{getStatusLabel("pending")}</option>
+					<option value="confirmed">{getStatusLabel("confirmed")}</option>
+					<option value="shipping">{getStatusLabel("shipping")}</option>
+					<option value="delivered">{getStatusLabel("delivered")}</option>
+					<option value="cancelled">{getStatusLabel("cancelled")}</option>
 				</select>
 			</td>
 

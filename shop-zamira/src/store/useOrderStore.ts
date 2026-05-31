@@ -6,6 +6,14 @@ import { Order } from "@/components/admin/types/dashboardOrdersType";
 import toast from "react-hot-toast";
 import { create } from "zustand";
 
+type StatusFilter =
+	| "all"
+	| "pending"
+	| "confirmed"
+	| "shipping"
+	| "delivered"
+	| "cancelled";
+
 interface OrderState {
 	orders: Order[];
 	isLoading: boolean;
@@ -15,6 +23,10 @@ interface OrderState {
 	page: number;
 	totalPages: number;
 	total: number;
+
+	statusFilter: StatusFilter;
+	setStatusFilter: (status: StatusFilter) => void;
+
 	setPage: (page: number) => void;
 	fetchOrders: (page?: number) => Promise<void>;
 	openDetails: (order: Order) => void;
@@ -32,15 +44,23 @@ export const useOrderStore = create<OrderState>((set, get) => ({
 	totalPages: 1,
 	total: 0,
 
+	statusFilter: "all",
+
+	setStatusFilter: async (status) => {
+		set({ statusFilter: status, page: 1 });
+		await get().fetchOrders(1);
+	},
+
 	setPage: (page) => set({ page }),
 
 	fetchOrders: async (pageArg) => {
 		const page = pageArg ?? get().page;
+		const statusFilter = get().statusFilter;
 
 		set({ isLoading: true, error: null });
 
 		try {
-			const res = await getAllOrders(page, 10);
+			const res = await getAllOrders(page, 10, statusFilter);
 
 			set({
 				orders: res.data || [],

@@ -118,8 +118,7 @@ export const useCartStore = create<CartStoreState>((set, get) => ({
 
 			toast.success("محصول به سبد خرید اضافه شد");
 		} catch (e: any) {
-			const message =
-				e?.response?.data?.message || e?.message || "خطا در افزودن به سبد خرید";
+			const message = "برای ثبت سفارش حتما باید لاگین کنید";
 			set({ loading: false, error: message });
 			toast.error(message);
 

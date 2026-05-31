@@ -6,10 +6,13 @@ import { useWishlistStore } from "@/store/useWishlistStore";
 import { Heart, Minus, Plus, ShoppingCart } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useMemo } from "react";
+import toast from "react-hot-toast";
 
 interface Props {
 	product: Product;
 }
+
+const MAX_QTY_PER_ITEM = 3;
 
 export default function ProductActions({ product }: Props) {
 	const router = useRouter();
@@ -24,6 +27,7 @@ export default function ProductActions({ product }: Props) {
 	const isInWishlist = useWishlistStore((s) => s.isInWishlist(product._id));
 
 	const isOutOfStock = product.stock <= 0;
+	const maxAllowedQty = Math.min(product.stock, MAX_QTY_PER_ITEM);
 
 	const cartItem = useMemo(() => {
 		return cart?.items?.find((it) => it.product?._id === product._id) ?? null;
@@ -32,7 +36,13 @@ export default function ProductActions({ product }: Props) {
 	const qty = cartItem?.quantity ?? 0;
 
 	const handleAdd = async () => {
-		if (product.stock <= 0) return;
+		if (isOutOfStock) return;
+
+		if (qty >= maxAllowedQty) {
+			toast.error(`حداکثر ${maxAllowedQty} عدد از این محصول قابل سفارش است`);
+			return;
+		}
+
 		try {
 			await addItem({ productId: String(product._id), quantity: 1 });
 		} catch (error: any) {
@@ -44,13 +54,18 @@ export default function ProductActions({ product }: Props) {
 
 	const handleIncrease = async () => {
 		if (!cartItem) return handleAdd();
-		if (qty >= product.stock) return;
+
+		if (qty >= maxAllowedQty) {
+			toast.error(`حداکثر ${maxAllowedQty} عدد از این محصول قابل سفارش است`);
+			return;
+		}
 
 		await updateItemQty(cartItem._id, qty + 1);
 	};
 
 	const handleDecrease = async () => {
 		if (!cartItem) return;
+
 		if (qty <= 1) {
 			await removeItem(cartItem._id);
 			return;
@@ -101,7 +116,7 @@ export default function ProductActions({ product }: Props) {
 				>
 					<button
 						onClick={handleIncrease}
-						disabled={loading || qty >= product.stock}
+						disabled={loading || qty >= maxAllowedQty}
 						className="px-4 py-3 transition-colors duration-200 disabled:opacity-50"
 					>
 						<Plus size={18} />

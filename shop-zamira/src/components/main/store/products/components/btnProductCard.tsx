@@ -6,15 +6,13 @@ import { MouseEvent } from "react";
 
 type AddToCartButtonProps = {
 	productId: string;
-	name?: string;
 	stock: number;
 };
 export default function BtnProductCard({
 	productId,
-	name,
 	stock,
 }: AddToCartButtonProps) {
-	const router = useRouter(); // ۲. استفاده از روتر
+	const router = useRouter();
 	const addItem = useCartStore((state) => state.addItem);
 	const loading = useCartStore((state) => state.loading);
 

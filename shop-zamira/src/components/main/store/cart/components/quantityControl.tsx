@@ -1,4 +1,5 @@
 import { toPersian } from "@/utils/persianUtils";
+import { Trash2 } from "lucide-react";
 
 type Props = {
 	quantity: number;
@@ -11,6 +12,7 @@ export default function QuantityControl({
 	onIncrease,
 	onDecrease,
 }: Props) {
+	const isRemovable = quantity <= 1;
 	return (
 		<div className="inline-flex items-center border border-gray-200 rounded-3xl overflow-hidden">
 			<button
@@ -27,11 +29,12 @@ export default function QuantityControl({
 			</div>
 
 			<button
-				onClick={onDecrease}
+				onClick={() => onDecrease?.()}
 				className="w-10 h-10 flex items-center justify-center cursor-pointer"
 				type="button"
+				aria-label={isRemovable ? "حذف محصول" : "کاهش تعداد"}
 			>
-				-
+				{isRemovable ? <Trash2 size={16} /> : "-"}
 			</button>
 		</div>
 	);

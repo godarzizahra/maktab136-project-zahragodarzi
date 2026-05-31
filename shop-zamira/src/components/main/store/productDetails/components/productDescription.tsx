@@ -7,9 +7,10 @@ export default function ProductDescription({
 }) {
 	return (
 		<Accordion title="توضیحات محصول">
-			<p className="container border rounded-2xl border-[var(--border)] p-3 leading-7 text-sm">
-				{description}
-			</p>
+			<div
+				className="container border rounded-2xl border-[var(--border)] p-3 leading-7 text-sm"
+				dangerouslySetInnerHTML={{ __html: description || "" }}
+			/>
 		</Accordion>
 	);
 }
