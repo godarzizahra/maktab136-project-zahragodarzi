@@ -36,7 +36,11 @@ export default function Footer() {
 
 					<div className="flex items-center gap-2">
 						<Phone size={18} style={{ color: "var(--accent)" }} />
-						<span>0912-123-4567</span>
+						<span>
+							021-12345678
+							<br />
+							0912-123-4567
+						</span>
 					</div>
 
 					<div className="flex items-center gap-2">
@@ -46,7 +50,9 @@ export default function Footer() {
 
 					<div className="flex items-center gap-2">
 						<MapPin size={18} style={{ color: "var(--accent)" }} />
-						<span>تهران، خیابان مثال، پلاک ۱۲۳</span>
+						<span>
+							تهران، خیابان ولیعصر، بالاتر از پارک ساعی، پلاک ۱۲۳، واحد ۴
+						</span>
 					</div>
 				</div>
 
