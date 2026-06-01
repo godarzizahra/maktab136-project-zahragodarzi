@@ -10,6 +10,8 @@ import type {
 	Cart,
 	ShippingMethod,
 } from "@/components/main/store/cart/types/cart";
+import { getCookie } from "cookies-next";
+
 import toast from "react-hot-toast";
 import { create } from "zustand";
 
@@ -99,12 +101,29 @@ export const useCartStore = create<CartStoreState>((set, get) => ({
 
 	fetchCart: async () => {
 		try {
+			const token = getCookie("access_token");
+
+			if (!token) {
+				set({ cart: null, loading: false, error: null });
+				return;
+			}
+
 			set({ loading: true, error: null });
 			const cart = await getCart();
 			set({ cart, loading: false });
 		} catch (e: any) {
+			const status = e?.response?.status;
 			const message =
 				e?.response?.data?.message || e?.message || "خطایی رخ داد";
+
+			if (
+				status === 401 ||
+				message?.toLowerCase?.().includes("refresh token")
+			) {
+				set({ cart: null, loading: false, error: null });
+				return;
+			}
+
 			set({ loading: false, error: message });
 			toast.error(message);
 		}

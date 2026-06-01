@@ -1,4 +1,4 @@
-import { ThemeProvider } from "@/components/providers/theme-provider";
+import ThemeProvider from "@/components/providers/theme-provider";
 import type { Metadata } from "next";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
