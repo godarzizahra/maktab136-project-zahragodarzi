@@ -3,13 +3,14 @@
 import LOGO1 from "@/assets/image/LOGO1.png";
 import ThemeToggle from "@/components/base/themeToggle";
 import { brands } from "@/components/main/store/home/constants/brandsData";
-import { Menu, Search, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import AccountMenu from "./accountMenu";
 import MiniCart from "./miniCart";
 import MobileMenu from "./mobileMenu";
+import SearchIcon from "./search";
 
 export const navLinks = [
 	{ href: "/products", label: "فروشگاه" },
@@ -21,7 +22,7 @@ export const navLinks = [
 export default function Header() {
 	const [open, setOpen] = useState(false);
 	const [brandsOpen, setBrandsOpen] = useState(false);
-
+	const [isSearchOpen, setIsSearchOpen] = useState(false);
 	const navItem =
 		"relative py-2 transition-colors after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-0 after:bg-[var(--accent)] after:transition-all after:duration-300 hover:after:w-full";
 
@@ -121,12 +122,8 @@ export default function Header() {
 
 			{/* Left Side Icons */}
 			<div className="flex items-center gap-4">
-				<button
-					className="hover:text-[var(--accent)] transition"
-					aria-label="جستجو"
-				>
-					<Search size={24} />
-				</button>
+				<SearchIcon onClick={() => setIsSearchOpen(true)} />
+
 				<AccountMenu />
 
 				<MiniCart />
