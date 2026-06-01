@@ -11,6 +11,7 @@ import AccountMenu from "./accountMenu";
 import MiniCart from "./miniCart";
 import MobileMenu from "./mobileMenu";
 import SearchIcon from "./search";
+import SearchOverlay from "./searchOverlay";
 
 export const navLinks = [
 	{ href: "/products", label: "فروشگاه" },
@@ -123,7 +124,10 @@ export default function Header() {
 			{/* Left Side Icons */}
 			<div className="flex items-center gap-4">
 				<SearchIcon onClick={() => setIsSearchOpen(true)} />
-
+				<SearchOverlay
+					isOpen={isSearchOpen}
+					onClose={() => setIsSearchOpen(false)}
+				/>
 				<AccountMenu />
 
 				<MiniCart />

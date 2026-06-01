@@ -11,6 +11,7 @@ type GetProductsParams = {
 	minPrice?: string;
 	maxPrice?: string;
 	gender?: String;
+	search?: string;
 };
 
 export async function getProducts({
@@ -22,6 +23,7 @@ export async function getProducts({
 	minPrice,
 	maxPrice,
 	gender,
+	search,
 }: GetProductsParams = {}): Promise<ProductsResponse> {
 	const response = await axios.get(`${API_BASE_URL}/api/products`, {
 		params: {
@@ -33,6 +35,7 @@ export async function getProducts({
 			minPrice,
 			maxPrice,
 			gender,
+			search,
 		},
 	});
 
