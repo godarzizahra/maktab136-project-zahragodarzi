@@ -1,7 +1,7 @@
 "use client";
 
+import { useUserOrdersStore } from "@/store/useUserOrdersStore";
 import { useMemo } from "react";
-import { useOrders } from "./useOrderProfile";
 
 type UserAddress = {
 	name: string;
@@ -10,7 +10,7 @@ type UserAddress = {
 };
 
 export function useLatestShippingAddress() {
-	const { rawOrders, loading, error } = useOrders();
+	const { rawOrders, isLoading, error } = useUserOrdersStore();
 
 	const address: UserAddress | null = useMemo(() => {
 		if (!rawOrders.length) return null;
@@ -31,7 +31,7 @@ export function useLatestShippingAddress() {
 
 	return {
 		address,
-		loading,
+		isLoading,
 		error,
 	};
 }
