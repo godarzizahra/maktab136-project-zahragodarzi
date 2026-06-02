@@ -19,18 +19,11 @@ export default function Register() {
 	});
 
 	const onSubmit = async (data: RegisterSchemaType) => {
-		try {
-			const res = await registerUser(data);
-			if (res?.status === 201 || res?.data) {
-				toast.success("ثبت نام شما با موفقیت انجام شد ");
-				form.reset();
-				router.push("/login");
-			}
-		} catch (err: any) {
-			const errorMessage =
-				err.response?.data?.message || "خطایی رخ داد. لطفا دوباره تلاش کنید.";
-			toast.error(errorMessage);
-		}
+		await registerUser(data);
+
+		toast.success("ثبت نام شما با موفقیت انجام شد");
+		form.reset();
+		router.push("/login");
 	};
 
 	return (
