@@ -5,7 +5,7 @@ type Props = {
 	onLogout: () => void;
 };
 
-export default function DashboardWelcome({ name = "کاربر", onLogout }: Props) {
+export default function DashboardWelcome({ name, onLogout }: Props) {
 	return (
 		<div className="mb-8 border-b border-gray-100 pb-4 text-right">
 			<p className="mb-2 text-base font-semibold text-slate-800 md:text-lg">

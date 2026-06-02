@@ -3,18 +3,19 @@
 import { logoutUser } from "@/api/logout";
 import { LogOut } from "lucide-react";
 
+import { useProfileAccount } from "../../hooks/useProfileAccount";
 import { dashboardCards } from "./dashboard.data";
 import DashboardCard from "./dashboardCard";
 import DashboardWelcome from "./dashboardWelcome";
 
-type Props = {
-	userName?: string;
-};
-
-export default function ProfileDashboard({ userName }: Props) {
+export default function ProfileDashboard() {
+	const { profileForm, loading } = useProfileAccount();
+	if (loading) {
+		return <div>در حال بارگذاری...</div>;
+	}
 	return (
 		<div className="w-full rounded-2xl bg-white p-5 shadow-sm md:p-6">
-			<DashboardWelcome name={userName} onLogout={logoutUser} />
+			<DashboardWelcome name={profileForm.name} onLogout={logoutUser} />
 
 			<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
 				{dashboardCards.map((card) => (
