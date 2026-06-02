@@ -7,6 +7,7 @@ import { Heart, Minus, Plus, ShoppingCart } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useMemo } from "react";
 import toast from "react-hot-toast";
+import { useHydrated } from "../../profile/hooks/useHydrated";
 
 interface Props {
 	product: Product;
@@ -25,6 +26,8 @@ export default function ProductActions({ product }: Props) {
 
 	const toggleWishlist = useWishlistStore((s) => s.toggleItem);
 	const isInWishlist = useWishlistStore((s) => s.isInWishlist(product._id));
+
+	const hydrated = useHydrated();
 
 	const isOutOfStock = product.stock <= 0;
 	const maxAllowedQty = Math.min(product.stock, MAX_QTY_PER_ITEM);
@@ -51,7 +54,7 @@ export default function ProductActions({ product }: Props) {
 			}
 		}
 	};
-
+	if (!hydrated) return null;
 	const handleIncrease = async () => {
 		if (!cartItem) return handleAdd();
 
