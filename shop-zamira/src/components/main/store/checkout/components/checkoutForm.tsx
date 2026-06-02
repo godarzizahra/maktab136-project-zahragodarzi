@@ -111,7 +111,7 @@ export default function CheckoutForm() {
 						<input
 							{...register("fullName")}
 							type="text"
-							placeholder="مثلاً علی رضایی"
+							placeholder="مثلاً زهرا گودرزی"
 							className="w-full rounded-md border px-4 py-3 outline-none focus:ring-2 focus:ring-[var(--accent)]"
 						/>
 					</div>

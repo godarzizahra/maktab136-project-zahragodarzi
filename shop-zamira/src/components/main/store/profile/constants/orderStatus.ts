@@ -9,7 +9,7 @@ export function getStatusLabel(status: OrderStatusUI) {
 		case "cancelled":
 			return "لغو شده";
 		case "pending":
-			return "در انتظار پرداخت";
+			return "در انتظار ";
 	}
 }
 
